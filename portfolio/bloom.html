@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>if(localStorage.getItem('portfolio-theme-v2')==="dark")document.documentElement.classList.add("dark-mode");</script>
+  <title>HANDS BLOOM — Jang Hoon Min</title>
+  <meta name="description" content="HANDS BLOOM — 손의 움직임으로 꽃을 피우는 MediaPipe 기반 핸드 인터렉션 웹 경험" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <style>
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    em { font-family: inherit; font-style: normal; color: inherit; }
+
+    :root {
+      --bl: #FF4FA3;
+      --bl-dk: #d93d88;
+      --bl-lt: rgba(255,79,163,0.08);
+      --bl-dark: #0d0209;
+    }
+
+    /* ── Hero ── */
+    .bl-hero { padding: 120px 0 80px; border-bottom: 1px solid var(--border); }
+    .bl-hero__inner { max-width: 860px; }
+    .bl-hero__back {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--t3); text-decoration: none; margin-bottom: 48px; transition: color 0.2s;
+    }
+    .bl-hero__back:hover { color: var(--t1); }
+    .bl-hero__kicker { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+    .bl-hero__cat {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--bl); background: var(--bl-lt);
+      padding: 4px 10px; border-radius: 2px;
+    }
+    .bl-hero__year { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; color: var(--t3); }
+    .bl-hero__title {
+      font-size: clamp(52px, 8vw, 96px); font-weight: 900; letter-spacing: -0.04em;
+      line-height: 0.95; color: var(--bl); margin-bottom: 8px;
+    }
+    .bl-hero__tagline {
+      font-size: clamp(16px, 2.2vw, 20px); color: var(--t2); letter-spacing: -0.02em;
+      line-height: 1.6; margin: 28px 0 48px; max-width: 600px;
+    }
+    .bl-hero__dl {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    .bl-hero__dl > div {
+      padding: 1.25rem 2.5rem 1.25rem 0;
+      margin-right: 2.5rem;
+      border-right: 1px solid var(--border);
+      border-top: 3px solid transparent;
+    }
+    .bl-hero__dl > div:first-child { border-top-color: var(--bl); }
+    .bl-hero__dl > div:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+    .bl-hero__dl dt {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--t3); margin-bottom: 6px;
+    }
+    .bl-hero__dl dd { font-size: 14px; font-weight: 600; color: var(--t1); letter-spacing: -0.01em; }
+    .bl-hero__live {
+      color: var(--bl); text-decoration: none; font-size: 14px; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s;
+    }
+    .bl-hero__live:hover { opacity: 0.7; }
+
+    /* ── Cover ── */
+    .bl-cover {
+      width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+      background: linear-gradient(135deg, #060207 0%, #140615 40%, #1f0a1c 70%, #0d0209 100%);
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .bl-cover__text {
+      text-align: center; pointer-events: none;
+    }
+    .bl-cover__title {
+      font-size: clamp(48px, 10vw, 120px); font-weight: 900; letter-spacing: -0.02em;
+      color: rgba(255,79,163,0.15); line-height: 1;
+    }
+    .bl-cover__sub {
+      font-size: clamp(11px, 1.2vw, 13px); font-weight: 600; letter-spacing: 0.4em;
+      text-transform: uppercase; color: rgba(255,79,163,0.35); margin-top: 16px;
+    }
+    .bl-cover__orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none;
+    }
+    .bl-cover__orb--1 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,79,163,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+    }
+    .bl-cover__orb--2 {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(255,79,163,0.08) 0%, transparent 70%);
+      top: 30%; left: 35%;
+    }
+
+    /* ── Section ── */
+    .bl-section { padding: 96px 0; border-top: 1px solid var(--border); }
+    .bl-section--alt { background: color-mix(in srgb, var(--bl) 3%, var(--bg)); }
+    .bl-section__num {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--bl); margin-bottom: 48px; display: block;
+    }
+    .bl-section__label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--t3); margin-bottom: 48px; display: block;
+    }
+
+    /* ── Split ── */
+    .bl-split { display: grid; grid-template-columns: 200px 1fr; gap: 80px; align-items: start; }
+    .bl-split__num {
+      font-size: 64px; font-weight: 900; letter-spacing: -0.04em; line-height: 1;
+      color: color-mix(in srgb, var(--bl) 15%, transparent); margin-bottom: 12px;
+    }
+    html.dark-mode .bl-split__num {
+      color: color-mix(in srgb, var(--bl) 40%, transparent);
+    }
+    .bl-split__title {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t2);
+    }
+
+    /* ── Typography ── */
+    .bl-lead {
+      font-size: clamp(22px, 3vw, 32px); font-weight: 700; letter-spacing: -0.03em;
+      line-height: 1.4; color: var(--t1); margin-bottom: 28px;
+    }
+    .bl-body { font-size: 16px; line-height: 1.9; color: var(--t2); letter-spacing: -0.01em; margin-bottom: 16px; }
+
+    /* ── Insight ── */
+    .bl-insight {
+      margin: 48px 0; padding: 32px 40px;
+      border-left: 3px solid var(--bl);
+      background: var(--bl-lt);
+    }
+    .bl-insight__label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--bl); margin-bottom: 16px;
+    }
+    .bl-insight__text {
+      font-size: clamp(18px, 2.2vw, 24px); font-weight: 700; letter-spacing: -0.025em;
+      line-height: 1.55; color: var(--t1);
+    }
+
+    /* ── Gesture cards ── */
+    .bl-gestures { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; }
+    .bl-gesture {
+      background: var(--bg); padding: 36px 32px;
+      border-bottom: 2px solid transparent; transition: border-color 0.2s;
+    }
+    .bl-gesture:hover { border-color: var(--bl); }
+    .bl-gesture__sym {
+      font-size: 32px; margin-bottom: 16px; display: block;
+    }
+    .bl-gesture__name {
+      font-size: 14px; font-weight: 800; color: var(--t1); letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .bl-gesture__tag {
+      display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; padding: 3px 8px; border-radius: 2px; margin-bottom: 10px;
+    }
+    .bl-gesture__tag--pink { background: var(--bl-lt); color: var(--bl); }
+    .bl-gesture__tag--dim { background: rgba(255,255,255,0.05); color: var(--t3); }
+    .bl-gesture__tag--gold { background: rgba(255,200,60,0.1); color: #ffcc3c; }
+    .bl-gesture__tag--purple { background: rgba(160,80,255,0.1); color: #b060ff; }
+    .bl-gesture__desc { font-size: 13px; line-height: 1.75; color: var(--t2); }
+
+    /* ── Design decisions ── */
+    .bl-decisions { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; }
+    .bl-decision {
+      background: var(--bg); padding: 36px 40px;
+      border-bottom: 2px solid transparent; transition: border-color 0.2s;
+    }
+    .bl-decision:hover { border-color: var(--bl); }
+    .bl-decision__num {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--bl); margin-bottom: 20px; display: block;
+    }
+    .bl-decision__title {
+      font-size: 18px; font-weight: 800; color: var(--t1); letter-spacing: -0.025em;
+      margin-bottom: 12px; line-height: 1.3;
+    }
+    .bl-decision__body { font-size: 14px; line-height: 1.8; color: var(--t2); }
+
+    /* ── Color swatches ── */
+    .bl-swatches { display: flex; gap: 2px; margin-top: 48px; }
+    .bl-swatch {
+      flex: 1; height: 100px; display: flex; align-items: flex-end; padding: 12px 14px;
+    }
+    .bl-swatch__hex { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; }
+    .bl-swatch__name { font-size: 10px; letter-spacing: 0.05em; margin-top: 2px; opacity: 0.8; }
+
+    /* ── Object grid ── */
+    .bl-objects { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 48px; }
+    .bl-object {
+      background: var(--bg); padding: 28px 24px; text-align: center;
+    }
+    .bl-object__num {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--bl); margin-bottom: 8px; display: block;
+    }
+    .bl-object__name {
+      font-size: 15px; font-weight: 700; color: var(--t1); letter-spacing: -0.02em;
+    }
+
+    /* ── Reflection ── */
+    .bl-reflection { background: var(--bl-dark); padding: 120px 0; }
+    .bl-reflection__inner { max-width: 720px; }
+    .bl-reflection__label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(255,79,163,0.5); margin-bottom: 40px; display: block;
+    }
+    .bl-reflection__quote {
+      font-size: clamp(24px, 3.5vw, 40px); font-weight: 700; letter-spacing: -0.03em;
+      line-height: 1.45; color: rgba(255,255,255,0.95); margin-bottom: 48px;
+    }
+    .bl-reflection__body { font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.45); }
+
+    /* ── Credits ── */
+    .bl-credits { padding: 80px 0 56px; border-bottom: 1px solid var(--border); }
+    .bl-credits__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .bl-credits__label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--t3); margin-bottom: 28px; display: block;
+    }
+    .bl-credits__dl { display: flex; flex-direction: column; gap: 12px; }
+    .bl-credits__dl div { display: flex; gap: 20px; align-items: baseline; }
+    .bl-credits__dl dt {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--t3); min-width: 56px; flex-shrink: 0;
+    }
+    .bl-credits__dl dd { font-size: 14px; color: var(--t1); font-weight: 500; }
+
+    /* ── Next nav ── */
+    .bl-next {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-top: 56px; border-top: 1px solid var(--border); padding-top: 28px;
+    }
+    .bl-next__lbl {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--t3); margin-bottom: 12px;
+    }
+    .bl-next__link {
+      display: inline-flex; align-items: center; gap: 10px; font-weight: 700;
+      letter-spacing: -0.025em; text-decoration: none; transition: color 0.2s;
+    }
+    .bl-next__link--prev { font-size: 20px; color: var(--t3); }
+    .bl-next__link--next { font-size: 28px; color: var(--t1); }
+    .bl-next__link--next:hover { color: var(--bl); }
+    .bl-next__arrow { transition: transform 0.2s; }
+    .bl-next__link--next:hover .bl-next__arrow { transform: translateX(4px); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .bl-split { grid-template-columns: 1fr; gap: 40px; }
+      .bl-decisions { grid-template-columns: 1fr; }
+      .bl-gestures { grid-template-columns: 1fr 1fr; }
+      .bl-objects { grid-template-columns: 1fr 1fr; }
+      .bl-credits__inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 600px) {
+      .bl-hero { padding: 80px 0 60px; }
+      .bl-section { padding: 60px 0; }
+      .bl-reflection { padding: 80px 0; }
+      .bl-swatches { flex-wrap: wrap; }
+      .bl-swatch { flex: 0 0 calc(50% - 1px); }
+      .bl-gestures { grid-template-columns: 1fr; }
+    }
+    .footer__back-link {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--t2);
+      transition: color 0.25s ease;
+    }
+    .footer__back-link:hover { color: var(--primary); }
+  </style>
+</head>
+<body>
+  <div class="glow" aria-hidden="true"></div>
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo">Jang Hoon Min</a>
+    <ul class="nav__links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#awards">Awards &amp; Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><span class="theme-toggle__icon">☽</span></button>
+    <button class="nav__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="proj-pager">
+    <a href="nunchi.html" class="proj-pager__link">← 눈치코치</a>
+    <a href="index.html#work" class="proj-pager__all">All Work</a>
+    <a href="breathing-structure.html" class="proj-pager__link">Breathing Structure →</a>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html#about" class="mobile-link">About</a></li>
+      <li><a href="profile.html" class="mobile-link">Profile</a></li>
+      <li><a href="index.html#work" class="mobile-link">Work</a></li>
+      <li><a href="index.html#awards" class="mobile-link">Awards &amp; Projects</a></li>
+      <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero -->
+  <section class="bl-hero">
+    <div class="container">
+      <div class="bl-hero__inner">
+        <a href="nunchi.html" class="bl-hero__back">← 눈치코치</a>
+        <div class="bl-hero__kicker fade-in">
+          <span class="bl-hero__cat">Hand Interaction</span>
+          <span class="bl-hero__year">2026</span>
+        </div>
+        <h1 class="bl-hero__title fade-in">HANDS BLOOM</h1>
+        <p class="bl-hero__tagline fade-in">
+          웹캠으로 손 제스처를 인식해 꽃이 반응하는<br />핸드 인터랙션 웹 프로젝트. MediaPipe 기반.
+        </p>
+        <dl class="bl-hero__dl fade-in">
+          <div><dt>Role</dt><dd>Interaction Designer / Developer</dd></div>
+          <div><dt>Type</dt><dd>Interactive Web</dd></div>
+          <div><dt>Year</dt><dd>2026</dd></div>
+          <div><dt>Tools</dt><dd>HTML · CSS · JavaScript · MediaPipe</dd></div>
+          <div><dt>Live</dt><dd><a href="https://studiohmj.github.io/Hands-bloom/" target="_blank" rel="noopener" class="bl-hero__live">Experience ↗</a></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cover -->
+  <div class="bl-cover fade-in">
+    <img src="메인 이미지/12. 인터렉션 프로젝트/hands bloom.webp" alt="HANDS BLOOM" style="width:100%;height:100%;object-fit:cover;display:block;" />
+  </div>
+
+  <!-- 01 Background -->
+  <section class="bl-section">
+    <div class="container">
+      <span class="bl-section__num fade-in">01 — Background</span>
+      <div class="bl-split fade-in">
+        <div>
+          <div class="bl-split__num">01</div>
+          <div class="bl-split__title">아이디어</div>
+        </div>
+        <div>
+          <p class="bl-lead">손의 개폐가 꽃의 개화를 제어합니다.</p>
+          <p class="bl-body">MediaPipe로 손을 실시간 추적하고, 21개 랜드마크 데이터를 파티클 시스템에 매핑했습니다. 웹캠 없는 환경을 위한 마우스·터치 대체 모드도 포함합니다.</p>
+
+          <div class="bl-insight fade-in">
+            <div class="bl-insight__label">Concept</div>
+            <p class="bl-insight__text">손 모양이 꽃의 상태를 결정합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Interaction Design -->
+  <section class="bl-section bl-section--alt">
+    <div class="container">
+      <span class="bl-section__num fade-in">02 — Interaction Design</span>
+      <div class="bl-split fade-in">
+        <div>
+          <div class="bl-split__num">02</div>
+          <div class="bl-split__title">제스처</div>
+        </div>
+        <div>
+          <p class="bl-lead">6가지 제스처 인터랙션</p>
+          <p class="bl-body">일상적인 손 동작을 인터랙션 입력으로 사용했습니다.</p>
+
+          <div class="bl-gestures fade-in">
+            <div class="bl-gesture">
+              <span class="bl-gesture__sym">✋</span>
+              <p class="bl-gesture__name">Open Hand</p>
+              <span class="bl-gesture__tag bl-gesture__tag--pink">BLOOM</span>
+              <p class="bl-gesture__desc">손 펼침 각도에 비례해 꽃이 개화합니다.</p>
+            </div>
+            <div class="bl-gesture">
+              <span class="bl-gesture__sym">✊</span>
+              <p class="bl-gesture__name">Closed Fist</p>
+              <span class="bl-gesture__tag bl-gesture__tag--dim">WITHER</span>
+              <p class="bl-gesture__desc">주먹을 쥐면 꽃이 닫힙니다.</p>
+            </div>
+            <div class="bl-gesture">
+              <span class="bl-gesture__sym">✌</span>
+              <p class="bl-gesture__name">Peace Sign</p>
+              <span class="bl-gesture__tag bl-gesture__tag--pink">PETAL STORM</span>
+              <p class="bl-gesture__desc">꽃잎 파티클이 화면 전체로 퍼집니다.</p>
+            </div>
+            <div class="bl-gesture">
+              <span class="bl-gesture__sym">☝</span>
+              <p class="bl-gesture__name">Pointing</p>
+              <span class="bl-gesture__tag bl-gesture__tag--gold">SPOTLIGHT + MOVE</span>
+              <p class="bl-gesture__desc">검지 방향으로 꽃이 이동합니다.</p>
+            </div>
+            <div class="bl-gesture">
+              <span class="bl-gesture__sym">🤘</span>
+              <p class="bl-gesture__name">Rock Sign</p>
+              <span class="bl-gesture__tag bl-gesture__tag--purple">COLOR SHIFT</span>
+              <p class="bl-gesture__desc">0.6초 유지 시 색상 테마가 전환됩니다.</p>
+            </div>
+            <div class="bl-gesture">
+              <span class="bl-gesture__sym">🖐</span>
+              <p class="bl-gesture__name">Hand Position</p>
+              <span class="bl-gesture__tag bl-gesture__tag--pink">PARALLAX</span>
+              <p class="bl-gesture__desc">손 위치에 따라 꽃의 중심이 이동합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Design Decisions -->
+  <section class="bl-section">
+    <div class="container">
+      <span class="bl-section__num fade-in">03 — Design Decisions</span>
+      <div class="bl-split fade-in">
+        <div>
+          <div class="bl-split__num">03</div>
+          <div class="bl-split__title">주요 결정</div>
+        </div>
+        <div>
+          <p class="bl-lead">Four implementation decisions.</p>
+
+          <div class="bl-decisions fade-in">
+            <div class="bl-decision">
+              <span class="bl-decision__num">01</span>
+              <p class="bl-decision__title">마우스·터치 대체 모드</p>
+              <p class="bl-decision__body">카메라 미허용 환경을 위한 대체 인터랙션입니다. 스크롤로 개화 제어, 더블클릭으로 파티클 발산, 홀드로 시들기를 구현했습니다.</p>
+            </div>
+            <div class="bl-decision">
+              <span class="bl-decision__num">02</span>
+              <p class="bl-decision__title">8가지 오브젝트</p>
+              <p class="bl-decision__body">Peony, Lotus, Crystal, Dandelion, Rose, Jellyfish, Snowflake, Orbit. 오브젝트마다 파티클 구조와 움직임이 다릅니다.</p>
+            </div>
+            <div class="bl-decision">
+              <span class="bl-decision__num">03</span>
+              <p class="bl-decision__title">비디오 홈 화면</p>
+              <p class="bl-decision__body">인터랙션 진입 전 영상으로 경험의 성격을 먼저 보여줍니다. 카메라 권한 요청은 그 이후에 진행됩니다.</p>
+            </div>
+            <div class="bl-decision">
+              <span class="bl-decision__num">04</span>
+              <p class="bl-decision__title">다크 배경</p>
+              <p class="bl-decision__body">파티클의 발광감 극대화를 위해 다크 배경을 채택했습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Visual System -->
+  <section class="bl-section bl-section--alt">
+    <div class="container">
+      <span class="bl-section__label fade-in">04 — Visual System</span>
+      <p class="bl-lead fade-in">Pink palette on black.</p>
+      <p class="bl-body fade-in">핑크·마젠타 계열을 기본 컬러로 사용했습니다. 록 사인 제스처 또는 Color 버튼으로 테마를 전환할 수 있습니다.</p>
+
+      <div class="bl-swatches fade-in">
+        <div class="bl-swatch" style="background:#060207;">
+          <div>
+            <div class="bl-swatch__hex" style="color:rgba(255,255,255,0.7);">#060207</div>
+            <div class="bl-swatch__name" style="color:rgba(255,255,255,0.4);">Background</div>
+          </div>
+        </div>
+        <div class="bl-swatch" style="background:#FF4FA3;">
+          <div>
+            <div class="bl-swatch__hex" style="color:rgba(255,255,255,0.95);">#FF4FA3</div>
+            <div class="bl-swatch__name" style="color:rgba(255,255,255,0.7);">Bloom Pink</div>
+          </div>
+        </div>
+        <div class="bl-swatch" style="background:#d93d88;">
+          <div>
+            <div class="bl-swatch__hex" style="color:rgba(255,255,255,0.95);">#D93D88</div>
+            <div class="bl-swatch__name" style="color:rgba(255,255,255,0.7);">Deep Rose</div>
+          </div>
+        </div>
+        <div class="bl-swatch" style="background:#ECE8E1;">
+          <div>
+            <div class="bl-swatch__hex" style="color:#060207;">#ECE8E1</div>
+            <div class="bl-swatch__name" style="color:rgba(0,0,0,0.5);">Petal Cream</div>
+          </div>
+        </div>
+        <div class="bl-swatch" style="background:rgba(255,79,163,0.08); border:1px solid rgba(255,79,163,0.15);">
+          <div>
+            <div class="bl-swatch__hex" style="color:rgba(255,79,163,0.7);">Pink Glow</div>
+            <div class="bl-swatch__name" style="color:rgba(255,79,163,0.4);">Ambient</div>
+          </div>
+        </div>
+      </div>
+
+      <span class="bl-section__label fade-in" style="margin-top:64px; margin-bottom:16px;">Selectable Objects</span>
+      <p class="bl-body fade-in">오브젝트마다 파티클 구조와 움직임 로직이 다릅니다. 같은 제스처 입력에도 선택된 오브젝트에 따라 전혀 다른 시각 출력이 나옵니다.</p>
+      <div class="bl-objects fade-in">
+        <div class="bl-object"><span class="bl-object__num">01</span><span class="bl-object__name">Peony</span></div>
+        <div class="bl-object"><span class="bl-object__num">02</span><span class="bl-object__name">Lotus</span></div>
+        <div class="bl-object"><span class="bl-object__num">03</span><span class="bl-object__name">Crystal</span></div>
+        <div class="bl-object"><span class="bl-object__num">04</span><span class="bl-object__name">Dandelion</span></div>
+        <div class="bl-object"><span class="bl-object__num">05</span><span class="bl-object__name">Rose</span></div>
+        <div class="bl-object"><span class="bl-object__num">06</span><span class="bl-object__name">Jellyfish</span></div>
+        <div class="bl-object"><span class="bl-object__num">07</span><span class="bl-object__name">Snowflake</span></div>
+        <div class="bl-object"><span class="bl-object__num">08</span><span class="bl-object__name">Orbit</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reflection -->
+  <section class="bl-reflection">
+    <div class="container">
+      <div class="bl-reflection__inner fade-in">
+        <span class="bl-reflection__label">Reflection</span>
+        <p class="bl-reflection__quote">"설명 없이도 작동하는 인터랙션."</p>
+        <p class="bl-reflection__body">진입 즉시 손 제스처가 꽃에 반응하는 것을 보여주는 것이 핵심이었습니다. 기능 확장보다 첫 반응의 즉각성과 명확성에 집중했습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credits + Next nav -->
+  <section class="bl-credits">
+    <div class="container">
+      <div class="bl-credits__inner fade-in">
+        <div>
+          <span class="bl-credits__label">Credits</span>
+          <dl class="bl-credits__dl">
+            <div><dt>Project</dt><dd>HANDS BLOOM — Hand Interaction</dd></div>
+            <div><dt>Type</dt><dd>Interactive Web Experience</dd></div>
+            <div><dt>Year</dt><dd>2026</dd></div>
+            <div><dt>Role</dt><dd>Interaction Designer / Developer</dd></div>
+            <div><dt>Tools</dt><dd>HTML · CSS · JavaScript · MediaPipe</dd></div>
+            <div><dt>Live</dt><dd><a href="https://studiohmj.github.io/Hands-bloom/" target="_blank" rel="noopener" style="color:var(--bl); font-weight:700; text-decoration:none;">Experience HANDS BLOOM ↗</a></dd></div>
+          </dl>
+        </div>
+        <div>
+          <div class="bl-next">
+            <div>
+              <p class="bl-next__lbl">Previous</p>
+              <a href="nunchi.html" class="bl-next__link bl-next__link--prev">← 눈치코치</a>
+            </div>
+            <div style="text-align:right;">
+              <p class="bl-next__lbl">Next Project</p>
+              <a href="breathing-structure.html" class="bl-next__link bl-next__link--next">Breathing Structure <span class="bl-next__arrow">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__copy">© 2026 Jang Hoon Min. All rights reserved.</p>
+        <a href="index.html#work" class="footer__back-link">← Back to Work</a>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

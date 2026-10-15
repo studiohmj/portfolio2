@@ -1,0 +1,737 @@
+/* ==========================================================================
+   HOME — redesign layer for index.html only (see REDESIGN.md)
+   Loaded after style.css. Detail pages keep using style.css alone, so
+   everything here is scoped to the home page by virtue of being linked
+   only from index.html.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TOKENS — Swiss: paper / ink / one accent
+   -------------------------------------------------------------------------- */
+:root {
+  --paper:       #F4F3EF;
+  --paper-2:     #ECEBE6;               /* alt section band */
+  --ink:         #111111;
+  --ink-2:       #55554F;               /* secondary text */
+  --ink-3:       #77766F;               /* meta / captions */
+  --line:        rgba(17, 17, 17, 0.08); /* guides, hairlines */
+  --line-strong: rgba(17, 17, 17, 0.16);
+  --accent:      #2B4BFF;
+
+  /* Type */
+  --font-display: 'Instrument Serif', 'Pretendard Variable', Georgia, serif;
+  --font-body:    'Inter Tight', 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'Pretendard Variable', ui-monospace, monospace;
+
+  /* Grid */
+  --cols:   12;
+  --gutter: clamp(16px, 1.6vw, 24px);
+
+  /* Legacy aliases used throughout style.css */
+  --bg:           var(--paper);
+  --bg-alt:       var(--paper-2);
+  --surface:      var(--paper);
+  --text:         var(--ink);
+  --text-soft:    var(--ink-2);
+  --primary:      var(--accent);
+  --primary-soft: var(--accent);
+  --accent-dim:   rgba(43, 75, 255, 0.08);
+  --accent-mid:   rgba(43, 75, 255, 0.16);
+  --accent-light: rgba(43, 75, 255, 0.06);
+  --border:       var(--line);
+  --border-mid:   var(--line-strong);
+  --t1:           var(--ink);
+  --t2:           var(--ink-2);
+  --t3:           var(--ink-3);
+  --font:         var(--font-body);
+  --serif:        var(--font-display);
+}
+
+html.dark-mode {
+  --paper:       #0E0E0F;
+  --paper-2:     #151516;
+  --ink:         #EDEDEA;
+  --ink-2:       #A3A39E;
+  --ink-3:       #85847F;
+  --line:        rgba(237, 237, 234, 0.08);
+  --line-strong: rgba(237, 237, 234, 0.16);
+  --accent:      #5B76FF;               /* #2B4BFF lifted for contrast on near-black */
+
+  --bg:           var(--paper);
+  --bg-alt:       var(--paper-2);
+  --surface:      var(--paper);
+  --text:         var(--ink);
+  --text-soft:    var(--ink-2);
+  --primary:      var(--accent);
+  --primary-soft: var(--accent);
+  --accent-dim:   rgba(91, 118, 255, 0.12);
+  --accent-mid:   rgba(91, 118, 255, 0.2);
+  --accent-light: rgba(91, 118, 255, 0.08);
+  --border:       var(--line);
+  --border-mid:   var(--line-strong);
+  --t1:           var(--ink);
+  --t2:           var(--ink-2);
+  --t3:           var(--ink-3);
+
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   2. BASE TYPE
+   -------------------------------------------------------------------------- */
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  font-feature-settings: 'ss01', 'cv11';
+}
+
+::selection { background: var(--accent); color: #fff; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Display emphasis — Instrument Serif italic (only ships at 400) */
+em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: inherit;
+}
+
+/* Mono meta — numbers, years, categories, section labels */
+.mono,
+.section__label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.section__label { font-size: 0.75rem; color: var(--ink-3); }
+
+/* --------------------------------------------------------------------------
+   3. GRID LAYER — 12 columns, sits behind everything
+   Faint by default; the intro sequence (motion step) raises --grid-alpha.
+   -------------------------------------------------------------------------- */
+.grid-layer {
+  --grid-alpha: 0.45;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--grid-alpha);
+}
+.grid-layer__inner {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  max-width: var(--max);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.grid-layer__col {
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
+/* Reusable 12-col content grid matching the layer */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+
+@media (max-width: 768px) {
+  :root { --cols: 4; }
+  .grid-layer__col:nth-child(n + 5) { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   4. NAV — aligned to the content grid, flat paper (no glass)
+   Selectors mirror the :not(.scrolled) and dark-mode variants in style.css
+   so these win on specificity rather than !important.
+   -------------------------------------------------------------------------- */
+.nav {
+  justify-content: flex-start;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  padding-inline: max(var(--pad), calc((100% - var(--max)) / 2 + var(--pad)));
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.nav:not(.scrolled),
+html.dark-mode .nav:not(.scrolled) {
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.nav.scrolled,
+html.dark-mode .nav.scrolled {
+  background: var(--paper);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-color: var(--line-strong);
+}
+
+.nav__logo,
+.nav:not(.scrolled) .nav__logo,
+html.dark-mode .nav:not(.scrolled) .nav__logo {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  text-shadow: none;
+}
+
+.nav__links {
+  margin-left: auto;
+  gap: clamp(1.25rem, 2.2vw, 2.25rem);
+  counter-reset: nav;
+}
+.nav__links li { counter-increment: nav; }
+.nav__links a,
+.nav:not(.scrolled) .nav__links a,
+html.dark-mode .nav:not(.scrolled) .nav__links a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  text-shadow: none;
+}
+.nav__links a::before {
+  content: counter(nav, decimal-leading-zero);
+  margin-right: 0.5em;
+  color: var(--ink-3);
+}
+.nav__links a:hover,
+.nav__links a.active-link,
+.nav:not(.scrolled) .nav__links a:hover,
+.nav:not(.scrolled) .nav__links a.active-link,
+html.dark-mode .nav:not(.scrolled) .nav__links a:hover,
+html.dark-mode .nav:not(.scrolled) .nav__links a.active-link {
+  color: var(--ink);
+}
+
+.theme-toggle,
+.nav:not(.scrolled) .theme-toggle,
+html.dark-mode .nav:not(.scrolled) .theme-toggle {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+}
+.theme-toggle:hover,
+.nav:not(.scrolled) .theme-toggle:hover {
+  color: var(--accent);
+  background: transparent;
+  border-color: var(--accent);
+}
+
+/* Hamburger — 44px tap target, bars drawn in ink on every state */
+.nav__hamburger {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 0 11px;
+  margin-right: -11px;
+  justify-content: center;
+}
+.nav__hamburger span,
+.nav:not(.scrolled) .nav__hamburger span,
+html.dark-mode .nav:not(.scrolled) .nav__hamburger span {
+  background: var(--ink);
+  filter: none;
+}
+
+/* Mobile menu — numbered editorial list, hidden from focus when closed */
+.mobile-menu {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: calc(var(--nav-h) + 2rem) var(--pad) 2rem;
+  background: var(--paper);
+  visibility: hidden;
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s linear 0.4s;
+}
+.mobile-menu.open {
+  visibility: visible;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.mobile-menu ul {
+  width: 100%;
+  text-align: left;
+  counter-reset: menu;
+  border-bottom: 1px solid var(--line-strong);
+}
+.mobile-menu li {
+  margin: 0;
+  border-top: 1px solid var(--line-strong);
+  counter-increment: menu;
+}
+.mobile-menu a {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1rem 0;
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.mobile-menu a::before {
+  content: counter(menu, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+}
+
+@media (max-width: 960px) {
+  .nav__links     { display: none; }
+  .nav__hamburger { display: flex; }
+  .theme-toggle   { margin-left: auto; }
+}
+
+/* --------------------------------------------------------------------------
+   5. HERO — type on the grid, meta row at the foot
+   -------------------------------------------------------------------------- */
+.hero {
+  justify-content: flex-end;
+  min-height: 100svh;
+  padding: calc(var(--nav-h) + 3rem) var(--pad) clamp(2rem, 4vw, 3rem);
+}
+
+.hero__title {
+  margin-bottom: clamp(3rem, 9vh, 6.5rem);
+  font-family: var(--font-body);
+  font-size: clamp(2.125rem, 5.6vw, 5.25rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  word-break: keep-all;
+}
+.hero__line       { display: block; text-wrap: balance; }
+.hero__line--soft { color: var(--ink-3); }
+
+/* Meta row — name / role / actions on the 12-col grid */
+.hero__bottom {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 1.5rem;
+  align-items: end;
+  align-self: stretch;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line-strong);
+}
+
+.hero__identity {
+  grid-column: 1 / span 3;
+  display: block;
+  padding: 0;
+}
+.hero__name-kr {
+  margin-bottom: 0.35rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.hero__name-sub,
+.hero__role-sub,
+.hero__profile-link {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+.hero__name-sub { color: var(--ink-3); }
+
+.hero__role-block {
+  grid-column: 4 / span 3;
+  padding: 0;
+  border: 0;
+}
+.hero__role-sub {
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.hero__profile-link {
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease-out, text-decoration-color 0.2s ease-out;
+}
+.hero__profile-link:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+.hero__cta {
+  grid-column: 9 / span 4;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 0;
+}
+.hero .btn {
+  justify-content: center;
+  padding: 0.8rem 1.4rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  transition:
+    background-color 0.2s ease-out,
+    border-color 0.2s ease-out,
+    color 0.2s ease-out,
+    transform 0.15s ease-out;
+}
+.hero .btn--primary {
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.hero .btn--ghost {
+  color: var(--ink);
+  background: transparent;
+  border-color: var(--line-strong);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero .btn--primary:hover { color: #fff; background: var(--accent); border-color: var(--accent); }
+  .hero .btn--ghost:hover   { color: var(--accent); background: transparent; border-color: var(--accent); }
+}
+
+/* Static keyword line */
+.keywords {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.keywords__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding: 0.9rem 0;
+  border-block: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+@media (max-width: 768px) {
+  /* Phones: content-height hero; a poster-style void reads as "not loaded" */
+  .hero {
+    min-height: 0;
+    justify-content: flex-start;
+    padding-top: calc(var(--nav-h) + clamp(4rem, 14vh, 7rem));
+  }
+  .hero__title {
+    margin-bottom: 2.5rem;
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1.15;
+  }
+  .hero__bottom {
+    display: grid;
+    gap: 1.5rem var(--gutter);
+  }
+  .hero__identity   { grid-column: 1 / span 2; }
+  .hero__role-block { grid-column: 3 / span 2; }
+  .hero__cta {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+  .hero__cta .btn { width: 100%; }
+  .keywords__list { justify-content: flex-start; gap: 0.4rem 1.25rem; }
+}
+
+/* Nav numbers count sections only — Profile is a separate page */
+.nav__links li.nav-page,
+.mobile-menu li.nav-page        { counter-increment: none; }
+.nav__links li.nav-page a::before { content: none; }
+.mobile-menu li.nav-page a::before { content: '↗'; }
+
+/* --------------------------------------------------------------------------
+   6. SECTION HEAD — ink rule, mono number, label (shared by every section)
+   The rule is a pseudo-element so the scroll-in motion can scale it.
+   -------------------------------------------------------------------------- */
+.sec-head {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: baseline;
+  padding-top: 0.9rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sec-head::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ink);
+  transform-origin: left center;
+}
+.sec-head__num             { grid-column: 1 / span 1; color: var(--ink); }
+.sec-head .section__label  { grid-column: 2 / span 5; margin: 0; color: var(--ink); }
+.sec-head__aside           { grid-column: 9 / -1; text-align: right; color: var(--ink-3); }
+
+@media (max-width: 768px) {
+  .sec-head .section__label { grid-column: 2 / span 2; }
+  .sec-head__aside          { grid-column: 4 / -1; }
+}
+
+/* --------------------------------------------------------------------------
+   7. WORK — featured (3) on the grid: full width, then 7 : 5
+   -------------------------------------------------------------------------- */
+.work.section { padding-top: clamp(4rem, 8vw, 7rem); }
+
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: clamp(3rem, 6vw, 5rem);
+  align-items: start;
+}
+.feat--wide { grid-column: 1 / -1; }
+.feat--7    { grid-column: 1 / span 7; }
+.feat--5    { grid-column: 8 / span 5; }
+
+.feat { display: block; color: var(--ink); }
+
+.feat__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--paper-2);
+}
+.feat__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.feat__info {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto auto;
+  column-gap: 1rem;
+  align-items: baseline;
+  padding-top: 1rem;
+}
+.feat__num,
+.feat__meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+}
+.feat__meta { text-transform: uppercase; white-space: nowrap; }
+.feat__title {
+  font-size: clamp(1.25rem, 1.8vw, 1.625rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.feat--wide .feat__title { font-size: clamp(1.5rem, 2.6vw, 2.375rem); }
+.feat__desc {
+  margin-top: 0.3rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+  word-break: keep-all;
+}
+.feat__arrow {
+  font-size: 1rem;
+  color: var(--ink);
+  transition: transform 0.25s ease-out, color 0.25s ease-out;
+}
+
+/* Narrow (5-col) card: meta drops under the text */
+.feat--5 .feat__info { grid-template-columns: 2.5rem minmax(0, 1fr) auto; }
+.feat--5 .feat__meta { grid-column: 2; grid-row: 2; margin-top: 0.6rem; }
+
+/* Crop marks — four corner ticks, featured cards only */
+.feat__crop {
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+}
+.feat__crop i {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 0 solid var(--accent);
+  opacity: 0;
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+}
+.feat__crop i:nth-child(1) { top: 0;    left: 0;  border-top-width: 1px;    border-left-width: 1px;  transform: translate(-6px, -6px); }
+.feat__crop i:nth-child(2) { top: 0;    right: 0; border-top-width: 1px;    border-right-width: 1px; transform: translate(6px, -6px); }
+.feat__crop i:nth-child(3) { bottom: 0; left: 0;  border-bottom-width: 1px; border-left-width: 1px;  transform: translate(-6px, 6px); }
+.feat__crop i:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; transform: translate(6px, 6px); }
+
+@media (hover: hover) and (pointer: fine) {
+  .feat:hover .feat__img   { transform: scale(1.02); }
+  .feat:hover .feat__crop i { opacity: 1; transform: none; }
+  .feat:hover .feat__arrow { transform: translateX(4px); color: var(--accent); }
+}
+.feat:focus-visible { outline-offset: 6px; }
+.feat:focus-visible .feat__crop i { opacity: 1; transform: none; }
+
+@media (max-width: 768px) {
+  .feat--wide,
+  .feat--7,
+  .feat--5 { grid-column: 1 / -1; }
+  .feat-grid { row-gap: 2.75rem; }
+  .feat__info,
+  .feat--5 .feat__info { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+  .feat__meta,
+  .feat--5 .feat__meta { grid-column: 2; grid-row: 2; margin-top: 0.6rem; }
+  .feat__arrow { grid-column: 3; grid-row: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   8. WORK — index list (remaining 10), always open
+   Desktop: one line per project; thumbnail replaces the description on hover.
+   Mobile: small thumbnail pinned left.
+   -------------------------------------------------------------------------- */
+.index { margin-top: clamp(4rem, 8vw, 6.5rem); }
+
+.index__head,
+.index__row {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: baseline;
+}
+.index__head {
+  padding-bottom: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.index__list { border-bottom: 1px solid var(--line-strong); }
+.index__list li { border-top: 1px solid var(--line-strong); }
+
+.index__row {
+  position: relative;
+  padding: 1.1rem 0;
+  color: var(--ink);
+}
+.index__num   { grid-column: 1 / span 1; }
+.index__name  { grid-column: 2 / span 3; }
+.index__desc  { grid-column: 5 / span 4; }
+.index__field { grid-column: 9 / span 3; }
+.index__year  { grid-column: 12 / span 1; text-align: right; }
+
+.index__row .index__num,
+.index__row .index__field,
+.index__row .index__year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.index__row .index__name {
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.index__row .index__desc {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+  word-break: keep-all;
+  transition: opacity 0.2s ease-out;
+}
+
+/* Thumbnail — sits over the description column, overflowing the row */
+.index__thumb {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: calc((100% + var(--gutter)) / var(--cols) * 4);
+  width: clamp(180px, 16vw, 240px);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--paper-2);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.96);
+  transition: opacity 0.2s ease-out, transform 0.25s ease-out;
+}
+.index__thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (hover: hover) and (pointer: fine) {
+  .index__row:hover .index__thumb { opacity: 1; transform: translateY(-50%) scale(1); }
+  .index__row:hover .index__desc  { opacity: 0; }
+}
+/* Touch / coarse pointers on wide screens: no hover, so no thumbnail */
+@media not ((hover: hover) and (pointer: fine)) {
+  .index__thumb { display: none; }
+}
+
+@media (max-width: 768px) {
+  .index__head { display: none; }
+  .index__row {
+    grid-template-columns: 72px 2rem minmax(0, 1fr) auto;
+    grid-template-areas:
+      "thumb num name  year"
+      "thumb .   desc  desc"
+      "thumb .   field field";
+    column-gap: 0.75rem;
+    row-gap: 0.3rem;
+    align-items: baseline;
+    padding: 1rem 0;
+  }
+  .index__num   { grid-area: num; }
+  .index__name  { grid-area: name; }
+  .index__desc  { grid-area: desc; }
+  .index__field { grid-area: field; }
+  .index__year  { grid-area: year; }
+  .index__row .index__name { font-size: 1rem; }
+  .index__row .index__desc { font-size: 0.875rem; }
+
+  /* Pinned thumbnail, always visible */
+  .index__thumb,
+  .index__row:hover .index__thumb {
+    grid-area: thumb;
+    position: static;
+    display: block;
+    align-self: start;
+    width: 72px;
+    aspect-ratio: 4 / 3;
+    opacity: 1;
+    transform: none;
+  }
+  .index__row:hover .index__desc { opacity: 1; }
+}
