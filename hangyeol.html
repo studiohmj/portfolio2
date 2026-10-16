@@ -1,0 +1,830 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>if(localStorage.getItem('portfolio-theme-v2')==="dark")document.documentElement.classList.add("dark-mode");</script>
+  <title>한결 — Jang Hoon Min</title>
+  <meta name="description" content="한결 — 노인 미술치료 브랜드 아이덴티티 케이스 스터디" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       CASE STUDY: 한결
+       12-col · 80px margin · 24px gutter · Pretendard
+    ═══════════════════════════════════════════════ */
+
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    em { font-family: inherit; font-style: normal; color: inherit; }
+
+    :root {
+      --hg:      #0086C9;
+      --hg-lt:   #E8F5FC;
+      --hg-dk:   #00489D;
+      --hg-cr:   #FFF5E0;
+      --hg-05:   rgba(0, 134, 201, 0.07);
+      --hg-10:   rgba(0, 134, 201, 0.13);
+      --hg-off:  #F7FAFE;
+      --hg-t1:   #111111;
+      --hg-t2:   #444444;
+      --hg-t3:   #999999;
+      --hg-bdr:  #D6E8F5;
+      --hg-pad:  80px;
+      --hg-gap:  24px;
+      --hg-sec:  80px;
+      --hg-blk:  40px;
+      --hg-el:   16px;
+      --hg-font: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+    html.dark-mode {
+      --hg-t1:  #FFFFFF;
+      --hg-t2:  #D6E8F5;
+      --hg-t3:  rgba(255, 255, 255, 0.6);
+      --hg-bdr: rgba(255, 255, 255, 0.1);
+      --hg-off: #0C1527;
+      --hg-cr:  #1A1204;
+    }
+    html.dark-mode .hg-imgblk__bar { background: var(--hg-off); }
+    html.dark-mode .hg-value       { background: var(--hg-off); }
+
+    /* ── Wrapper ────────────────────────────────── */
+    .hg {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-left: var(--hg-pad);
+      padding-right: var(--hg-pad);
+    }
+
+    /* ── Section ────────────────────────────────── */
+    .hg-sec {
+      padding-top: var(--hg-sec);
+      padding-bottom: var(--hg-sec);
+      border-top: 1px solid var(--hg-bdr);
+    }
+    .hg-sec--off { background: var(--hg-off); }
+    .hg-sec--cr  { background: var(--hg-cr); }
+
+    /* ── Label ──────────────────────────────────── */
+    .hg-lbl {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--hg);
+      margin-bottom: var(--hg-blk);
+    }
+    .hg-lbl__bar { width: 20px; height: 1px; background: var(--hg); flex-shrink: 0; }
+    .hg-lbl--dark { color: var(--hg-t1); }
+    .hg-lbl--dark .hg-lbl__bar { background: var(--hg-t1); }
+
+    /* ── Type ───────────────────────────────────── */
+    .hg-h1 {
+      font-size: 36px; font-weight: 700;
+      line-height: 1.28; letter-spacing: -0.025em;
+      color: var(--hg-t1);
+    }
+    .hg-lead {
+      font-size: 20px; font-weight: 500;
+      line-height: 1.65; letter-spacing: -0.015em;
+      color: var(--hg-t1);
+    }
+    .hg-body {
+      font-size: 16px; font-weight: 400;
+      line-height: 1.85; color: var(--hg-t2);
+    }
+    .hg-body + .hg-body { margin-top: var(--hg-el); }
+    .hg-body strong { font-weight: 600; color: var(--hg-t1); }
+    .hg-body em { font-style: normal; color: var(--hg); font-weight: 600; }
+    .hg-cap { font-size: 13px; color: var(--hg-t3); line-height: 1.6; }
+
+    /* ── Spacing ────────────────────────────────── */
+    .mt-blk { margin-top: var(--hg-blk); }
+    .mt-el  { margin-top: var(--hg-el); }
+
+    /* ════════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════════ */
+    .hg-hero {
+      padding-top: calc(var(--nav-h, 64px) + 80px);
+      padding-bottom: var(--hg-sec);
+      border-bottom: 1px solid var(--hg-bdr);
+      background: var(--hg-off);
+    }
+    .hg-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--hg-t3);
+      text-decoration: none; margin-bottom: var(--hg-blk);
+      transition: color 0.2s;
+    }
+    .hg-back:hover { color: var(--hg-t1); }
+
+    .hg-hero__eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--hg); margin-bottom: 32px;
+    }
+    .hg-hero__eyebrow-rule { width: 18px; height: 1px; background: var(--hg); }
+    .hg-hero__eyebrow-yr   { color: var(--hg-t3); }
+
+    .hg-hero__title {
+      font-size: clamp(56px, 8vw, 96px);
+      font-weight: 800; letter-spacing: -0.045em; line-height: 0.92;
+      color: var(--hg); margin-bottom: 28px;
+    }
+    .hg-hero__title span { color: inherit; }
+    .hg-hero__sub {
+      font-size: 18px; font-weight: 400;
+      line-height: 1.7; color: var(--hg-t2); max-width: 560px;
+    }
+
+    .hg-meta {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--hg-bdr); margin-top: var(--hg-blk);
+    }
+    .hg-meta__item { padding: 20px 0; }
+    .hg-meta__item + .hg-meta__item { padding-left: 24px; border-left: 1px solid var(--hg-bdr); }
+    .hg-meta__dt {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--hg-t3); margin-bottom: 8px;
+    }
+    .hg-meta__dd { font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--hg-t1); }
+
+    /* ════════════════════════════════════════════
+       IMAGES
+    ════════════════════════════════════════════ */
+    .hg-cover { width: 100%; line-height: 0; }
+    .hg-cover img { display: block; width: 100%; height: auto; }
+
+    .hg-imgblk { background: var(--hg-off); }
+    .hg-imgblk__bar {
+      background: #fff; border-top: 1px solid var(--hg-bdr); border-bottom: 1px solid var(--hg-bdr);
+    }
+    .hg-imgblk__inner {
+      display: flex; align-items: center; gap: 16px;
+      padding-top: 14px; padding-bottom: 14px;
+    }
+    .hg-imgblk__name {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--hg-t3); white-space: nowrap;
+    }
+    .hg-imgblk__rule { flex: 1; height: 1px; background: var(--hg-bdr); }
+    .hg-imgblk img { display: block; width: 100%; height: auto; }
+
+    /* ════════════════════════════════════════════
+       INSIGHT CALLOUT
+    ════════════════════════════════════════════ */
+    .hg-insight {
+      border-left: 3px solid var(--hg);
+      padding: 24px 32px;
+      background: var(--hg-05);
+      margin-top: var(--hg-blk);
+      margin-bottom: var(--hg-blk);
+    }
+    .hg-insight__txt {
+      font-size: 19px; font-weight: 600;
+      line-height: 1.65; letter-spacing: -0.02em; color: var(--hg-t1);
+    }
+    .hg-insight__txt em { font-style: normal; color: var(--hg); }
+
+    /* ════════════════════════════════════════════
+       OBSERVATION LIST
+    ════════════════════════════════════════════ */
+    .hg-obs { margin-top: var(--hg-blk); display: flex; flex-direction: column; }
+    .hg-ob {
+      padding: 28px 0; border-bottom: 1px solid var(--hg-bdr);
+      display: grid; grid-template-columns: 28px 1fr; gap: 20px; align-items: start;
+    }
+    .hg-ob:first-child { border-top: 1px solid var(--hg-bdr); }
+    .hg-ob__n {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--hg-t3); padding-top: 2px;
+    }
+    .hg-ob__title {
+      font-size: 15px; font-weight: 700; letter-spacing: -0.01em;
+      color: var(--hg-t1); margin-bottom: 8px;
+    }
+    .hg-ob__body { font-size: 15px; font-weight: 400; line-height: 1.8; color: var(--hg-t2); }
+
+    /* ════════════════════════════════════════════
+       MOTIFS / CONCEPT GRID
+    ════════════════════════════════════════════ */
+    .hg-motifs {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: var(--hg-blk);
+    }
+    .hg-motif {
+      background: var(--hg-off);
+      padding: 2rem 1.8rem;
+      border-top: 3px solid var(--hg);
+    }
+    .hg-motif__num {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--hg-t3); margin-bottom: 0.8rem;
+    }
+    .hg-motif__name { font-size: 1.05rem; font-weight: 700; color: var(--hg-t1); margin-bottom: 0.25rem; }
+    .hg-motif__kw { font-size: 0.72rem; font-weight: 700; color: var(--hg); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .hg-motif__desc { font-size: 0.85rem; color: var(--hg-t2); line-height: 1.75; }
+
+    /* ════════════════════════════════════════════
+       BRAND VALUES GRID (3-col)
+    ════════════════════════════════════════════ */
+    .hg-values {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: var(--hg-blk);
+    }
+    .hg-value {
+      background: #fff; padding: 2rem 1.8rem;
+      border-top: 1px solid var(--hg-bdr);
+    }
+    .hg-value__num {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--hg); margin-bottom: 0.8rem;
+    }
+    .hg-value__name { font-size: 1rem; font-weight: 700; color: var(--hg-t1); margin-bottom: 0.5rem; }
+    .hg-value__desc { font-size: 0.875rem; color: var(--hg-t2); line-height: 1.75; }
+
+    /* ════════════════════════════════════════════
+       COLOR SWATCHES
+    ════════════════════════════════════════════ */
+    .hg-swatches { display: flex; gap: 2px; margin-top: var(--hg-blk); }
+    .hg-sw {
+      flex: 1; min-height: 80px; display: flex; align-items: flex-end;
+      padding: 0.75rem 1rem;
+    }
+    .hg-sw__label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em; }
+
+    .hg-color-notes {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 2px; margin-top: 2px;
+    }
+    .hg-cn {
+      background: var(--hg-off); padding: 1.5rem 1.8rem;
+    }
+    .hg-cn__dot {
+      width: 10px; height: 10px; border-radius: 50%; margin-bottom: 0.8rem;
+    }
+    .hg-cn__name { font-size: 0.9rem; font-weight: 700; color: var(--hg-t1); margin-bottom: 0.3rem; }
+    .hg-cn__why  { font-size: 0.82rem; color: var(--hg-t2); line-height: 1.7; }
+
+    /* ════════════════════════════════════════════
+       OUTCOMES
+    ════════════════════════════════════════════ */
+    .hg-outcomes {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: var(--hg-blk);
+    }
+    .hg-outcome {
+      background: var(--hg-off); padding: 2rem 1.6rem;
+    }
+    .hg-outcome__icon {
+      font-size: 1.3rem; font-weight: 600; color: var(--hg); margin-bottom: 0.8rem; display: block;
+    }
+    .hg-outcome__title { font-size: 0.95rem; font-weight: 700; color: var(--hg-t1); margin-bottom: 0.4rem; }
+    .hg-outcome__desc  { font-size: 0.82rem; color: var(--hg-t2); line-height: 1.7; }
+
+    /* ════════════════════════════════════════════
+       REFLECTION
+    ════════════════════════════════════════════ */
+    .hg-reflection {
+      background: var(--hg-dk); padding: 64px var(--hg-pad); text-align: left;
+    }
+    .hg-reflection__lbl {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 28px;
+    }
+    .hg-reflection__txt {
+      font-size: clamp(22px, 3vw, 32px); font-weight: 600;
+      line-height: 1.6; letter-spacing: -0.025em; color: #fff; max-width: 720px;
+    }
+    .hg-reflection__txt em { font-style: normal; color: rgba(232,245,252,0.75); }
+    .hg-reflection__note {
+      font-size: 14px; font-weight: 400; line-height: 1.8;
+      color: rgba(255,255,255,0.45); margin-top: 24px; max-width: 560px;
+    }
+
+    /* ════════════════════════════════════════════
+       CREDITS + NEXT
+    ════════════════════════════════════════════ */
+    .hg-credits {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--hg-bdr);
+    }
+    .hg-cred { padding: 24px 0; }
+    .hg-cred + .hg-cred { padding-left: 24px; border-left: 1px solid var(--hg-bdr); }
+    .hg-cred__dt {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--hg-t3); margin-bottom: 8px;
+    }
+    .hg-cred__dd { font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--hg-t1); }
+    .hg-next {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-top: 56px; border-top: 1px solid var(--hg-bdr); padding-top: 28px;
+    }
+    .hg-next__lbl {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--hg-t3); margin-bottom: 12px;
+    }
+    .hg-next__link {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 700; letter-spacing: -0.025em; text-decoration: none; transition: color 0.2s;
+    }
+    .hg-next__link--prev { font-size: 20px; color: var(--hg-t3); }
+    .hg-next__link--prev:hover { color: var(--hg-t1); }
+    .hg-next__link--next { font-size: 28px; color: var(--hg-t1); }
+    .hg-next__link--next:hover { color: var(--hg); }
+    .hg-next__arrow { transition: transform 0.2s; }
+    .hg-next__link--next:hover .hg-next__arrow { transform: translateX(5px); }
+
+    /* ════════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      :root { --hg-pad: 48px; }
+      .hg-color-notes { grid-template-columns: 1fr; }
+      .hg-motifs      { grid-template-columns: 1fr 1fr; }
+      .hg-values      { grid-template-columns: 1fr 1fr; }
+      .hg-outcomes    { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      :root { --hg-pad: 24px; --hg-sec: 56px; --hg-blk: 32px; }
+      .hg-hero { padding-top: calc(var(--nav-h, 64px) + 2.5rem); }
+      .hg-hero__title { font-size: clamp(44px, 14vw, 72px); }
+      .hg-meta        { grid-template-columns: 1fr 1fr; }
+      .hg-meta__item:nth-child(3) { border-left: none; padding-left: 0; }
+      .hg-motifs      { grid-template-columns: 1fr; }
+      .hg-values      { grid-template-columns: 1fr; }
+      .hg-outcomes    { grid-template-columns: 1fr; }
+      .hg-credits     { grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hg-bdr); }
+      .hg-cred        { padding: 18px; }
+      .hg-cred + .hg-cred { border-left: none; }
+      .hg-reflection  { padding: 40px 24px; }
+      .hg-reflection__txt { font-size: 20px; }
+      .hg-swatches    { flex-direction: column; }
+      .hg-next__link--next { font-size: 20px; }
+      .hg-insight     { padding: 20px 24px; }
+      .hg-insight__txt { font-size: 17px; }
+      .hg-color-notes { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow" aria-hidden="true"></div>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo">
+      Jang Hoon Min
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#awards">Awards &amp; Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="theme-toggle__icon">☽</span>
+    </button>
+    <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="proj-pager">
+    <a href="forcare.html" class="proj-pager__link">← Forcare</a>
+    <a href="index.html#work" class="proj-pager__all">All Work</a>
+    <a href="neulpureun.html" class="proj-pager__link">Neulpureun →</a>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html#about"  class="mobile-link">About</a></li>
+      <li><a href="profile.html"      class="mobile-link">Profile</a></li>
+      <li><a href="index.html#work"   class="mobile-link">Work</a></li>
+      <li><a href="index.html#awards" class="mobile-link">Awards &amp; Projects</a></li>
+      <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════ -->
+  <header class="hg-hero">
+    <div class="hg">
+      <a href="forcare.html" class="hg-back">← Forcare</a>
+
+      <div class="hg-hero__eyebrow">
+        <span class="hg-hero__eyebrow-rule"></span>
+        <span>Branding Design</span>
+        <span class="hg-hero__eyebrow-yr">·&ensp;2024</span>
+      </div>
+
+      <h1 class="hg-hero__title">
+        한<span>결</span>
+      </h1>
+      <p class="hg-hero__sub">
+        노인 미술치료를 위한<br />
+        브랜드 아이덴티티
+      </p>
+
+      <div class="hg-meta">
+        <div class="hg-meta__item">
+          <p class="hg-meta__dt">Role</p>
+          <p class="hg-meta__dd">Brand Designer</p>
+        </div>
+        <div class="hg-meta__item">
+          <p class="hg-meta__dt">Client</p>
+          <p class="hg-meta__dd">Academic Project</p>
+        </div>
+        <div class="hg-meta__item">
+          <p class="hg-meta__dt">Year</p>
+          <p class="hg-meta__dd">2024</p>
+        </div>
+        <div class="hg-meta__item">
+          <p class="hg-meta__dt">Scope</p>
+          <p class="hg-meta__dd">Logo · Identity · Collateral</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cover -->
+  <div class="hg-cover">
+    <img src="메인 이미지/7. 한결/한결 (1).webp" alt="한결 — main visual" />
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       01 BACKGROUND
+  ════════════════════════════════════════════ -->
+  <section class="hg-sec">
+    <div class="hg">
+      <div class="hg-lbl"><span class="hg-lbl__bar"></span>01 · Background</div>
+
+      <p class="hg-lead">
+        최근 10년, 60세 이상 정신질환자가 81% 늘었습니다.<br />
+        하지만 정서적 돌봄의 자리는 늘어나지 않았습니다.
+      </p>
+
+      <p class="hg-body mt-blk">
+        은퇴 이후 노인들은 사회적 역할을 잃으며 급격한 고립을 경험합니다.
+        자녀는 독립했고, 직장은 사라졌고, 이야기를 들어줄 공간도 줄어듭니다.
+        <strong>우울, 불안, 인지 저하는 이제 통계가 아니라 일상이 된 지 오래입니다.</strong>
+        미술치료는 이 문제에 유효한 대안으로 주목받지만,
+        사람들에게 닿을 브랜드가 없었습니다.
+      </p>
+
+      <div class="hg-insight">
+        <p class="hg-insight__txt">
+          말로 할 수 없는 것들이<br />
+          <em>붓 끝</em>에서 나옵니다.
+        </p>
+      </div>
+
+      <div class="hg-obs">
+        <div class="hg-ob">
+          <span class="hg-ob__n">01</span>
+          <div>
+            <p class="hg-ob__title">은퇴 이후 관계가 급격히 좁아집니다</p>
+            <p class="hg-ob__body">
+              은퇴 이후 사회적 관계가 급격히 좁아집니다.
+              일상적으로 대화할 상대가 줄고, 자신이 쓸모 없다는 감각이 쌓입니다.
+              외로움은 우울증으로, 우울증은 신체 건강 악화로 이어지는 악순환이 시작됩니다.
+            </p>
+          </div>
+        </div>
+        <div class="hg-ob">
+          <span class="hg-ob__n">02</span>
+          <div>
+            <p class="hg-ob__title">감정을 표현할 수단이 없습니다</p>
+            <p class="hg-ob__body">
+              많은 노인들은 평생 감정을 언어로 표현하는 훈련을 받지 못했습니다.
+              속에 쌓인 것이 있어도 털어놓을 방법을 모릅니다.
+              미술치료는 언어 없이도 감정을 드러낼 수 있는 거의 유일한 도구입니다.
+            </p>
+          </div>
+        </div>
+        <div class="hg-ob">
+          <span class="hg-ob__n">03</span>
+          <div>
+            <p class="hg-ob__title">신뢰할 수 있는 브랜드가 없습니다</p>
+            <p class="hg-ob__body">
+              심리 상담이나 약물 처방 중심의 서비스는 진입 장벽이 높습니다.
+              미술치료는 효과가 입증되어 있지만 대중에게 알려지지 않았습니다.
+              신뢰감 있는 브랜드가 없기 때문에 사람들이 먼저 찾아오지 않습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Identity Image -->
+  <div class="hg-imgblk">
+    <div class="hg-imgblk__bar">
+      <div class="hg">
+        <div class="hg-imgblk__inner">
+          <span class="hg-imgblk__name">Identity System</span>
+          <span class="hg-imgblk__rule"></span>
+        </div>
+      </div>
+    </div>
+    <div class="hg">
+      <img src="메인 이미지/7. 한결/한결2.webp" alt="한결 — identity system" />
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       02 CONCEPT
+  ════════════════════════════════════════════ -->
+  <section class="hg-sec hg-sec--off">
+    <div class="hg">
+      <div class="hg-lbl"><span class="hg-lbl__bar"></span>02 · Concept</div>
+
+      <p class="hg-lead">
+        한결같다는 말처럼,<br />
+        변하지 않는 돌봄을 약속하는 이름.
+      </p>
+
+      <p class="hg-body mt-blk">
+        브랜드 이름 '한결'은 '한결같다', 즉 변함없이 지속된다는 뜻에서 출발했습니다.
+        노인들이 가장 필요로 하는 것은 화려한 프로그램이 아니라
+        <strong>꾸준히 곁에 있어주는 존재</strong>입니다.
+        로고의 물결선은 치유의 흐름을 담고,
+        붓글씨 스타일의 로고타입은 손의 온기를 전합니다.
+        세 개의 핵심 모티브가 브랜드의 정체성을 이룹니다.
+      </p>
+
+      <div class="hg-motifs">
+        <div class="hg-motif">
+          <p class="hg-motif__num">모티브 01</p>
+          <p class="hg-motif__name">물결</p>
+          <p class="hg-motif__kw">치유 · Healing</p>
+          <p class="hg-motif__desc">
+            끊이지 않고 흐르는 물결입니다.
+            치료는 한 번의 사건이 아니라 지속되는 과정입니다.
+            한결이 그 흐름 안에 있습니다.
+          </p>
+        </div>
+        <div class="hg-motif">
+          <p class="hg-motif__num">모티브 02</p>
+          <p class="hg-motif__name">붓</p>
+          <p class="hg-motif__kw">표현 · Expression</p>
+          <p class="hg-motif__desc">
+            거친 붓 자국이 가진 솔직함입니다.
+            잘 그리지 않아도 됩니다.
+            감정이 형태로 나오는 순간, 그것이 이미 치유입니다.
+          </p>
+        </div>
+        <div class="hg-motif">
+          <p class="hg-motif__num">모티브 03</p>
+          <p class="hg-motif__name">원</p>
+          <p class="hg-motif__kw">연결 · Connection</p>
+          <p class="hg-motif__desc">
+            함께 앉아 같은 공간을 나누는 경험입니다.
+            미술치료는 개인 치유이자 관계를 회복하는 행위입니다.
+          </p>
+        </div>
+      </div>
+
+      <p class="hg-body mt-blk">
+        세 가지 가치는 로고부터 콜래터럴까지 같은 방향을 가리킵니다.
+      </p>
+
+      <div class="hg-values">
+        <div class="hg-value">
+          <p class="hg-value__num">가치 01</p>
+          <p class="hg-value__name">사회적 교류</p>
+          <p class="hg-value__desc">
+            같은 공간에서 붓을 드는 것만으로 연결이 시작됩니다. 한결은 그 공간입니다.
+          </p>
+        </div>
+        <div class="hg-value">
+          <p class="hg-value__num">가치 02</p>
+          <p class="hg-value__name">자기표현</p>
+          <p class="hg-value__desc">
+            말하지 않아도 됩니다. 색을 고르고, 선을 긋고, 형태를 만드는 것 자체가 표현입니다.
+            한결에서는 표현이 판단 없이 받아들여집니다.
+          </p>
+        </div>
+        <div class="hg-value">
+          <p class="hg-value__num">가치 03</p>
+          <p class="hg-value__name">정서적 안정</p>
+          <p class="hg-value__desc">
+            같은 색, 같은 공간, 같은 얼굴. 꾸준함이 위로가 됩니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Collateral Image -->
+  <div class="hg-imgblk">
+    <div class="hg-imgblk__bar">
+      <div class="hg">
+        <div class="hg-imgblk__inner">
+          <span class="hg-imgblk__name">Brand Collateral</span>
+          <span class="hg-imgblk__rule"></span>
+        </div>
+      </div>
+    </div>
+    <div class="hg">
+      <img src="메인 이미지/7. 한결/한결 (3).webp" alt="한결 — brand collateral" />
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       03 VISUAL SYSTEM
+  ════════════════════════════════════════════ -->
+  <section class="hg-sec">
+    <div class="hg">
+      <div class="hg-lbl"><span class="hg-lbl__bar"></span>03 · Visual System</div>
+
+      <p class="hg-lead">
+        따뜻함과 신뢰를 동시에.<br />
+        하늘빛 파랑과 크림의 팔레트.
+      </p>
+
+      <p class="hg-body mt-blk">
+        Sky Blue(#0086C9)는 열린 하늘을 떠올리게 합니다.
+        좁아진 노인의 세계를 다시 넓히겠다는 브랜드의 약속을 색으로 담았습니다.
+        Cream(#FFF5E0)은 오래된 종이와 따뜻한 빛의 온도입니다.
+        차갑지 않고, 부드럽고, 기억 속의 안락함과 닮아 있습니다.
+        두 색이 함께 있을 때 한결만의 분위기가 만들어집니다.
+      </p>
+
+      <div class="hg-swatches">
+        <div class="hg-sw" style="background:#0086C9;">
+          <span class="hg-sw__label" style="color:rgba(255,255,255,0.9);">#0086C9 — Sky Blue</span>
+        </div>
+        <div class="hg-sw" style="background:#FFF5E0; border:1px solid rgba(0,0,0,0.06);">
+          <span class="hg-sw__label" style="color:#0086C9;">#FFF5E0 — Cream</span>
+        </div>
+        <div class="hg-sw" style="background:#00489D;">
+          <span class="hg-sw__label" style="color:rgba(255,255,255,0.9);">#00489D — Deep Navy</span>
+        </div>
+        <div class="hg-sw" style="background:#111111;">
+          <span class="hg-sw__label" style="color:rgba(255,255,255,0.7);">#111111 — Dark</span>
+        </div>
+        <div class="hg-sw" style="background:#F7FAFE; border:1px solid rgba(0,0,0,0.06);">
+          <span class="hg-sw__label" style="color:#999;">#F7FAFE — Off White</span>
+        </div>
+      </div>
+
+      <div class="hg-color-notes">
+        <div class="hg-cn">
+          <div class="hg-cn__dot" style="background:#0086C9;"></div>
+          <p class="hg-cn__name">Sky Blue #0086C9</p>
+          <p class="hg-cn__why">
+            하늘은 제한 없이 열려 있습니다.
+            은퇴 후 좁아지는 노인의 세계를 다시 넓히겠다는 의지를 이 색에 담았습니다.
+            신뢰감을 주되, 기존 병원·복지 이미지의 딱딱함과는 거리를 둡니다.
+          </p>
+        </div>
+        <div class="hg-cn">
+          <div class="hg-cn__dot" style="background:#FFF5E0;"></div>
+          <p class="hg-cn__name">Cream #FFF5E0</p>
+          <p class="hg-cn__why">
+            새하얀 흰색은 차갑지만 크림은 따뜻합니다.
+            오래된 종이, 따뜻한 빛, 기억 속의 안락한 공간을 연상시킵니다.
+            배경으로 쓰일 때 Sky Blue와 만나 한결만의 분위기를 만듭니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mockup Image -->
+  <div class="hg-imgblk">
+    <div class="hg-imgblk__bar">
+      <div class="hg">
+        <div class="hg-imgblk__inner">
+          <span class="hg-imgblk__name">Mockup Collection</span>
+          <span class="hg-imgblk__rule"></span>
+        </div>
+      </div>
+    </div>
+    <img src="메인 이미지/7. 한결/한결 (4).webp" alt="한결 — mockup collection" />
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       04 OUTCOME
+  ════════════════════════════════════════════ -->
+  <section class="hg-sec hg-sec--off">
+    <div class="hg">
+      <div class="hg-lbl"><span class="hg-lbl__bar"></span>04 · Outcome</div>
+
+      <p class="hg-lead">
+        일상 곳곳에 스며드는 아이덴티티,<br />
+        브랜드가 먼저 찾아가는 방식입니다.
+      </p>
+
+      <p class="hg-body mt-blk">
+        한결은 진료실 안에 있지 않습니다.
+        버스를 기다리는 정류장에, 집 안의 달력에, 지역 센터의 안내판에 있습니다.
+        <strong>사람들이 브랜드를 먼저 발견하게 만드는 것</strong>이 한결의 전략입니다.
+        낯선 미술치료를 익숙한 일상으로 끌어들이는 접점을 설계했습니다.
+      </p>
+
+      <div class="hg-outcomes">
+        <div class="hg-outcome">
+          <span class="hg-outcome__icon">▤</span>
+          <p class="hg-outcome__title">버스 정류장 포스터</p>
+          <p class="hg-outcome__desc">이동 중에 자연스럽게 노출되는 접점입니다. 브랜드가 먼저 찾아가는 방식입니다.</p>
+        </div>
+        <div class="hg-outcome">
+          <span class="hg-outcome__icon">▦</span>
+          <p class="hg-outcome__title">달력</p>
+          <p class="hg-outcome__desc">매일 보는 물건에 브랜드를 담았습니다. 치료 일정을 기억하게 하는 실용적 콜래터럴입니다.</p>
+        </div>
+        <div class="hg-outcome">
+          <span class="hg-outcome__icon">▭</span>
+          <p class="hg-outcome__title">명함</p>
+          <p class="hg-outcome__desc">치료사와 클라이언트 사이의 첫 접촉입니다. 신뢰감 있는 첫인상을 설계했습니다.</p>
+        </div>
+        <div class="hg-outcome">
+          <span class="hg-outcome__icon">▲</span>
+          <p class="hg-outcome__title">사인물</p>
+          <p class="hg-outcome__desc">치료 공간 안팎에 놓이는 사인입니다. 공간 전체를 브랜드 경험으로 만듭니다.</p>
+        </div>
+        <div class="hg-outcome">
+          <span class="hg-outcome__icon">✦</span>
+          <p class="hg-outcome__title">로고 시스템</p>
+          <p class="hg-outcome__desc">물결·붓·원 모티브가 결합된 로고입니다. 흑백·컬러 모두 작동하는 유연한 아이덴티티입니다.</p>
+        </div>
+        <div class="hg-outcome">
+          <span class="hg-outcome__icon">☰</span>
+          <p class="hg-outcome__title">브랜드 가이드</p>
+          <p class="hg-outcome__desc">컬러, 타이포그래피, 여백 원칙입니다. 누가 적용해도 한결답게 유지되는 기준입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       REFLECTION
+  ════════════════════════════════════════════ -->
+  <div class="hg-reflection">
+    <div class="hg">
+      <p class="hg-reflection__lbl">Design Reflection</p>
+      <p class="hg-reflection__txt">
+        변함없이 곁에 있다는 것만으로<br />
+        <em>충분한 위로가 되는 브랜드입니다.</em>
+      </p>
+      <p class="hg-reflection__note">
+        거창한 슬로건보다 오래된 친구처럼 편안한 느낌.
+        한결이 전하고 싶었던 것은 그것이었습니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       CREDITS
+  ════════════════════════════════════════════ -->
+  <section class="hg-sec">
+    <div class="hg">
+      <div class="hg-credits">
+        <div class="hg-cred"><p class="hg-cred__dt">Project</p><p class="hg-cred__dd">한결</p></div>
+        <div class="hg-cred"><p class="hg-cred__dt">Year</p><p class="hg-cred__dd">2024</p></div>
+        <div class="hg-cred"><p class="hg-cred__dt">Role</p><p class="hg-cred__dd">Brand Designer</p></div>
+        <div class="hg-cred"><p class="hg-cred__dt">Tools</p><p class="hg-cred__dd">Illustrator · Photoshop</p></div>
+      </div>
+
+      <div class="hg-next">
+        <div>
+          <p class="hg-next__lbl">Previous</p>
+          <a href="forcare.html" class="hg-next__link hg-next__link--prev">← For Care</a>
+        </div>
+        <div style="text-align:right;">
+          <p class="hg-next__lbl">Next Project</p>
+          <a href="neulpureun.html" class="hg-next__link hg-next__link--next">
+            늘푸른 <span class="hg-next__arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__copy">© 2026 Jang Hoon Min. All rights reserved.</p>
+        <a href="index.html#work" class="footer__back-link">← Back to Work</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+

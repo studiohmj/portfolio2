@@ -1,0 +1,745 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>if(localStorage.getItem('portfolio-theme-v2')==="dark")document.documentElement.classList.add("dark-mode");</script>
+  <title>Leporem — Jang Hoon Min</title>
+  <meta name="description" content="Leporem — 시각장애인을 위한 향수 브랜드 아이덴티티" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    em { font-family: inherit; font-style: normal; color: inherit; }
+
+    /* ── Brand tokens ─────────────────────────── */
+    :root {
+      --lp: #F39800;
+      --lp-dim: rgba(243,152,0,0.08);
+    }
+
+    /* ── Container ────────────────────────────── */
+    .lp { max-width: 1280px; margin: 0 auto; padding: 0 80px; }
+
+    /* ── Hero ─────────────────────────────────── */
+    .lp-hero {
+      padding-top: calc(var(--nav-h, 64px) + 5rem);
+      padding-bottom: 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .lp-back {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--t3); margin-bottom: 4rem;
+      transition: color .2s;
+    }
+    .lp-back:hover { color: var(--lp); }
+    .lp-eyebrow {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem;
+    }
+    .lp-eyebrow__cat {
+      font-size: .65rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--lp);
+    }
+    .lp-eyebrow__rule { width: 28px; height: 1px; background: var(--border-mid); }
+    .lp-eyebrow__year { font-size: .65rem; color: var(--t3); letter-spacing: .1em; }
+    .lp-h1 {
+      font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 900;
+      letter-spacing: -.055em; line-height: .9; color: var(--lp);
+      margin-bottom: 1.25rem;
+    }
+    .lp-tagline {
+      font-size: clamp(.9rem, 1.3vw, 1.05rem); color: var(--t2);
+      line-height: 1.8; max-width: 520px; margin-bottom: 3.5rem;
+    }
+    .lp-meta {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border);
+    }
+    .lp-meta__item { padding: 1.25rem 1.5rem 1.25rem 0; }
+    .lp-meta__item + .lp-meta__item {
+      border-left: 1px solid var(--border); padding-left: 1.5rem;
+    }
+    .lp-meta__dt {
+      font-size: .56rem; font-weight: 700; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--t3); margin-bottom: .4rem;
+    }
+    .lp-meta__dd { font-size: .875rem; font-weight: 500; color: var(--t1); }
+
+    /* ── Cover image ──────────────────────────── */
+    .lp-cover { width: 100%; line-height: 0; background: var(--bg-alt); }
+    .lp-cover img { width: 100%; height: auto; display: block; }
+
+    /* ── Section base ─────────────────────────── */
+    .lp-section {
+      padding: clamp(4rem, 6vw, 6rem) 0;
+      border-top: 1px solid var(--border);
+    }
+    .lp-section--alt { background: var(--bg-alt); }
+
+    /* ── Section label ────────────────────────── */
+    .lp-label {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    .lp-label__num {
+      font-size: .58rem; font-weight: 700; letter-spacing: .18em;
+      color: var(--lp); font-variant-numeric: tabular-nums;
+    }
+    .lp-label__rule { width: 24px; height: 1.5px; background: var(--lp); flex-shrink: 0; }
+    .lp-label__text {
+      font-size: .6rem; font-weight: 700; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--t3);
+    }
+
+    /* ── 12-col grid ─────────────────────────── */
+    .lp-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+    }
+    .lp-aside { grid-column: 1 / 4; }
+    .lp-main  { grid-column: 4 / 13; }
+    .lp-wide  { grid-column: 1 / 13; }
+    .lp-half  { grid-column: span 6; }
+
+    /* ── Aside label block ────────────────────── */
+    .lp-aside-label {
+      font-size: .72rem; font-weight: 700; color: var(--t3);
+      line-height: 1.8; border-top: 1.5px solid var(--lp);
+      padding-top: .75rem;
+    }
+
+    /* ── Body text ────────────────────────────── */
+    .lp-lead {
+      font-size: clamp(1rem, 1.6vw, 1.2rem); font-weight: 600;
+      color: var(--t1); line-height: 1.65; letter-spacing: -.02em;
+      margin-bottom: 1.5rem;
+    }
+    .lp-body {
+      font-size: clamp(.88rem, 1.15vw, 1rem); color: var(--t1);
+      line-height: 1.95; margin-bottom: 1.25rem;
+    }
+    .lp-body:last-child { margin-bottom: 0; }
+    .lp-body strong { color: var(--lp); font-weight: 600; }
+
+    /* ── Observation list ─────────────────────── */
+    .lp-obs { display: flex; flex-direction: column; gap: .75rem; margin: 2rem 0; }
+    .lp-obs__item {
+      display: grid; grid-template-columns: 20px 1fr; gap: 1rem;
+      padding: 1rem 1.25rem; background: var(--lp-dim); border-left: 2px solid var(--lp);
+    }
+    .lp-obs__num {
+      font-size: .6rem; font-weight: 700; color: var(--lp);
+      padding-top: 3px; font-variant-numeric: tabular-nums;
+    }
+    .lp-obs__text { font-size: .9rem; color: var(--t1); line-height: 1.7; }
+
+    /* ── Insight callout ──────────────────────── */
+    .lp-insight {
+      border: 1.5px solid var(--lp); padding: 1.75rem 2rem;
+      margin: 2.5rem 0;
+    }
+    .lp-insight__label {
+      font-size: .56rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--lp); margin-bottom: .75rem;
+    }
+    .lp-insight__text {
+      font-size: 1.05rem; font-weight: 700; color: var(--t1);
+      line-height: 1.6; letter-spacing: -.02em;
+    }
+
+    /* ── WHY tag ──────────────────────────────── */
+    .lp-decision { margin-bottom: 2.5rem; }
+    .lp-decision__title {
+      font-size: 1rem; font-weight: 700; color: var(--t1);
+      letter-spacing: -.02em; margin-bottom: .5rem;
+    }
+    .lp-decision__body {
+      font-size: .9rem; color: var(--t2); line-height: 1.8;
+      margin-bottom: .75rem;
+    }
+    .lp-why {
+      display: inline-flex; align-items: flex-start; gap: .6rem;
+      background: var(--lp-dim); padding: .75rem 1rem;
+      border-left: 2px solid var(--lp);
+    }
+    .lp-why__tag {
+      font-size: .52rem; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--lp); padding-top: 3px;
+      white-space: nowrap;
+    }
+    .lp-why__text { font-size: .83rem; color: var(--t1); line-height: 1.7; }
+
+    /* ── Feature grid ─────────────────────────── */
+    .lp-features {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); margin-top: 2.5rem;
+    }
+    .lp-feature {
+      background: var(--bg); padding: 2rem 1.75rem;
+      display: flex; flex-direction: column; gap: .6rem;
+    }
+    .lp-feature__num {
+      font-size: .58rem; font-weight: 700; letter-spacing: .18em;
+      color: var(--lp);
+    }
+    .lp-feature__title {
+      font-size: 1rem; font-weight: 700; color: var(--t1);
+      letter-spacing: -.02em;
+    }
+    .lp-feature__desc { font-size: .85rem; color: var(--t2); line-height: 1.78; }
+
+    /* ── Color swatch ─────────────────────────── */
+    .lp-swatches { display: flex; flex-direction: column; gap: 1px; margin-top: 2rem; }
+    .lp-swatch {
+      display: flex; align-items: stretch;
+      border: 1px solid var(--border); overflow: hidden;
+    }
+    .lp-swatch__block { width: 96px; flex-shrink: 0; }
+    .lp-swatch__body {
+      padding: 1.25rem 1.75rem;
+      display: flex; flex-direction: column; justify-content: center; gap: .2rem;
+    }
+    .lp-swatch__name { font-size: .9rem; font-weight: 700; color: var(--t1); }
+    .lp-swatch__hex { font-size: .65rem; color: var(--t3); letter-spacing: .1em; margin-bottom: .35rem; }
+    .lp-swatch__desc { font-size: .83rem; color: var(--t2); line-height: 1.65; max-width: 420px; }
+
+    /* ── Outcome cards ────────────────────────── */
+    .lp-outcomes {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); margin-bottom: 2.5rem;
+    }
+    .lp-outcome {
+      background: var(--bg); padding: 2rem 1.75rem;
+    }
+    .lp-outcome__num {
+      font-size: .6rem; font-weight: 700; letter-spacing: .18em;
+      color: var(--lp); margin-bottom: .75rem;
+    }
+    .lp-outcome__title {
+      font-size: 1rem; font-weight: 700; color: var(--t1);
+      letter-spacing: -.02em; margin-bottom: .5rem;
+    }
+    .lp-outcome__desc { font-size: .85rem; color: var(--t2); line-height: 1.78; }
+
+    /* ── Reflection block ─────────────────────── */
+    .lp-reflection {
+      background: var(--lp-dim); padding: 2rem 2.25rem;
+      border-left: 3px solid var(--lp);
+    }
+    .lp-reflection__label {
+      font-size: .56rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--lp); margin-bottom: .75rem;
+    }
+    .lp-reflection__text {
+      font-size: .95rem; color: var(--t1); line-height: 1.85;
+    }
+
+    /* ── Image block ──────────────────────────── */
+    .lp-imgblock { background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .lp-imgblock__bar {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: .6rem 80px; max-width: 1280px; margin: 0 auto;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+    }
+    .lp-imgblock__name {
+      font-size: .58rem; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--t3); white-space: nowrap;
+    }
+    .lp-imgblock__rule { flex: 1; height: 1px; background: var(--border); }
+    .lp-imgblock img { display: block; width: 100%; height: auto; }
+
+    /* ── Credits ──────────────────────────────── */
+    .lp-credits {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border);
+    }
+    .lp-credits__row { padding: 24px 0; }
+    .lp-credits__row + .lp-credits__row { padding-left: 24px; border-left: 1px solid var(--border); }
+    .lp-credits__dt {
+      font-size: .58rem; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--t3); margin-bottom: 8px;
+    }
+    .lp-credits__dd { font-size: .875rem; font-weight: 500; color: var(--t1); line-height: 1.5; }
+
+    /* ── Next nav ─────────────────────────────── */
+    .lp-next {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-top: 56px; border-top: 1px solid var(--border); padding-top: 28px;
+    }
+    .lp-next__lbl {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--t3); margin-bottom: 12px;
+    }
+    .lp-next__link {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 700; letter-spacing: -0.025em; text-decoration: none; transition: color 0.2s;
+    }
+    .lp-next__link--prev { font-size: 20px; color: var(--t3); }
+    .lp-next__link--prev:hover { color: var(--t1); }
+    .lp-next__link--next { font-size: 28px; color: var(--t1); }
+    .lp-next__link--next:hover { color: var(--lp); }
+    .lp-next__arrow { transition: transform 0.2s; }
+    .lp-next__link--next:hover .lp-next__arrow { transform: translateX(5px); }
+
+    @media (max-width: 960px) {
+      .lp { padding: 0 32px; }
+      .lp-imgblock__bar { padding: .6rem 32px; }
+      .lp-aside { grid-column: 1 / 13; margin-bottom: 2rem; }
+      .lp-main  { grid-column: 1 / 13; }
+      .lp-half  { grid-column: 1 / 13; }
+      .lp-meta  { grid-template-columns: 1fr 1fr; }
+      .lp-meta__item:nth-child(2n+1) { border-left: none; padding-left: 0; }
+      .lp-features { grid-template-columns: 1fr; }
+      .lp-outcomes { grid-template-columns: 1fr; }
+      .lp-credits  { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .lp { padding: 0 20px; }
+      .lp-imgblock__bar { padding: .6rem 20px; }
+      .lp-h1 { font-size: clamp(3rem, 14vw, 5rem); }
+      .lp-back { margin-bottom: 2rem; }
+      .lp-meta  { grid-template-columns: 1fr; }
+      .lp-meta__item + .lp-meta__item { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: .75rem; }
+      .lp-credits { grid-template-columns: 1fr; }
+      .lp-credits__row + .lp-credits__row { border-left: none; padding-left: 0; border-top: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow" aria-hidden="true"></div>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo">
+      Jang Hoon Min
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#awards">Awards &amp; Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="theme-toggle__icon">☽</span>
+    </button>
+    <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="proj-pager">
+    <a href="neulpureun.html" class="proj-pager__link">← Neulpureun</a>
+    <a href="index.html#work" class="proj-pager__all">All Work</a>
+    <a href="ikseondong.html" class="proj-pager__link">Ikseondong →</a>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html#about"   class="mobile-link">About</a></li>
+      <li><a href="profile.html"       class="mobile-link">Profile</a></li>
+      <li><a href="index.html#work"    class="mobile-link">Work</a></li>
+      <li><a href="index.html#awards"  class="mobile-link">Awards &amp; Projects</a></li>
+      <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <header class="lp-hero">
+    <div class="lp">
+      <a href="index.html#work" class="lp-back fade-in">← All Work</a>
+      <div class="lp-eyebrow fade-in">
+        <span class="lp-eyebrow__cat">Branding Design</span>
+        <span class="lp-eyebrow__rule"></span>
+        <span class="lp-eyebrow__year">2024</span>
+      </div>
+      <h1 class="lp-h1 fade-in">Leporem</h1>
+      <p class="lp-tagline fade-in">
+        시각장애인을 위한<br/>
+        포용적 향수 브랜드 아이덴티티
+      </p>
+      <div class="lp-meta fade-in">
+        <div class="lp-meta__item">
+          <div class="lp-meta__dt">Role</div>
+          <div class="lp-meta__dd">Brand Designer</div>
+        </div>
+        <div class="lp-meta__item">
+          <div class="lp-meta__dt">Client</div>
+          <div class="lp-meta__dd">Academic Project</div>
+        </div>
+        <div class="lp-meta__item">
+          <div class="lp-meta__dt">Scope</div>
+          <div class="lp-meta__dd">Logo · Packaging · Identity</div>
+        </div>
+        <div class="lp-meta__item">
+          <div class="lp-meta__dt">Year</div>
+          <div class="lp-meta__dd">2024</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- COVER -->
+  <div class="lp-cover fade-in">
+    <img src="메인 이미지/1. Leporem/르포렘 1p-100.webp" alt="Leporem — 브랜드 커버" />
+  </div>
+
+  <!-- 01 BACKGROUND -->
+  <section class="lp-section">
+    <div class="lp">
+      <div class="lp-label fade-in">
+        <span class="lp-label__num">01</span>
+        <span class="lp-label__rule"></span>
+        <span class="lp-label__text">Background</span>
+      </div>
+      <div class="lp-grid fade-in">
+        <div class="lp-aside">
+          <div class="lp-aside-label">
+            향수 산업은<br/>처음부터<br/>눈을 위해<br/>설계되었다
+          </div>
+        </div>
+        <div class="lp-main">
+          <p class="lp-lead">향수 매장에서 모든 정보는 시각으로 전달됩니다.</p>
+          <p class="lp-body">
+            아름다운 병의 형태, 세련된 라벨, 색채로 표현된 향의 분위기까지, 향수 브랜드가 소비자와 소통하는 방식은 압도적으로 시각 중심입니다.
+            그러나 장애인 문화·예술 분야 국내 지원 비율이 전체의 0.1%에 불과한 현실 속에서, 향수 산업은 이 문제를 아직 제대로 마주하지 않고 있습니다.
+          </p>
+          <p class="lp-body">
+            시각장애인에게 향수 매장은 정보가 차단된 공간입니다. 향을 직접 맡기 전까지 무엇인지 알 수 없고, 점원의 도움 없이는 독립적인 선택이 불가능합니다.
+            도움을 요청하는 행위 자체가 불편함이 됩니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDENTITY SYSTEM IMAGE -->
+  <div class="lp-imgblock fade-in">
+    <div class="lp-imgblock__bar">
+      <span class="lp-imgblock__name">Identity System</span>
+      <span class="lp-imgblock__rule"></span>
+    </div>
+    <div class="lp">
+      <img src="메인 이미지/1. Leporem/르포렘 2p-100.webp" alt="Leporem — Identity System" />
+    </div>
+  </div>
+
+  <!-- 02 PROBLEM -->
+  <section class="lp-section">
+    <div class="lp">
+      <div class="lp-label fade-in">
+        <span class="lp-label__num">02</span>
+        <span class="lp-label__rule"></span>
+        <span class="lp-label__text">Problem</span>
+      </div>
+      <div class="lp-grid fade-in">
+        <div class="lp-aside">
+          <div class="lp-aside-label">
+            문제는 장애가<br/>아니라 패키지가<br/>설계된 방식이다
+          </div>
+        </div>
+        <div class="lp-main">
+          <p class="lp-lead">향수 매장에서 시각장애인이 겪는 불편은 세 가지 지점에서 반복됩니다.</p>
+          <div class="lp-obs">
+            <div class="lp-obs__item">
+              <span class="lp-obs__num">01</span>
+              <span class="lp-obs__text">라벨과 패키지의 모든 정보가 시각 전용 언어로 쓰여 있습니다. 향의 계열, 성분, 브랜드 스토리까지 손으로는 아무것도 읽히지 않습니다.</span>
+            </div>
+            <div class="lp-obs__item">
+              <span class="lp-obs__num">02</span>
+              <span class="lp-obs__text">직접 맡아보기 전까지 어떤 향인지 전혀 알 수 없습니다. 선택에 앞서 탐색하는 행위 자체가 차단됩니다.</span>
+            </div>
+            <div class="lp-obs__item">
+              <span class="lp-obs__num">03</span>
+              <span class="lp-obs__text">점원의 도움 없이는 구매가 불가능합니다. 도움을 요청해야만 한다는 사실이 매장 경험 전체를 불편하게 만듭니다.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 INSIGHT -->
+  <section class="lp-section lp-section--alt">
+    <div class="lp">
+      <div class="lp-label fade-in">
+        <span class="lp-label__num">03</span>
+        <span class="lp-label__rule"></span>
+        <span class="lp-label__text">Insight</span>
+      </div>
+      <div class="lp-grid fade-in">
+        <div class="lp-aside">
+          <div class="lp-aside-label">
+            그래서 이런<br/>질문이 생겼다
+          </div>
+        </div>
+        <div class="lp-main">
+          <p class="lp-lead">향기는 원래 코로 인지하는 것입니다. 패키지가 눈으로만 읽혀야 할 이유는 없습니다.</p>
+          <p class="lp-body">
+            모든 문제는 결국 하나로 수렴했습니다. 향수 패키지가 감각의 다양성을 전혀 고려하지 않고 설계됐다는 것입니다. 이것은 시각장애인의 문제가 아니라 설계 방식의 문제입니다.
+          </p>
+          <div class="lp-insight">
+            <div class="lp-insight__label">Core Insight</div>
+            <p class="lp-insight__text">
+              접근성이 기능적 보완재가 되어서는 안 됩니다.<br/>
+              접근성이 브랜드의 언어 자체일 때 의미가 생깁니다.
+            </p>
+          </div>
+          <p class="lp-body">
+            점자·NFC·음성 안내를 '시각 정보의 대체재'로 만드는 것이 아니라, 브랜드가 소비자와 소통하는 고유한 방식으로 만드는 것이 목표였습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 SOLUTION -->
+  <section class="lp-section">
+    <div class="lp">
+      <div class="lp-label fade-in">
+        <span class="lp-label__num">04</span>
+        <span class="lp-label__rule"></span>
+        <span class="lp-label__text">Solution</span>
+      </div>
+      <div class="lp-grid fade-in">
+        <div class="lp-aside">
+          <div class="lp-aside-label">
+            결론에서<br/>거꾸로<br/>끌어냈다
+          </div>
+        </div>
+        <div class="lp-main">
+          <p class="lp-lead">모든 디자인 결정은 하나를 향합니다. 향수 매장을 독립적으로 경험할 수 있어야 한다는 것입니다.</p>
+
+          <div class="lp-decision">
+            <div class="lp-decision__title">점자 마킹: 가장 기본적인 접근성</div>
+            <div class="lp-decision__body">향수 병과 포장 박스 전면에 점자를 적용해 브랜드명·향 계열·용량 정보를 촉각으로 전달합니다.</div>
+            <div class="lp-why">
+              <span class="lp-why__tag">Why</span>
+              <span class="lp-why__text">스마트폰이 없어도, 앱을 설치하지 않아도 작동하는 가장 기본적인 레이어입니다. 기술 의존도를 낮추는 것이 이 레이어의 설계 원칙이었습니다.</span>
+            </div>
+          </div>
+
+          <div class="lp-decision">
+            <div class="lp-decision__title">NFC 캡: 이미 있는 도구를 쓴다</div>
+            <div class="lp-decision__body">병 캡에 내장된 NFC 태그는 스마트폰에 가져다 대면 즉시 향의 정보를 음성으로 읽어줍니다. 별도 앱 설치 없이 작동합니다.</div>
+            <div class="lp-why">
+              <span class="lp-why__tag">Why</span>
+              <span class="lp-why__text">사람들이 이미 가지고 있는 스마트폰을 활용하면 학습 비용이 없습니다. 새로운 기기나 앱을 배워야 한다면 진입 장벽이 생깁니다.</span>
+            </div>
+          </div>
+
+          <div class="lp-decision">
+            <div class="lp-decision__title">음성 안내 포스터: 매장 진입 단계부터</div>
+            <div class="lp-decision__body">매장 내 포스터에도 NFC를 적용해 향의 스토리와 감각적 설명을 음성으로 전달합니다. 구매 여정의 첫 단계부터 경험을 설계했습니다.</div>
+            <div class="lp-why">
+              <span class="lp-why__tag">Why</span>
+              <span class="lp-why__text">병에 손이 닿기 전에 이미 매장에서 탐색이 시작됩니다. 진입 단계를 놓치면 독립적인 경험이 되지 않습니다.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND APPLICATION IMAGE -->
+  <div class="lp-imgblock fade-in">
+    <div class="lp-imgblock__bar">
+      <span class="lp-imgblock__name">Brand Application</span>
+      <span class="lp-imgblock__rule"></span>
+    </div>
+    <div class="lp">
+      <img src="메인 이미지/1. Leporem/르포렘 3p-100.webp" alt="Leporem — Brand Application" />
+    </div>
+  </div>
+
+  <!-- 05 EXPERIENCE -->
+  <section class="lp-section">
+    <div class="lp">
+      <div class="lp-label fade-in">
+        <span class="lp-label__num">05</span>
+        <span class="lp-label__rule"></span>
+        <span class="lp-label__text">Experience</span>
+      </div>
+      <div class="lp-grid fade-in">
+        <div class="lp-aside">
+          <div class="lp-aside-label">
+            구매 여정<br/>전체를 포용적<br/>경험으로 설계
+          </div>
+        </div>
+        <div class="lp-main">
+          <p class="lp-lead">세 가지 접근성 채널이 구매 여정의 각 단계를 맡습니다.</p>
+          <div class="lp-features">
+            <div class="lp-feature">
+              <div class="lp-feature__num">01 · 발견</div>
+              <div class="lp-feature__title">음성 안내 포스터</div>
+              <div class="lp-feature__desc">
+                매장에 들어서는 순간부터 독립적인 탐색이 가능합니다. NFC가 내장된 포스터가 향의 스토리와 분위기를 음성으로 안내합니다.
+              </div>
+            </div>
+            <div class="lp-feature">
+              <div class="lp-feature__num">02 · 탐색</div>
+              <div class="lp-feature__title">점자 + NFC 패키지</div>
+              <div class="lp-feature__desc">
+                병을 손에 들었을 때 점자로 이름과 향 계열을 읽고, 스마트폰으로 NFC를 태그하면 상세 정보가 음성으로 나옵니다.
+              </div>
+            </div>
+            <div class="lp-feature">
+              <div class="lp-feature__num">03 · 구매</div>
+              <div class="lp-feature__title">독립적 선택</div>
+              <div class="lp-feature__desc">
+                점원의 도움 없이 원하는 향을 고르고 구매할 수 있습니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 VISUAL SYSTEM -->
+  <section class="lp-section lp-section--alt">
+    <div class="lp">
+      <div class="lp-label fade-in">
+        <span class="lp-label__num">06</span>
+        <span class="lp-label__rule"></span>
+        <span class="lp-label__text">Visual System</span>
+      </div>
+      <div class="lp-grid fade-in">
+        <div class="lp-aside">
+          <div class="lp-aside-label">
+            컬러를<br/>고른 이유
+          </div>
+        </div>
+        <div class="lp-main">
+          <p class="lp-lead">접근성이 따뜻하고 감각적인 것임을 색으로 먼저 말해야 했습니다.</p>
+          <p class="lp-body">
+            차갑고 의료적인 색을 쓰면 브랜드가 '장애 보조'처럼 느껴집니다. Leporem이 원하는 것은 그것이 아닙니다.
+            포용이 특별한 배려가 아니라 당연한 설계임을 전달하려면 브랜드 자체가 따뜻하고 생동감 있어야 했습니다.
+          </p>
+          <div class="lp-swatches">
+            <div class="lp-swatch">
+              <div class="lp-swatch__block" style="background:#F39800;"></div>
+              <div class="lp-swatch__body">
+                <span class="lp-swatch__name">Deep Orange</span>
+                <span class="lp-swatch__hex">#F39800</span>
+                <span class="lp-swatch__desc">따뜻함과 감각적 활기를 담은 메인 컬러로, 접근성이 기능이 아니라 감각임을 전달합니다. 브랜드 전체의 터치포인트에서 일관된 따뜻함으로 작동합니다.</span>
+              </div>
+            </div>
+          </div>
+          <p class="lp-body" style="margin-top:1.5rem;">
+            로고는 점자·곡선·시각 세 가지 모티브의 교차점에서 나왔습니다. 점자는 촉각 접근성을, 곡선은 향기가 공간으로 번져나가는 감각적 움직임을, 시각은 '보지 않아도 알 수 있다'는 역설적 선언을 담습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOCKUP IMAGE -->
+  <div class="lp-imgblock fade-in">
+    <div class="lp-imgblock__bar">
+      <span class="lp-imgblock__name">Mockup Collection</span>
+      <span class="lp-imgblock__rule"></span>
+    </div>
+    <img src="메인 이미지/1. Leporem/르포렘 4p-100.webp" alt="Leporem — Mockup Collection" />
+  </div>
+
+  <!-- 07 OUTCOME -->
+  <section class="lp-section">
+    <div class="lp">
+      <div class="lp-label fade-in">
+        <span class="lp-label__num">07</span>
+        <span class="lp-label__rule"></span>
+        <span class="lp-label__text">Outcome</span>
+      </div>
+      <div class="lp-grid fade-in">
+        <div class="lp-aside">
+          <div class="lp-aside-label">
+            접근성이<br/>미학적 언어가<br/>되는 선례
+          </div>
+        </div>
+        <div class="lp-main">
+          <div class="lp-outcomes">
+            <div class="lp-outcome">
+              <div class="lp-outcome__num">결과 01</div>
+              <div class="lp-outcome__title">통합 접근성 시스템</div>
+              <div class="lp-outcome__desc">점자·NFC·음성 안내가 기능별로 분리되지 않고 하나의 브랜드 시스템 안에서 통합되었습니다.</div>
+            </div>
+            <div class="lp-outcome">
+              <div class="lp-outcome__num">결과 02</div>
+              <div class="lp-outcome__title">포용이 정체성이 되다</div>
+              <div class="lp-outcome__desc">접근성 기능이 브랜드에 '추가된 것'이 아니라 브랜드 아이덴티티의 핵심이 되는 구조를 만들었습니다.</div>
+            </div>
+            <div class="lp-outcome">
+              <div class="lp-outcome__num">결과 03</div>
+              <div class="lp-outcome__title">졸업 포트폴리오 대표작</div>
+              <div class="lp-outcome__desc">사회적 가치와 브랜드 미학을 함께 구현한 사례로, 졸업 포트폴리오 대표 프로젝트로 수록됐습니다.</div>
+            </div>
+          </div>
+          <div class="lp-reflection">
+            <div class="lp-reflection__label">Reflection</div>
+            <p class="lp-reflection__text">
+              포용적 디자인은 별도 카테고리가 아닙니다. 시각장애인을 위한 설계는 향수 경험 자체를 더 정확하게 만듭니다. 접근성을 출발점으로 삼았을 때 브랜드가 다룰 수 있는 언어가 넓어집니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDITS + NAV -->
+  <section class="lp-section">
+    <div class="lp">
+      <div class="lp-credits fade-in">
+        <div class="lp-credits__row">
+          <div class="lp-credits__dt">Project</div>
+          <div class="lp-credits__dd">Leporem</div>
+        </div>
+        <div class="lp-credits__row">
+          <div class="lp-credits__dt">Year</div>
+          <div class="lp-credits__dd">2024</div>
+        </div>
+        <div class="lp-credits__row">
+          <div class="lp-credits__dt">Role</div>
+          <div class="lp-credits__dd">Brand Designer</div>
+        </div>
+        <div class="lp-credits__row">
+          <div class="lp-credits__dt">Tools</div>
+          <div class="lp-credits__dd">Illustrator · Photoshop · Figma</div>
+        </div>
+      </div>
+      <div class="lp-next fade-in">
+        <div>
+          <p class="lp-next__lbl">Previous</p>
+          <a href="neulpureun.html" class="lp-next__link lp-next__link--prev">← 늘푸른</a>
+        </div>
+        <div style="text-align:right;">
+          <p class="lp-next__lbl">Next Project</p>
+          <a href="ikseondong.html" class="lp-next__link lp-next__link--next">
+            청정익선 <span class="lp-next__arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__copy">© 2026 Jang Hoon Min. All rights reserved.</p>
+        <a href="index.html#work" class="footer__back-link">← Back to Work</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

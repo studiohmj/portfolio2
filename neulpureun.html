@@ -1,0 +1,823 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>if(localStorage.getItem('portfolio-theme-v2')==="dark")document.documentElement.classList.add("dark-mode");</script>
+  <title>늘푸른 — Jang Hoon Min</title>
+  <meta name="description" content="늘푸른 — 은퇴 노인을 위한 복합 문화 공간 브랜드 케이스 스터디" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       CASE STUDY: 늘푸른
+       12-col · 80px margin · 24px gutter · Pretendard
+    ═══════════════════════════════════════════════ */
+
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    em { font-family: inherit; font-style: normal; color: inherit; }
+
+    :root {
+      --np:      #2EA7E0;
+      --np-lt:   #E8F5FD;
+      --np-yw:   #F8F399;
+      --np-dk:   #412210;
+      --np-05:   rgba(46, 167, 224, 0.07);
+      --np-10:   rgba(46, 167, 224, 0.13);
+      --np-off:  #F7FAFE;
+      --np-t1:   #111111;
+      --np-t2:   #444444;
+      --np-t3:   #999999;
+      --np-bdr:  #C8E3F0;
+      --np-pad:  80px;
+      --np-gap:  24px;
+      --np-sec:  80px;
+      --np-blk:  40px;
+      --np-el:   16px;
+      --np-font: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+    html.dark-mode {
+      --np-t1:  #FFFFFF;
+      --np-t2:  #D6E8F5;
+      --np-t3:  rgba(255, 255, 255, 0.6);
+      --np-bdr: rgba(255, 255, 255, 0.1);
+      --np-off: #0C1527;
+    }
+    html.dark-mode .np-imgblk__bar { background: var(--np-off); }
+    html.dark-mode .np-value       { background: var(--np-off); }
+
+    /* ── Wrapper ────────────────────────────────── */
+    .np {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-left: var(--np-pad);
+      padding-right: var(--np-pad);
+    }
+
+    /* ── Section ────────────────────────────────── */
+    .np-sec {
+      padding-top: var(--np-sec);
+      padding-bottom: var(--np-sec);
+      border-top: 1px solid var(--np-bdr);
+    }
+    .np-sec--off { background: var(--np-off); }
+
+    /* ── Label ──────────────────────────────────── */
+    .np-lbl {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--np);
+      margin-bottom: var(--np-blk);
+    }
+    .np-lbl__bar { width: 20px; height: 1px; background: var(--np); flex-shrink: 0; }
+    .np-lbl--dark { color: var(--np-t1); }
+    .np-lbl--dark .np-lbl__bar { background: var(--np-t1); }
+
+    /* ── Type ───────────────────────────────────── */
+    .np-h1 {
+      font-size: 36px; font-weight: 700;
+      line-height: 1.28; letter-spacing: -0.025em;
+      color: var(--np-t1);
+    }
+    .np-lead {
+      font-size: 20px; font-weight: 500;
+      line-height: 1.65; letter-spacing: -0.015em;
+      color: var(--np-t1);
+    }
+    .np-body {
+      font-size: 16px; font-weight: 400;
+      line-height: 1.85; color: var(--np-t2);
+    }
+    .np-body + .np-body { margin-top: var(--np-el); }
+    .np-body strong { font-weight: 600; color: var(--np-t1); }
+    .np-body em { font-style: normal; color: var(--np); font-weight: 600; }
+    .np-cap { font-size: 13px; color: var(--np-t3); line-height: 1.6; }
+
+    /* ── Spacing ────────────────────────────────── */
+    .mt-blk { margin-top: var(--np-blk); }
+    .mt-el  { margin-top: var(--np-el); }
+
+    /* ════════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════════ */
+    .np-hero {
+      padding-top: calc(var(--nav-h, 64px) + 80px);
+      padding-bottom: var(--np-sec);
+      border-bottom: 1px solid var(--np-bdr);
+      background: var(--np-off);
+    }
+    .np-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--np-t3);
+      text-decoration: none; margin-bottom: var(--np-blk);
+      transition: color 0.2s;
+    }
+    .np-back:hover { color: var(--np-t1); }
+
+    .np-hero__eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--np); margin-bottom: 32px;
+    }
+    .np-hero__eyebrow-rule { width: 18px; height: 1px; background: var(--np); }
+    .np-hero__eyebrow-yr   { color: var(--np-t3); }
+
+    .np-hero__title {
+      font-size: clamp(56px, 8vw, 96px);
+      font-weight: 800; letter-spacing: -0.045em; line-height: 0.92;
+      color: var(--np); margin-bottom: 28px;
+    }
+    .np-hero__title span { color: inherit; }
+    .np-hero__sub {
+      font-size: 18px; font-weight: 400;
+      line-height: 1.7; color: var(--np-t2); max-width: 560px;
+    }
+
+    .np-meta {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--np-bdr); margin-top: var(--np-blk);
+    }
+    .np-meta__item { padding: 20px 0; }
+    .np-meta__item + .np-meta__item { padding-left: 24px; border-left: 1px solid var(--np-bdr); }
+    .np-meta__dt {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--np-t3); margin-bottom: 8px;
+    }
+    .np-meta__dd { font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--np-t1); }
+
+    /* ════════════════════════════════════════════
+       IMAGES
+    ════════════════════════════════════════════ */
+    .np-cover { width: 100%; line-height: 0; }
+    .np-cover img { display: block; width: 100%; height: auto; }
+
+    .np-imgblk { background: var(--np-off); }
+    .np-imgblk__bar {
+      background: #fff; border-top: 1px solid var(--np-bdr); border-bottom: 1px solid var(--np-bdr);
+    }
+    .np-imgblk__inner {
+      display: flex; align-items: center; gap: 16px;
+      padding-top: 14px; padding-bottom: 14px;
+    }
+    .np-imgblk__name {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--np-t3); white-space: nowrap;
+    }
+    .np-imgblk__rule { flex: 1; height: 1px; background: var(--np-bdr); }
+    .np-imgblk img { display: block; width: 100%; height: auto; }
+
+    /* ════════════════════════════════════════════
+       INSIGHT CALLOUT
+    ════════════════════════════════════════════ */
+    .np-insight {
+      border-left: 3px solid var(--np);
+      padding: 24px 32px;
+      background: var(--np-05);
+      margin-top: var(--np-blk);
+      margin-bottom: var(--np-blk);
+    }
+    .np-insight__txt {
+      font-size: 19px; font-weight: 600;
+      line-height: 1.65; letter-spacing: -0.02em; color: var(--np-t1);
+    }
+    .np-insight__txt em { font-style: normal; color: var(--np); }
+
+    /* ════════════════════════════════════════════
+       OBSERVATION LIST
+    ════════════════════════════════════════════ */
+    .np-obs { margin-top: var(--np-blk); display: flex; flex-direction: column; }
+    .np-ob {
+      padding: 28px 0; border-bottom: 1px solid var(--np-bdr);
+      display: grid; grid-template-columns: 28px 1fr; gap: 20px; align-items: start;
+    }
+    .np-ob:first-child { border-top: 1px solid var(--np-bdr); }
+    .np-ob__n {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--np-t3); padding-top: 2px;
+    }
+    .np-ob__title {
+      font-size: 15px; font-weight: 700; letter-spacing: -0.01em;
+      color: var(--np-t1); margin-bottom: 8px;
+    }
+    .np-ob__body { font-size: 15px; font-weight: 400; line-height: 1.8; color: var(--np-t2); }
+
+    /* ════════════════════════════════════════════
+       SYMBOLS / CONCEPT GRID
+    ════════════════════════════════════════════ */
+    .np-motifs {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: var(--np-blk);
+    }
+    .np-motif {
+      background: var(--np-off);
+      padding: 2rem 1.8rem;
+      border-top: 3px solid var(--np);
+    }
+    .np-motif__num {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--np-t3); margin-bottom: 0.8rem;
+    }
+    .np-motif__name { font-size: 1.05rem; font-weight: 700; color: var(--np-t1); margin-bottom: 0.25rem; }
+    .np-motif__kw { font-size: 0.72rem; font-weight: 700; color: var(--np); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .np-motif__desc { font-size: 0.85rem; color: var(--np-t2); line-height: 1.75; }
+
+    /* ════════════════════════════════════════════
+       SPACE VALUES GRID (3-col)
+    ════════════════════════════════════════════ */
+    .np-values {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: var(--np-blk);
+    }
+    .np-value {
+      background: #fff; padding: 2rem 1.8rem;
+      border-top: 1px solid var(--np-bdr);
+    }
+    .np-value__num {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--np); margin-bottom: 0.8rem;
+    }
+    .np-value__name { font-size: 1rem; font-weight: 700; color: var(--np-t1); margin-bottom: 0.5rem; }
+    .np-value__desc { font-size: 0.875rem; color: var(--np-t2); line-height: 1.75; }
+
+    /* ════════════════════════════════════════════
+       COLOR SWATCHES
+    ════════════════════════════════════════════ */
+    .np-swatches { display: flex; gap: 2px; margin-top: var(--np-blk); }
+    .np-sw {
+      flex: 1; min-height: 80px; display: flex; align-items: flex-end;
+      padding: 0.75rem 1rem;
+    }
+    .np-sw__label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em; }
+
+    .np-color-notes {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 2px; margin-top: 2px;
+    }
+    .np-cn {
+      background: var(--np-off); padding: 1.5rem 1.8rem;
+    }
+    .np-cn__dot {
+      width: 10px; height: 10px; border-radius: 50%; margin-bottom: 0.8rem;
+    }
+    .np-cn__name { font-size: 0.9rem; font-weight: 700; color: var(--np-t1); margin-bottom: 0.3rem; }
+    .np-cn__why  { font-size: 0.82rem; color: var(--np-t2); line-height: 1.7; }
+
+    /* ════════════════════════════════════════════
+       OUTCOMES
+    ════════════════════════════════════════════ */
+    .np-outcomes {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: var(--np-blk);
+    }
+    .np-outcome {
+      background: var(--np-off); padding: 2rem 1.6rem;
+    }
+    .np-outcome__icon {
+      font-size: 1.3rem; font-weight: 600; color: var(--np); margin-bottom: 0.8rem; display: block;
+    }
+    .np-outcome__title { font-size: 0.95rem; font-weight: 700; color: var(--np-t1); margin-bottom: 0.4rem; }
+    .np-outcome__desc  { font-size: 0.82rem; color: var(--np-t2); line-height: 1.7; }
+
+    /* ════════════════════════════════════════════
+       REFLECTION
+    ════════════════════════════════════════════ */
+    .np-reflection {
+      background: var(--np-dk); padding: 64px var(--np-pad); text-align: left;
+    }
+    .np-reflection__lbl {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 28px;
+    }
+    .np-reflection__txt {
+      font-size: clamp(22px, 3vw, 32px); font-weight: 600;
+      line-height: 1.6; letter-spacing: -0.025em; color: #fff; max-width: 720px;
+    }
+    .np-reflection__txt em { font-style: normal; color: rgba(248,243,153,0.8); }
+    .np-reflection__note {
+      font-size: 14px; font-weight: 400; line-height: 1.8;
+      color: rgba(255,255,255,0.45); margin-top: 24px; max-width: 560px;
+    }
+
+    /* ════════════════════════════════════════════
+       CREDITS + NEXT
+    ════════════════════════════════════════════ */
+    .np-credits {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--np-bdr);
+    }
+    .np-cred { padding: 24px 0; }
+    .np-cred + .np-cred { padding-left: 24px; border-left: 1px solid var(--np-bdr); }
+    .np-cred__dt {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--np-t3); margin-bottom: 8px;
+    }
+    .np-cred__dd { font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--np-t1); }
+    .np-next {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-top: 56px; border-top: 1px solid var(--np-bdr); padding-top: 28px;
+    }
+    .np-next__lbl {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--np-t3); margin-bottom: 12px;
+    }
+    .np-next__link {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-weight: 700; letter-spacing: -0.025em; text-decoration: none; transition: color 0.2s;
+    }
+    .np-next__link--prev { font-size: 20px; color: var(--np-t3); }
+    .np-next__link--prev:hover { color: var(--np-t1); }
+    .np-next__link--next { font-size: 28px; color: var(--np-t1); }
+    .np-next__link--next:hover { color: var(--np); }
+    .np-next__arrow { transition: transform 0.2s; }
+    .np-next__link--next:hover .np-next__arrow { transform: translateX(5px); }
+
+    /* ════════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      :root { --np-pad: 48px; }
+      .np-color-notes { grid-template-columns: 1fr; }
+      .np-motifs      { grid-template-columns: 1fr 1fr; }
+      .np-values      { grid-template-columns: 1fr 1fr; }
+      .np-outcomes    { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      :root { --np-pad: 24px; --np-sec: 56px; --np-blk: 32px; }
+      .np-hero { padding-top: calc(var(--nav-h, 64px) + 2.5rem); }
+      .np-hero__title { font-size: clamp(44px, 14vw, 72px); }
+      .np-meta        { grid-template-columns: 1fr 1fr; }
+      .np-meta__item:nth-child(3) { border-left: none; padding-left: 0; }
+      .np-motifs      { grid-template-columns: 1fr; }
+      .np-values      { grid-template-columns: 1fr; }
+      .np-outcomes    { grid-template-columns: 1fr; }
+      .np-credits     { grid-template-columns: 1fr 1fr; gap: 1px; background: var(--np-bdr); }
+      .np-cred        { padding: 18px; }
+      .np-cred + .np-cred { border-left: none; }
+      .np-reflection  { padding: 40px 24px; }
+      .np-reflection__txt { font-size: 20px; }
+      .np-swatches    { flex-direction: column; }
+      .np-next__link--next { font-size: 20px; }
+      .np-insight     { padding: 20px 24px; }
+      .np-insight__txt { font-size: 17px; }
+      .np-color-notes { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow" aria-hidden="true"></div>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav__logo">
+      Jang Hoon Min
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#awards">Awards &amp; Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="theme-toggle__icon">☽</span>
+    </button>
+    <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="proj-pager">
+    <a href="hangyeol.html" class="proj-pager__link">← Hangyeol</a>
+    <a href="index.html#work" class="proj-pager__all">All Work</a>
+    <a href="leporem.html" class="proj-pager__link">Leporem →</a>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html#about"  class="mobile-link">About</a></li>
+      <li><a href="profile.html"      class="mobile-link">Profile</a></li>
+      <li><a href="index.html#work"   class="mobile-link">Work</a></li>
+      <li><a href="index.html#awards" class="mobile-link">Awards &amp; Projects</a></li>
+      <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════ -->
+  <header class="np-hero">
+    <div class="np">
+      <a href="hangyeol.html" class="np-back">← Hangyeol</a>
+
+      <div class="np-hero__eyebrow">
+        <span class="np-hero__eyebrow-rule"></span>
+        <span>Branding Design</span>
+        <span class="np-hero__eyebrow-yr">·&ensp;2024</span>
+      </div>
+
+      <h1 class="np-hero__title">
+        늘<span>푸른</span>
+      </h1>
+      <p class="np-hero__sub">
+        은퇴 노인을 위한<br />
+        복합 문화 공간 브랜드
+      </p>
+
+      <div class="np-meta">
+        <div class="np-meta__item">
+          <p class="np-meta__dt">Role</p>
+          <p class="np-meta__dd">Brand Designer</p>
+        </div>
+        <div class="np-meta__item">
+          <p class="np-meta__dt">Client</p>
+          <p class="np-meta__dd">Academic Project</p>
+        </div>
+        <div class="np-meta__item">
+          <p class="np-meta__dt">Year</p>
+          <p class="np-meta__dd">2024</p>
+        </div>
+        <div class="np-meta__item">
+          <p class="np-meta__dt">Scope</p>
+          <p class="np-meta__dd">Logo · Identity · Collateral</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cover -->
+  <div class="np-cover">
+    <img src="메인 이미지/8. 늘푸른/늘푸른 (1).webp" alt="늘푸른 — main visual" />
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       01 BACKGROUND
+  ════════════════════════════════════════════ -->
+  <section class="np-sec">
+    <div class="np">
+      <div class="np-lbl"><span class="np-lbl__bar"></span>01 · Background</div>
+
+      <p class="np-lead">
+        은퇴 후 60%가 '나는 외롭다'고 말합니다.<br />
+        그들에게 필요한 것은 공간이었습니다.
+      </p>
+
+      <p class="np-body mt-blk">
+        은퇴는 삶의 끝이 아니지만, 많은 노인들에게 그렇게 느껴집니다.
+        일이 사라지면 일상의 구조도 함께 무너집니다.
+        <strong>갈 곳이 없고, 만날 사람이 없고, 하고 싶은 것도 어디서 해야 할지 모릅니다.</strong>
+        기존 노인 복지관은 접근성과 프로그램 모두 한계가 있었습니다.
+        늘푸른은 거기서 출발했습니다.
+      </p>
+
+      <div class="np-insight">
+        <p class="np-insight__txt">
+          가고 싶은 곳이 없는 게 아니었습니다.<br />
+          <em>갈 수 있는 공간</em>이 없었던 것입니다.
+        </p>
+      </div>
+
+      <div class="np-obs">
+        <div class="np-ob">
+          <span class="np-ob__n">01</span>
+          <div>
+            <p class="np-ob__title">디지털 기술이 진입 장벽이 됩니다</p>
+            <p class="np-ob__body">
+              문화 프로그램의 상당수가 온라인 예약과 앱 기반으로 운영됩니다.
+              스마트폰에 익숙하지 않은 노인들은 시작 전부터 막힙니다.
+              기술이 문화 접근성의 장벽이 되어서는 안 됩니다.
+            </p>
+          </div>
+        </div>
+        <div class="np-ob">
+          <span class="np-ob__n">02</span>
+          <div>
+            <p class="np-ob__title">고정 수입으로는 비용이 부담됩니다</p>
+            <p class="np-ob__body">
+              은퇴 후 소득이 줄어든 상황에서 문화 활동 비용은 부담이 됩니다.
+              취미와 배움을 포기하는 것이 가장 먼저 일어나는 일입니다.
+              가격 구조를 접근 가능하게 두는 것이 전제였습니다.
+            </p>
+          </div>
+        </div>
+        <div class="np-ob">
+          <span class="np-ob__n">03</span>
+          <div>
+            <p class="np-ob__title">연결할 커뮤니티 공간이 없습니다</p>
+            <p class="np-ob__body">
+              같은 관심사를 가진 사람을 만날 기회 자체가 없습니다.
+              아파트 단지와 동네 카페 사이 어딘가, 자연스럽게 모일 수 있는 장소가 필요합니다.
+              공간이 커뮤니티를 만듭니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Identity Image -->
+  <div class="np-imgblk">
+    <div class="np-imgblk__bar">
+      <div class="np">
+        <div class="np-imgblk__inner">
+          <span class="np-imgblk__name">Identity System</span>
+          <span class="np-imgblk__rule"></span>
+        </div>
+      </div>
+    </div>
+    <div class="np">
+      <img src="메인 이미지/8. 늘푸른/늘푸른 (2).webp" alt="늘푸른 — identity system" />
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       02 CONCEPT
+  ════════════════════════════════════════════ -->
+  <section class="np-sec np-sec--off">
+    <div class="np">
+      <div class="np-lbl"><span class="np-lbl__bar"></span>02 · Concept</div>
+
+      <p class="np-lead">
+        파랑새는 항상 가까운 곳에 있었습니다.<br />
+        행복도 그렇습니다.
+      </p>
+
+      <p class="np-body mt-blk">
+        마테를링크의 파랑새 이야기에서, 행복을 찾아 먼 길을 떠났던 아이들은 결국 집에서 그것을 발견합니다.
+        <strong>늘푸른이 은퇴 이후의 삶에 대입한 이야기가 이것입니다.</strong>
+        멀리 갈 필요 없습니다. 익숙한 동네 안에서 다시 시작할 수 있습니다.
+      </p>
+
+      <div class="np-motifs">
+        <div class="np-motif">
+          <p class="np-motif__num">모티브 01</p>
+          <p class="np-motif__name">파랑새</p>
+          <p class="np-motif__kw">연결 · Connection</p>
+          <p class="np-motif__desc">
+            행복과 좋은 인연의 상징입니다.
+            멀리 있지 않고 일상 속 가까운 곳에 있습니다.
+            늘푸른이 그 행복의 파랑새가 되는 장소입니다.
+          </p>
+        </div>
+        <div class="np-motif">
+          <p class="np-motif__num">모티브 02</p>
+          <p class="np-motif__name">나비</p>
+          <p class="np-motif__kw">변화 · Transformation</p>
+          <p class="np-motif__desc">
+            순수한 영혼과 아름다운 변화의 상징입니다.
+            늦지 않은 변화, 은퇴 후의 새로운 자아 발견을
+            나비의 탈바꿈으로 표현했습니다.
+          </p>
+        </div>
+        <div class="np-motif">
+          <p class="np-motif__num">모티브 03</p>
+          <p class="np-motif__name">새싹</p>
+          <p class="np-motif__kw">시작 · New Life</p>
+          <p class="np-motif__desc">
+            새로운 삶의 출발점입니다.
+            은퇴가 끝이 아니라 또 다른 성장의 시작임을 상징합니다.
+            작고 단단한 씨앗 하나에서 모든 것이 시작됩니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="np-values">
+        <div class="np-value">
+          <p class="np-value__num">가치 01</p>
+          <p class="np-value__name">문화적 접근성</p>
+          <p class="np-value__desc">
+            기술 없이도, 돈이 많지 않아도 드나들 수 있는 열린 공간입니다.
+          </p>
+        </div>
+        <div class="np-value">
+          <p class="np-value__num">가치 02</p>
+          <p class="np-value__name">커뮤니티</p>
+          <p class="np-value__desc">
+            같은 관심사를 가진 사람들과 자연스럽게 연결됩니다.
+            프로그램을 통해 만나고, 시간을 나누고, 관계가 시작되는 곳입니다.
+          </p>
+        </div>
+        <div class="np-value">
+          <p class="np-value__num">가치 03</p>
+          <p class="np-value__name">지속적 성장</p>
+          <p class="np-value__desc">
+            은퇴 이후에도 배우고 나누는 삶이 계속됩니다. 늘푸른은 그 공간입니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Collateral Image -->
+  <div class="np-imgblk">
+    <div class="np-imgblk__bar">
+      <div class="np">
+        <div class="np-imgblk__inner">
+          <span class="np-imgblk__name">Brand Collateral</span>
+          <span class="np-imgblk__rule"></span>
+        </div>
+      </div>
+    </div>
+    <div class="np">
+      <img src="메인 이미지/8. 늘푸른/늘푸른 (3).webp" alt="늘푸른 — brand collateral" />
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       03 VISUAL SYSTEM
+  ════════════════════════════════════════════ -->
+  <section class="np-sec">
+    <div class="np">
+      <div class="np-lbl"><span class="np-lbl__bar"></span>03 · Visual System</div>
+
+      <p class="np-lead">
+        파랑새의 색과 따뜻한 햇빛,<br />
+        그리고 대지의 안정감.
+      </p>
+
+      <p class="np-body mt-blk">
+        Sky Blue(#2EA7E0)는 열린 하늘과 파랑새 동화의 색입니다.
+        희망과 가능성, 그리고 가볍고 자유로운 감각을 담습니다.
+        Yellow(#F8F399)는 햇빛의 온기, 설레는 아침과 새로운 하루의 시작을 나타냅니다.
+        Dark Brown(#412210)은 오래된 나무와 대지의 색입니다.
+        세월이 주는 깊이와 안정감을 브랜드에 더합니다.
+        세 색이 함께 있을 때 늘푸른다운 온도가 완성됩니다.
+      </p>
+
+      <div class="np-swatches">
+        <div class="np-sw" style="background:#2EA7E0;">
+          <span class="np-sw__label" style="color:rgba(255,255,255,0.9);">#2EA7E0 — Sky Blue</span>
+        </div>
+        <div class="np-sw" style="background:#F8F399; border:1px solid rgba(0,0,0,0.06);">
+          <span class="np-sw__label" style="color:#412210;">#F8F399 — Yellow</span>
+        </div>
+        <div class="np-sw" style="background:#412210;">
+          <span class="np-sw__label" style="color:rgba(255,255,255,0.9);">#412210 — Dark Brown</span>
+        </div>
+        <div class="np-sw" style="background:#111111;">
+          <span class="np-sw__label" style="color:rgba(255,255,255,0.7);">#111111 — Dark</span>
+        </div>
+        <div class="np-sw" style="background:#F7FAFE; border:1px solid rgba(0,0,0,0.06);">
+          <span class="np-sw__label" style="color:#999;">#F7FAFE — Off White</span>
+        </div>
+      </div>
+
+      <div class="np-color-notes">
+        <div class="np-cn">
+          <div class="np-cn__dot" style="background:#2EA7E0;"></div>
+          <p class="np-cn__name">Sky Blue #2EA7E0</p>
+          <p class="np-cn__why">
+            파랑새 동화에서 출발한 브랜드 컬러입니다.
+            열린 하늘처럼 가능성과 자유를 상징합니다.
+            복지관의 무거운 이미지 대신, 경쾌하고 열린 문화 공간의 인상을 만듭니다.
+          </p>
+        </div>
+        <div class="np-cn">
+          <div class="np-cn__dot" style="background:#F8F399;"></div>
+          <p class="np-cn__name">Yellow #F8F399</p>
+          <p class="np-cn__why">
+            햇빛과 설레는 아침의 색입니다.
+            Sky Blue와 함께 쓰일 때 대비가 생기며 활기찬 에너지를 만듭니다.
+            은퇴 이후에도 하루를 기대하게 만드는 감각을 색으로 담았습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mockup Image -->
+  <div class="np-imgblk">
+    <div class="np-imgblk__bar">
+      <div class="np">
+        <div class="np-imgblk__inner">
+          <span class="np-imgblk__name">Mockup Collection</span>
+          <span class="np-imgblk__rule"></span>
+        </div>
+      </div>
+    </div>
+    <img src="메인 이미지/8. 늘푸른/늘푸른 (4).webp" alt="늘푸른 — mockup collection" />
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       04 OUTCOME
+  ════════════════════════════════════════════ -->
+  <section class="np-sec np-sec--off">
+    <div class="np">
+      <div class="np-lbl"><span class="np-lbl__bar"></span>04 · Outcome</div>
+
+      <p class="np-lead">
+        공간에서 일상으로.
+      </p>
+
+      <p class="np-body mt-blk">
+        늘푸른의 아이덴티티는 공간 안에만 머물지 않습니다.
+        포스터는 동네 골목에, 팸플릿은 손에, CD 커버는 집 선반 위에 놓입니다.
+        <strong>일상의 물건들이 브랜드를 기억하게 만드는 것</strong>이 전략입니다.
+        보고, 만지고, 들으며 늘푸른을 경험합니다.
+      </p>
+
+      <div class="np-outcomes">
+        <div class="np-outcome">
+          <span class="np-outcome__icon">◎</span>
+          <p class="np-outcome__title">웹사이트</p>
+          <p class="np-outcome__desc">공간 소개, 프로그램 안내, 예약까지. 기술 장벽 없는 직관적 UI로 설계.</p>
+        </div>
+        <div class="np-outcome">
+          <span class="np-outcome__icon">▤</span>
+          <p class="np-outcome__title">포스터</p>
+          <p class="np-outcome__desc">동네 골목과 지역 커뮤니티 공간에 붙는 접점. 브랜드가 먼저 찾아가는 방식.</p>
+        </div>
+        <div class="np-outcome">
+          <span class="np-outcome__icon">▭</span>
+          <p class="np-outcome__title">팸플릿</p>
+          <p class="np-outcome__desc">프로그램 안내와 공간 스토리. 손에 쥐고 집에 가져가는 물리적 경험.</p>
+        </div>
+        <div class="np-outcome">
+          <span class="np-outcome__icon">●</span>
+          <p class="np-outcome__title">CD 커버</p>
+          <p class="np-outcome__desc">공간 내 음악 프로그램의 결과물. 참여자가 기억으로 가져가는 아카이브.</p>
+        </div>
+        <div class="np-outcome">
+          <span class="np-outcome__icon">✦</span>
+          <p class="np-outcome__title">로고 시스템</p>
+          <p class="np-outcome__desc">파랑새·나비·새싹이 결합된 아이덴티티. 다양한 매체에서 일관되게 작동.</p>
+        </div>
+        <div class="np-outcome">
+          <span class="np-outcome__icon">☰</span>
+          <p class="np-outcome__title">브랜드 가이드</p>
+          <p class="np-outcome__desc">컬러·타이포그래피·적용 원칙. 늘푸른다움이 지속되는 기준을 만들었습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       REFLECTION
+  ════════════════════════════════════════════ -->
+  <div class="np-reflection">
+    <div class="np">
+      <p class="np-reflection__lbl">Design Reflection</p>
+      <p class="np-reflection__txt">
+        파랑새는 처음부터 가까이 있었습니다.<br />
+        <em>은퇴 후의 삶도 그렇습니다.</em>
+      </p>
+      <p class="np-reflection__note">
+        노인을 위한 공간은 흔히 무겁고 기관처럼 느껴집니다.
+        늘푸른은 그 반대편에서 시작했습니다. 가볍고, 따뜻하고, 기대되는 공간.
+        그 감각을 브랜드로 만드는 것이 목표였습니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       CREDITS
+  ════════════════════════════════════════════ -->
+  <section class="np-sec">
+    <div class="np">
+      <div class="np-credits">
+        <div class="np-cred"><p class="np-cred__dt">Project</p><p class="np-cred__dd">늘푸른</p></div>
+        <div class="np-cred"><p class="np-cred__dt">Year</p><p class="np-cred__dd">2024</p></div>
+        <div class="np-cred"><p class="np-cred__dt">Role</p><p class="np-cred__dd">Brand Designer</p></div>
+        <div class="np-cred"><p class="np-cred__dt">Tools</p><p class="np-cred__dd">Illustrator · Photoshop</p></div>
+      </div>
+
+      <div class="np-next">
+        <div>
+          <p class="np-next__lbl">Previous</p>
+          <a href="hangyeol.html" class="np-next__link np-next__link--prev">← 한결</a>
+        </div>
+        <div style="text-align:right;">
+          <p class="np-next__lbl">Next Project</p>
+          <a href="leporem.html" class="np-next__link np-next__link--next">
+            Leporem <span class="np-next__arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__copy">© 2026 Jang Hoon Min. All rights reserved.</p>
+        <a href="index.html#work" class="footer__back-link">← Back to Work</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
