@@ -1,0 +1,156 @@
+/* ==========================================================================
+   detail.css — detail pages and profile.html. Loaded last, after
+   css/detail-base.css and css/pages.css, so it can re-tone the shared
+   parts without touching any case-study layout: tokens, type, the pager.
+   Nav, menu and footer come from css/core.css. Dark is the default
+   (html.dark-mode unless "light" is stored).
+   Project accent colours (--lp, --es, …) are left alone.
+   ========================================================================== */
+
+/* Shared colours = the SPEC.md §3 paper / ink set from css/core.css */
+:root {
+  --bg:           #F4F3EF;
+  --bg-alt:       #EAE8E3;
+  --surface:      #FAF9F6;
+  --text:         #111111;
+  --text-soft:    #4A4D46;      /* DESIGN --c-body */
+  --t1:           #111111;      /* --c-ink */
+  --t2:           #4A4D46;      /* --c-body */
+  --t3:           #6A6862;      /* --c-muted */
+  --primary:      #2B4BFF;
+  --primary-soft: #5B76FF;
+  --accent:       #2B4BFF;
+  --line:         rgba(17, 17, 17, 0.12);
+  --border:       rgba(17, 17, 17, 0.12);
+  --border-mid:   rgba(17, 17, 17, 0.2);
+  --accent-dim:   rgba(43, 75, 255, 0.08);
+  --accent-mid:   rgba(43, 75, 255, 0.16);
+  --accent-light: #E6E8F6;
+  --font:         'Inter', 'Pretendard Variable', Pretendard, system-ui, sans-serif;   /* DESIGN §2 families */
+
+  --sd-focus:      #2B4BFF;
+  color-scheme: light;
+}
+
+html.dark-mode {
+  --bg:           #0E0E0F;
+  --bg-alt:       #151517;
+  --surface:      #18181A;
+  --text:         #F4F3EF;
+  --text-soft:    #C9C7C1;      /* DESIGN --c-body (dark) */
+  --t1:           #F4F3EF;      /* --c-ink */
+  --t2:           #C9C7C1;      /* --c-body */
+  --t3:           #9A9891;      /* --c-muted */
+  --primary:      #5B76FF;
+  --primary-soft: #8597FF;
+  --accent:       #5B76FF;
+  --line:         rgba(244, 243, 239, 0.14);
+  --border:       rgba(244, 243, 239, 0.14);
+  --border-mid:   rgba(244, 243, 239, 0.22);
+  --accent-dim:   rgba(91, 118, 255, 0.12);
+  --accent-mid:   rgba(91, 118, 255, 0.22);
+  --accent-light: #191B2A;
+
+  --sd-focus:      #5B76FF;
+  color: #F4F3EF;
+  color-scheme: dark;
+}
+
+/* ---------- Type ---------- */
+html body {
+  font-family: var(--font);
+  background-color: var(--bg);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+body h1[class] {
+  font-family: var(--font);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+body h2, body h3 { text-wrap: balance; }
+
+/* ---------- Prev / All / Next pager: a slim solid pill under the nav ---------- */
+.proj-pager,
+html.dark-mode .proj-pager {
+  top: 72px;
+  width: min(640px, calc(100% - 32px));
+  height: 36px;
+  margin: 0 auto -36px;   /* floats; the hero runs up under it, no empty band */
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+.proj-pager__link,
+.proj-pager__all { font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.08em; color: var(--t2); }
+.proj-pager__link:hover,
+.proj-pager__all:hover { color: var(--t1); }
+/* Phones: the Label step (12px) with long project names needs tighter tracking to fit three items */
+@media (max-width: 480px) {
+  .proj-pager, html.dark-mode .proj-pager { padding: 0 14px; }
+  .proj-pager__link, .proj-pager__all { letter-spacing: 0.06em; }
+}
+
+/* Mobile: the hero (first block after the menu) clears nav + pager */
+@media (max-width: 768px) { .proj-pager ~ #mobileMenu + * { padding-top: 140px; } }
+
+/* ---------- Mobile: hero meta rows wrap instead of running off-screen ---------- */
+@media (max-width: 760px) {
+  .bl-hero__dl,
+  .bs-hero__dl,
+  .iw-hero__dl,
+  .nunchi-meta,
+  .es-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+  .bl-hero__dl > div,
+  .bs-hero__dl > div,
+  .iw-hero__dl > div,
+  .nunchi-meta > div,
+  .es-meta > .es-meta__item {
+    min-width: 0;
+    padding: 1rem 1rem 1rem 0;
+    border-left: 0;
+    margin-right: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .bl-hero__dl > div + div,
+  .bs-hero__dl > div + div,
+  .iw-hero__dl > div + div,
+  .nunchi-meta > div + div,
+  .es-meta > .es-meta__item + .es-meta__item { border-left: 0; padding-left: 0; margin-left: 0; }
+  .bl-hero__dl dd,
+  .bs-hero__dl dd,
+  .iw-hero__dl dd,
+  .nunchi-meta dd,
+  .es-meta dd { overflow-wrap: anywhere; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fade-in { transition: opacity 0.2s linear !important; transform: none !important; }
+}
+
+/* ---------- Contrast: small brand-coloured labels on dark (dark is now the default) ---------- */
+html.dark-mode .es-hero__eyebrow span,
+html.dark-mode .es-lbl,
+html.dark-mode .es-feature__kw { color: #A78BFA; }
+/* Reflection blocks sit on each project's deep brand colour in both themes */
+.es-reflection__lbl, .es-reflection__note,
+.fc-reflection__lbl, .fc-reflection__note,
+.hg-reflection__lbl, .hg-reflection__note,
+.np-reflection__lbl, .np-reflection__note { color: rgba(255, 255, 255, 0.82); }
+
+/* ---------- Colour-chip labels: ink picked for the chip, not the theme ---------- */
+.ink-dark     { color: rgba(10, 11, 20, 0.88); }
+.ink-dark-2   { color: rgba(10, 11, 20, 0.66); }
+.ink-light    { color: #FFFFFF; }
+.ink-light-2  { color: rgba(255, 255, 255, 0.82); }
+.ink-auto     { color: var(--t1); }      /* translucent chips sit on the page, so they follow it */
+.ink-auto-2   { color: var(--t2); }

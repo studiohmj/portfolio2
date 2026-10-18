@@ -1,353 +1,61 @@
 ﻿<!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-page="leporem">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>if(localStorage.getItem('portfolio-theme-v2')==="dark")document.documentElement.classList.add("dark-mode");</script>
+  <meta name="theme-color" content="#F4F3EF" />
+  <script>(function(){var l=true;try{l=localStorage.getItem('portfolio-theme-v2')!=='dark'}catch(e){}document.documentElement.classList.add(l?'light':'dark-mode')})()</script>
   <title>Leporem — Jang Hoon Min</title>
   <meta name="description" content="Leporem — 시각장애인을 위한 향수 브랜드 아이덴티티" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    em { font-family: inherit; font-style: normal; color: inherit; }
-
-    /* ── Brand tokens ─────────────────────────── */
-    :root {
-      --lp: #F39800;
-      --lp-dim: rgba(243,152,0,0.08);
-    }
-
-    /* ── Container ────────────────────────────── */
-    .lp { max-width: 1280px; margin: 0 auto; padding: 0 80px; }
-
-    /* ── Hero ─────────────────────────────────── */
-    .lp-hero {
-      padding-top: calc(var(--nav-h, 64px) + 5rem);
-      padding-bottom: 5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .lp-back {
-      display: inline-flex; align-items: center; gap: .5rem;
-      font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--t3); margin-bottom: 4rem;
-      transition: color .2s;
-    }
-    .lp-back:hover { color: var(--lp); }
-    .lp-eyebrow {
-      display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem;
-    }
-    .lp-eyebrow__cat {
-      font-size: .65rem; font-weight: 700; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--lp);
-    }
-    .lp-eyebrow__rule { width: 28px; height: 1px; background: var(--border-mid); }
-    .lp-eyebrow__year { font-size: .65rem; color: var(--t3); letter-spacing: .1em; }
-    .lp-h1 {
-      font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 900;
-      letter-spacing: -.055em; line-height: .9; color: var(--lp);
-      margin-bottom: 1.25rem;
-    }
-    .lp-tagline {
-      font-size: clamp(.9rem, 1.3vw, 1.05rem); color: var(--t2);
-      line-height: 1.8; max-width: 520px; margin-bottom: 3.5rem;
-    }
-    .lp-meta {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--border);
-    }
-    .lp-meta__item { padding: 1.25rem 1.5rem 1.25rem 0; }
-    .lp-meta__item + .lp-meta__item {
-      border-left: 1px solid var(--border); padding-left: 1.5rem;
-    }
-    .lp-meta__dt {
-      font-size: .56rem; font-weight: 700; letter-spacing: .22em;
-      text-transform: uppercase; color: var(--t3); margin-bottom: .4rem;
-    }
-    .lp-meta__dd { font-size: .875rem; font-weight: 500; color: var(--t1); }
-
-    /* ── Cover image ──────────────────────────── */
-    .lp-cover { width: 100%; line-height: 0; background: var(--bg-alt); }
-    .lp-cover img { width: 100%; height: auto; display: block; }
-
-    /* ── Section base ─────────────────────────── */
-    .lp-section {
-      padding: clamp(4rem, 6vw, 6rem) 0;
-      border-top: 1px solid var(--border);
-    }
-    .lp-section--alt { background: var(--bg-alt); }
-
-    /* ── Section label ────────────────────────── */
-    .lp-label {
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 3.5rem;
-    }
-    .lp-label__num {
-      font-size: .58rem; font-weight: 700; letter-spacing: .18em;
-      color: var(--lp); font-variant-numeric: tabular-nums;
-    }
-    .lp-label__rule { width: 24px; height: 1.5px; background: var(--lp); flex-shrink: 0; }
-    .lp-label__text {
-      font-size: .6rem; font-weight: 700; letter-spacing: .22em;
-      text-transform: uppercase; color: var(--t3);
-    }
-
-    /* ── 12-col grid ─────────────────────────── */
-    .lp-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
-    }
-    .lp-aside { grid-column: 1 / 4; }
-    .lp-main  { grid-column: 4 / 13; }
-    .lp-wide  { grid-column: 1 / 13; }
-    .lp-half  { grid-column: span 6; }
-
-    /* ── Aside label block ────────────────────── */
-    .lp-aside-label {
-      font-size: .72rem; font-weight: 700; color: var(--t3);
-      line-height: 1.8; border-top: 1.5px solid var(--lp);
-      padding-top: .75rem;
-    }
-
-    /* ── Body text ────────────────────────────── */
-    .lp-lead {
-      font-size: clamp(1rem, 1.6vw, 1.2rem); font-weight: 600;
-      color: var(--t1); line-height: 1.65; letter-spacing: -.02em;
-      margin-bottom: 1.5rem;
-    }
-    .lp-body {
-      font-size: clamp(.88rem, 1.15vw, 1rem); color: var(--t1);
-      line-height: 1.95; margin-bottom: 1.25rem;
-    }
-    .lp-body:last-child { margin-bottom: 0; }
-    .lp-body strong { color: var(--lp); font-weight: 600; }
-
-    /* ── Observation list ─────────────────────── */
-    .lp-obs { display: flex; flex-direction: column; gap: .75rem; margin: 2rem 0; }
-    .lp-obs__item {
-      display: grid; grid-template-columns: 20px 1fr; gap: 1rem;
-      padding: 1rem 1.25rem; background: var(--lp-dim); border-left: 2px solid var(--lp);
-    }
-    .lp-obs__num {
-      font-size: .6rem; font-weight: 700; color: var(--lp);
-      padding-top: 3px; font-variant-numeric: tabular-nums;
-    }
-    .lp-obs__text { font-size: .9rem; color: var(--t1); line-height: 1.7; }
-
-    /* ── Insight callout ──────────────────────── */
-    .lp-insight {
-      border: 1.5px solid var(--lp); padding: 1.75rem 2rem;
-      margin: 2.5rem 0;
-    }
-    .lp-insight__label {
-      font-size: .56rem; font-weight: 700; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--lp); margin-bottom: .75rem;
-    }
-    .lp-insight__text {
-      font-size: 1.05rem; font-weight: 700; color: var(--t1);
-      line-height: 1.6; letter-spacing: -.02em;
-    }
-
-    /* ── WHY tag ──────────────────────────────── */
-    .lp-decision { margin-bottom: 2.5rem; }
-    .lp-decision__title {
-      font-size: 1rem; font-weight: 700; color: var(--t1);
-      letter-spacing: -.02em; margin-bottom: .5rem;
-    }
-    .lp-decision__body {
-      font-size: .9rem; color: var(--t2); line-height: 1.8;
-      margin-bottom: .75rem;
-    }
-    .lp-why {
-      display: inline-flex; align-items: flex-start; gap: .6rem;
-      background: var(--lp-dim); padding: .75rem 1rem;
-      border-left: 2px solid var(--lp);
-    }
-    .lp-why__tag {
-      font-size: .52rem; font-weight: 700; letter-spacing: .16em;
-      text-transform: uppercase; color: var(--lp); padding-top: 3px;
-      white-space: nowrap;
-    }
-    .lp-why__text { font-size: .83rem; color: var(--t1); line-height: 1.7; }
-
-    /* ── Feature grid ─────────────────────────── */
-    .lp-features {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border); margin-top: 2.5rem;
-    }
-    .lp-feature {
-      background: var(--bg); padding: 2rem 1.75rem;
-      display: flex; flex-direction: column; gap: .6rem;
-    }
-    .lp-feature__num {
-      font-size: .58rem; font-weight: 700; letter-spacing: .18em;
-      color: var(--lp);
-    }
-    .lp-feature__title {
-      font-size: 1rem; font-weight: 700; color: var(--t1);
-      letter-spacing: -.02em;
-    }
-    .lp-feature__desc { font-size: .85rem; color: var(--t2); line-height: 1.78; }
-
-    /* ── Color swatch ─────────────────────────── */
-    .lp-swatches { display: flex; flex-direction: column; gap: 1px; margin-top: 2rem; }
-    .lp-swatch {
-      display: flex; align-items: stretch;
-      border: 1px solid var(--border); overflow: hidden;
-    }
-    .lp-swatch__block { width: 96px; flex-shrink: 0; }
-    .lp-swatch__body {
-      padding: 1.25rem 1.75rem;
-      display: flex; flex-direction: column; justify-content: center; gap: .2rem;
-    }
-    .lp-swatch__name { font-size: .9rem; font-weight: 700; color: var(--t1); }
-    .lp-swatch__hex { font-size: .65rem; color: var(--t3); letter-spacing: .1em; margin-bottom: .35rem; }
-    .lp-swatch__desc { font-size: .83rem; color: var(--t2); line-height: 1.65; max-width: 420px; }
-
-    /* ── Outcome cards ────────────────────────── */
-    .lp-outcomes {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border); margin-bottom: 2.5rem;
-    }
-    .lp-outcome {
-      background: var(--bg); padding: 2rem 1.75rem;
-    }
-    .lp-outcome__num {
-      font-size: .6rem; font-weight: 700; letter-spacing: .18em;
-      color: var(--lp); margin-bottom: .75rem;
-    }
-    .lp-outcome__title {
-      font-size: 1rem; font-weight: 700; color: var(--t1);
-      letter-spacing: -.02em; margin-bottom: .5rem;
-    }
-    .lp-outcome__desc { font-size: .85rem; color: var(--t2); line-height: 1.78; }
-
-    /* ── Reflection block ─────────────────────── */
-    .lp-reflection {
-      background: var(--lp-dim); padding: 2rem 2.25rem;
-      border-left: 3px solid var(--lp);
-    }
-    .lp-reflection__label {
-      font-size: .56rem; font-weight: 700; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--lp); margin-bottom: .75rem;
-    }
-    .lp-reflection__text {
-      font-size: .95rem; color: var(--t1); line-height: 1.85;
-    }
-
-    /* ── Image block ──────────────────────────── */
-    .lp-imgblock { background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .lp-imgblock__bar {
-      display: flex; align-items: center; gap: 1.5rem;
-      padding: .6rem 80px; max-width: 1280px; margin: 0 auto;
-      background: var(--bg); border-bottom: 1px solid var(--border);
-    }
-    .lp-imgblock__name {
-      font-size: .58rem; font-weight: 700; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--t3); white-space: nowrap;
-    }
-    .lp-imgblock__rule { flex: 1; height: 1px; background: var(--border); }
-    .lp-imgblock img { display: block; width: 100%; height: auto; }
-
-    /* ── Credits ──────────────────────────────── */
-    .lp-credits {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--border);
-    }
-    .lp-credits__row { padding: 24px 0; }
-    .lp-credits__row + .lp-credits__row { padding-left: 24px; border-left: 1px solid var(--border); }
-    .lp-credits__dt {
-      font-size: .58rem; font-weight: 700; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--t3); margin-bottom: 8px;
-    }
-    .lp-credits__dd { font-size: .875rem; font-weight: 500; color: var(--t1); line-height: 1.5; }
-
-    /* ── Next nav ─────────────────────────────── */
-    .lp-next {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      margin-top: 56px; border-top: 1px solid var(--border); padding-top: 28px;
-    }
-    .lp-next__lbl {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--t3); margin-bottom: 12px;
-    }
-    .lp-next__link {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-weight: 700; letter-spacing: -0.025em; text-decoration: none; transition: color 0.2s;
-    }
-    .lp-next__link--prev { font-size: 20px; color: var(--t3); }
-    .lp-next__link--prev:hover { color: var(--t1); }
-    .lp-next__link--next { font-size: 28px; color: var(--t1); }
-    .lp-next__link--next:hover { color: var(--lp); }
-    .lp-next__arrow { transition: transform 0.2s; }
-    .lp-next__link--next:hover .lp-next__arrow { transform: translateX(5px); }
-
-    @media (max-width: 960px) {
-      .lp { padding: 0 32px; }
-      .lp-imgblock__bar { padding: .6rem 32px; }
-      .lp-aside { grid-column: 1 / 13; margin-bottom: 2rem; }
-      .lp-main  { grid-column: 1 / 13; }
-      .lp-half  { grid-column: 1 / 13; }
-      .lp-meta  { grid-template-columns: 1fr 1fr; }
-      .lp-meta__item:nth-child(2n+1) { border-left: none; padding-left: 0; }
-      .lp-features { grid-template-columns: 1fr; }
-      .lp-outcomes { grid-template-columns: 1fr; }
-      .lp-credits  { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 600px) {
-      .lp { padding: 0 20px; }
-      .lp-imgblock__bar { padding: .6rem 20px; }
-      .lp-h1 { font-size: clamp(3rem, 14vw, 5rem); }
-      .lp-back { margin-bottom: 2rem; }
-      .lp-meta  { grid-template-columns: 1fr; }
-      .lp-meta__item + .lp-meta__item { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: .75rem; }
-      .lp-credits { grid-template-columns: 1fr; }
-      .lp-credits__row + .lp-credits__row { border-left: none; padding-left: 0; border-top: 1px solid var(--border); }
-    }
-  </style>
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" crossorigin onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="stylesheet" href="css/core.css" />
+  <link rel="stylesheet" href="css/detail-base.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..500&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..500&display=swap" /></noscript>
+  <link rel="stylesheet" href="css/detail.css" />
+  <script type="module" src="js/core.js"></script>
+  <script src="js/detail.js" defer></script>
 </head>
 <body>
 
-  <div class="glow" aria-hidden="true"></div>
-
-  <nav class="nav" id="nav">
-    <a href="index.html" class="nav__logo">
-      Jang Hoon Min
-    </a>
-    <ul class="nav__links">
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="profile.html">Profile</a></li>
-      <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#awards">Awards &amp; Projects</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <span class="theme-toggle__icon">☽</span>
-    </button>
-    <button class="nav__hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+  <header class="nav" id="nav">
+    <a href="index.html" class="nav__logo glass">Jang Hoon Min</a>
+    <nav class="nav__group glass" aria-label="Main">
+      <a href="index.html#about">About</a>
+      <a href="profile.html">Profile</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#awards">Awards &amp; Projects</a>
+    </nav>
+    <div class="nav__end">
+      <button class="theme-toggle glass" id="themeToggle" type="button" aria-label="Toggle theme">
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a href="#contact" class="pill pill--white nav__cta">Contact</a>
+      <button class="nav__burger glass" id="hamburger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
 
   <div class="proj-pager">
-    <a href="neulpureun.html" class="proj-pager__link">← Neulpureun</a>
+    <a href="bloom.html" class="proj-pager__link">← HANDS BLOOM</a>
     <a href="index.html#work" class="proj-pager__all">All Work</a>
     <a href="ikseondong.html" class="proj-pager__link">Ikseondong →</a>
   </div>
 
-  <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu" inert>
     <ul>
-      <li><a href="index.html#about"   class="mobile-link">About</a></li>
-      <li><a href="profile.html"       class="mobile-link">Profile</a></li>
-      <li><a href="index.html#work"    class="mobile-link">Work</a></li>
-      <li><a href="index.html#awards"  class="mobile-link">Awards &amp; Projects</a></li>
-      <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+      <li><a href="index.html#about"  class="mobile-link"><span>01</span>About</a></li>
+      <li><a href="profile.html"      class="mobile-link"><span>↗</span>Profile</a></li>
+      <li><a href="index.html#work"   class="mobile-link"><span>02</span>Work</a></li>
+      <li><a href="index.html#awards" class="mobile-link"><span>03</span>Awards &amp; Projects</a></li>
+      <li><a href="#contact"          class="mobile-link"><span>04</span>Contact</a></li>
     </ul>
   </div>
 
@@ -427,7 +135,7 @@
       <span class="lp-imgblock__rule"></span>
     </div>
     <div class="lp">
-      <img src="메인 이미지/1. Leporem/르포렘 2p-100.webp" alt="Leporem — Identity System" />
+      <img src="메인 이미지/1. Leporem/르포렘 2p-100.webp" alt="Leporem — Identity System" loading="lazy" decoding="async" />
     </div>
   </div>
 
@@ -555,7 +263,7 @@
       <span class="lp-imgblock__rule"></span>
     </div>
     <div class="lp">
-      <img src="메인 이미지/1. Leporem/르포렘 3p-100.webp" alt="Leporem — Brand Application" />
+      <img src="메인 이미지/1. Leporem/르포렘 3p-100.webp" alt="Leporem — Brand Application" loading="lazy" decoding="async" />
     </div>
   </div>
 
@@ -647,7 +355,7 @@
       <span class="lp-imgblock__name">Mockup Collection</span>
       <span class="lp-imgblock__rule"></span>
     </div>
-    <img src="메인 이미지/1. Leporem/르포렘 4p-100.webp" alt="Leporem — Mockup Collection" />
+    <img src="메인 이미지/1. Leporem/르포렘 4p-100.webp" alt="Leporem — Mockup Collection" loading="lazy" decoding="async" />
   </div>
 
   <!-- 07 OUTCOME -->
@@ -717,7 +425,7 @@
       <div class="lp-next fade-in">
         <div>
           <p class="lp-next__lbl">Previous</p>
-          <a href="neulpureun.html" class="lp-next__link lp-next__link--prev">← 늘푸른</a>
+          <a href="bloom.html" class="lp-next__link lp-next__link--prev">← HANDS BLOOM</a>
         </div>
         <div style="text-align:right;">
           <p class="lp-next__lbl">Next Project</p>
@@ -729,16 +437,47 @@
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <p class="footer__copy">© 2026 Jang Hoon Min. All rights reserved.</p>
-        <a href="index.html#work" class="footer__back-link">← Back to Work</a>
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="sec-head reveal">
+        <p class="label">Let's Talk</p>
+      </div>
+      <h2 class="t-h2 footer__title reveal" lang="en">Let's build a brand <span class="tone">with clarity and presence.</span></h2>
+      <div class="footer__cta reveal">
+        <p class="footer__sub">프로젝트 및 협업 문의는 이메일로 연락 부탁드립니다.</p>
+        <a href="mailto:wkdgnsals12@gmail.com" class="pill pill--white">wkdgnsals12@gmail.com</a>
+      </div>
+
+      <div class="footer__cols">
+        <div class="footer__col">
+          <p class="label">Menu</p>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="index.html#awards">Awards &amp; Projects</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <p class="label">Selected Work</p>
+          <ul>
+            <li><a href="leporem.html">Leporem</a></li>
+            <li><a href="ikseondong.html">청정익선</a></li>
+            <li><a href="breathing-structure.html">Breathing Structure</a></li>
+            <li><a href="vogrodi.html">Vogrodi</a></li>
+            <li><a href="edustay.html">Edustay</a></li>
+            <li><a href="nunchi.html">눈치코치</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <p class="label">Info</p>
+          <p class="footer__copy">© 2026 Jang Hoon Min. All rights reserved.</p>
+          <p class="footer__copy">Designed &amp; built with care.</p>
+          <p class="footer__copy"><a href="index.html#work">← Back to Work</a></p>
+        </div>
       </div>
     </div>
   </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
 

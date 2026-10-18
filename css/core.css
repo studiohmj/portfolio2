@@ -1,0 +1,360 @@
+/* ==========================================================================
+   core.css — the shared design system, loaded first on every page.
+   Every visual value comes from DESIGN.md (tokens --c-*, --f-*, --t-*, --s-*,
+   --r-*). Structure and content come from SPEC.md.
+   Page layers come after it:
+     index.html          css/home.css
+     detail + profile    css/detail-base.css → css/pages.css → css/detail.css
+   Theme: <head> adds html.light (default) or html.dark-mode before paint
+   (key "portfolio-theme-v2"); js/core.js keeps both classes in sync.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TOKENS — DESIGN.md §1–3 and §7, as written there
+   -------------------------------------------------------------------------- */
+:root {
+  /* Colour (DESIGN §1) */
+  --c-bg: #F4F3EF;              /* Bone — paper */
+  --c-stage: #0B0B0C;           /* Void — the black stage (Work, Contact) */
+  --c-ink: #111111;             /* Ink — headings */
+  --c-body: #4A4D46;            /* Body — running text */
+  --c-muted: #6A6862;           /* Graphite — labels, meta */
+  --c-line: rgba(17, 17, 17, .12);   /* Hairline */
+  --c-on-stage: #F4F3EF;
+  --c-on-stage-muted: #9A9891;
+  --c-accent: #2B4BFF;          /* Blue — hover underline, current-menu dot */
+
+  /* Type (DESIGN §2). --f-en is listed without a generic fallback so Korean
+     glyphs fall through to Pretendard, not to the system sans */
+  --f-en: 'Inter';
+  --f-ko: 'Pretendard Variable', Pretendard;
+  --font: var(--f-en), var(--f-ko), system-ui, sans-serif;
+  --t-display: clamp(52px, 4vw + 36px, 112px);
+  --t-heading: clamp(34px, 2.2vw + 24px, 56px);
+  --t-heading-sm: clamp(22px, .6vw + 19px, 28px);
+  --t-sub: clamp(18px, .2vw + 17px, 20px);
+  --t-body: clamp(16px, .1vw + 15.6px, 17px);
+  --t-body-sm: 14px;
+  --t-label: 12px;
+
+  /* Space, grid, shape (DESIGN §3) */
+  --s-1: 8px; --s-2: 16px; --s-3: 24px; --s-5: 40px; --s-8: 64px; --s-12: 96px; --s-20: 160px;
+  --gutter: 24px;
+  --margin: clamp(20px, 4vw, 48px);
+  --r-pill: 9999px;
+  --r-none: 0px;
+
+  /* The detail layers redefine --max / --pad, so the chrome reads its own copy
+     of DESIGN's --max (1440px) and --margin */
+  --ui-max: 1440px;
+  --ui-margin: clamp(20px, 4vw, 48px);
+  --ui-nav: 72px;               /* nav band: --s-8 + --s-1 */
+  /* Left edge of the 12-column grid — the nav and every block start here */
+  --edge: max(var(--ui-margin), calc((100% - var(--ui-max)) / 2 + var(--ui-margin)));
+  --section: var(--s-20);       /* section top/bottom space; --s-12 on phones */
+
+  /* Detail pages still name the five steps --fs-*; they point at DESIGN tokens
+     until SPEC step 5 moves those pages onto --t-* directly */
+  --fs-display: var(--t-display);
+  --fs-h2: var(--t-heading);
+  --fs-h3: var(--t-heading-sm);
+  --fs-body: var(--t-body);
+  --fs-label: var(--t-label);
+
+  color-scheme: light;
+}
+
+html.dark-mode {
+  --c-bg: #0E0E0F; --c-stage: #000000; --c-ink: #F4F3EF; --c-body: #C9C7C1;
+  --c-muted: #9A9891; --c-line: rgba(244, 243, 239, .14); --c-accent: #5B76FF;
+  color-scheme: dark;
+}
+@media (max-width: 760px) {
+  :root { --section: var(--s-12); }
+}
+
+/* The black stage: any block inside reads the On-stage colours through the same names */
+.stage,
+.footer {
+  --c-ink: var(--c-on-stage);
+  --c-body: var(--c-on-stage);
+  --c-muted: var(--c-on-stage-muted);
+  --c-line: rgba(244, 243, 239, .14);   /* Hairline, dark-theme value: the stage is dark in both themes */
+  background: var(--c-stage);
+  color: var(--c-on-stage);
+}
+
+/* --------------------------------------------------------------------------
+   2. BASE — only what the chrome needs; each page layer owns its own reset
+   -------------------------------------------------------------------------- */
+:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 3px; }
+::selection { background: var(--c-ink); color: var(--c-bg); }
+
+/* --------------------------------------------------------------------------
+   3. TYPE — DESIGN §2. Hierarchy by size and colour; weights 300–500 only
+   -------------------------------------------------------------------------- */
+.t-display, .t-heading, .t-h2 { font-family: var(--font); font-weight: 300; color: var(--c-ink); }
+.t-display { font-size: var(--t-display); line-height: 1.0; letter-spacing: -0.04em; }
+.t-heading,
+.t-h2      { font-size: var(--t-heading); line-height: 1.1; letter-spacing: -0.03em; text-wrap: balance; }
+.t-heading-sm, .t-h3 { font-size: var(--t-heading-sm); font-weight: 400; line-height: 1.2; letter-spacing: -0.025em; color: var(--c-ink); }
+.t-sub     { font-size: var(--t-sub); font-weight: 400; line-height: 1.35; letter-spacing: -0.02em; }
+:is(.t-display, .t-heading, .t-h2, .t-heading-sm, .t-h3):lang(ko) { letter-spacing: -0.02em; }   /* Korean: tracked in less */
+.tone { color: var(--c-muted); }
+
+.label,
+.sec-head__num {
+  font-family: var(--font);
+  font-size: var(--t-label);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-muted);
+}
+
+/* Section head (DESIGN §5): full-width hairline, then one row — number, the
+   name two columns on, an aside at the far right — then 40px to the heading */
+.sec-head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: baseline;
+  padding-top: var(--s-2);
+  margin-bottom: var(--s-5);
+  border-top: 1px solid var(--c-line);
+}
+.sec-head > :nth-child(1) { grid-column: 1 / span 2; color: var(--c-ink); }
+.sec-head > :nth-child(2) { grid-column: 3 / span 6; color: var(--c-ink); }
+.sec-head__aside { grid-column: 9 / -1; justify-self: end; color: var(--c-muted); }
+@media (max-width: 760px) {
+  .sec-head > :nth-child(1) { grid-column: 1 / span 2; }
+  .sec-head > :nth-child(2) { grid-column: 3 / span 6; }
+  .sec-head__aside { grid-column: 9 / -1; }
+}
+
+/* --------------------------------------------------------------------------
+   4. PILL + TEXT LINK — DESIGN §5: the only button shape
+   (.pill--white / .pill--glass / .glass are kept as class names in the markup
+   of every page; they no longer change the look)
+   -------------------------------------------------------------------------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-1);
+  padding: 10px 20px;           /* DESIGN §5 Pill Button */
+  border: 1px solid var(--c-ink);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--c-ink);
+  font-family: var(--font);
+  font-size: var(--t-body-sm);
+  font-weight: 500;
+  line-height: 1.45;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.pill:hover { background: var(--c-ink); color: var(--c-bg); }
+.stage .pill:hover,
+.footer .pill:hover { color: var(--c-stage); }
+
+.text-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s-1);
+  font-family: var(--font);
+  font-size: var(--t-body);
+  font-weight: 400;
+  color: var(--c-ink);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s ease;
+}
+.text-link:hover { text-decoration-color: var(--c-accent); }
+
+/* --------------------------------------------------------------------------
+   5. NAV — DESIGN §5: transparent, one line, no fills, borders or blur.
+   Once scrolled it takes the solid colour of the section under it; over the
+   stage its text turns On-stage (js/core.js sets .is-scrolled / .on-stage).
+   -------------------------------------------------------------------------- */
+.nav {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  height: var(--ui-nav);
+  padding: 0 var(--edge);
+  font-family: var(--font);
+  color: var(--c-ink);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.nav.is-scrolled { background: var(--c-bg); }
+.nav.on-stage {
+  --c-ink: var(--c-on-stage);
+  --c-muted: var(--c-on-stage-muted);
+  --c-bg: var(--c-stage);
+}
+.nav__logo {
+  font-size: var(--t-label);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-ink);
+}
+.nav__group { display: flex; align-items: center; gap: var(--s-3); margin-left: auto; }
+.nav__group a {
+  position: relative;
+  font-size: var(--t-body-sm);
+  color: var(--c-muted);
+  transition: color 0.2s ease;
+}
+.nav__group a:hover { color: var(--c-ink); }
+/* Current menu: ink + one Blue dot (DESIGN §1) */
+.nav__group a.is-active { color: var(--c-ink); }
+.nav__group a.is-active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: calc(-1 * var(--s-1));
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: var(--r-pill);
+  background: var(--c-accent);
+}
+.nav__end { display: flex; align-items: center; gap: var(--s-1); }
+.nav__logo + .nav__end { margin-left: auto; }   /* pages without a link group */
+
+.theme-toggle,
+.nav__burger {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;                  /* SPEC §4: 44px touch target */
+  height: 44px;
+  color: var(--c-ink);
+}
+.theme-toggle svg { width: var(--s-2); height: var(--s-2); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+.theme-toggle__moon { fill: currentColor; stroke: none; }
+.theme-toggle__sun { display: none; }
+html.light .theme-toggle__moon { display: none; }
+html.light .theme-toggle__sun { display: block; }   /* js/core.js keeps .light and .dark-mode in sync */
+
+.nav__burger { display: none; }
+.nav__burger span {
+  position: absolute;
+  width: 18px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.2s ease;
+}
+.nav__burger span:nth-child(1) { transform: translateY(-4px); }
+.nav__burger span:nth-child(2) { transform: translateY(4px); }
+.nav__burger[aria-expanded="true"] span:nth-child(1) { transform: rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(2) { transform: rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .nav__group { display: none; }
+  .nav .nav__end { margin-left: auto; }
+  .nav__burger { display: inline-grid; position: relative; }
+}
+@media (max-width: 560px) {
+  .nav__cta { display: none; }
+}
+
+/* Mobile menu: a solid Bone sheet */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 990;
+  display: flex;
+  align-items: flex-end;
+  padding: calc(var(--ui-nav) + var(--s-5)) var(--edge) var(--s-8);
+  background: var(--c-bg);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+.mobile-menu.open { opacity: 1; visibility: visible; transition: opacity 0.2s ease; }
+.mobile-menu ul { width: 100%; border-top: 1px solid var(--c-line); }
+.mobile-menu li { border-bottom: 1px solid var(--c-line); }
+.mobile-link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  padding: var(--s-2) 0;
+  font-family: var(--font);
+  font-size: var(--t-heading);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--c-ink);
+}
+.mobile-link span { flex: 0 0 var(--s-8); font-size: var(--t-label); font-weight: 500; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; color: var(--c-muted); }
+html.menu-open .nav { --c-ink: #111111; }   /* Ink over the open Bone sheet, even when the nav sat on the stage */
+html.dark-mode.menu-open .nav { --c-ink: #F4F3EF; }
+
+/* --------------------------------------------------------------------------
+   6. FOOTER / CONTACT — the closing black stage (DESIGN §4)
+   -------------------------------------------------------------------------- */
+.footer {
+  position: relative;
+  padding: var(--section) 0 var(--s-5);
+  font-family: var(--font);
+  font-size: var(--t-body);
+  font-weight: 400;
+  line-height: 1.55;
+}
+.footer__inner { position: relative; max-width: var(--ui-max); margin: 0 auto; padding: 0 var(--ui-margin); }
+.footer__title { max-width: 13em; margin-bottom: var(--s-5); }
+.footer__cta { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-2); margin-bottom: var(--section); }
+.footer__sub { color: var(--c-muted); }
+/* "큰 이메일 링크" (SPEC §4): the mail link at heading size, Text Link behaviour */
+.footer__cta a[href^="mailto:"] {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--c-ink);
+  font-size: var(--t-heading);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 8px;
+}
+.footer__cta a[href^="mailto:"]::after { content: ' →'; }
+.footer__cta a[href^="mailto:"]:hover { background: none; color: var(--c-ink); text-decoration-color: var(--c-accent); }
+.footer__cols {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--c-line);
+}
+.footer__col { grid-column: span 4; }
+.footer__col .label { margin-bottom: var(--s-2); }
+.footer__col li + li { margin-top: var(--s-1); }
+.footer__col a { color: var(--c-ink); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color 0.2s ease; }
+.footer__col a:hover { text-decoration-color: var(--c-accent); }
+.footer__copy { color: var(--c-muted); font-size: var(--t-body-sm); line-height: 1.45; }
+@media (max-width: 760px) {
+  .footer__col { grid-column: span 6; }
+  .footer__col:last-child { grid-column: 1 / -1; margin-top: var(--s-5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu, .mobile-menu.open, .nav, .pill, .nav__burger span { transition: none; }
+}

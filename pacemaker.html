@@ -1,782 +1,48 @@
 ﻿<!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-page="pacemaker">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>if(localStorage.getItem('portfolio-theme-v2')==="dark")document.documentElement.classList.add("dark-mode");</script>
+  <meta name="theme-color" content="#F4F3EF" />
+  <script>(function(){var l=true;try{l=localStorage.getItem('portfolio-theme-v2')!=='dark'}catch(e){}document.documentElement.classList.add(l?'light':'dark-mode')})()</script>
   <title>Pacemaker — Jang Hoon Min</title>
   <meta name="description" content="Pacemaker — 20대 취업 조력 브랜드 UX 케이스 스터디" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/core.css" />
+  <link rel="stylesheet" href="css/detail-base.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 
-  <style>
-    /* ═══════════════════════════════════════════════
-       CASE STUDY: Pacemaker
-       12-col · 80px margin · 24px gutter · Pretendard
-    ═══════════════════════════════════════════════ */
-
-    body {
-      font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    em { font-family: inherit; font-style: normal; color: inherit; }
-
-    :root {
-      --pm:       #E83921;
-      --pm-05:    rgba(232, 57, 33, 0.05);
-      --pm-10:    rgba(232, 57, 33, 0.10);
-      --pm-off:   #F7F5F4;
-      --pm-t1:    #0E0A09;
-      --pm-t2:    #3D3430;
-      --pm-t3:    #9A8F8B;
-      --pm-bdr:   #E8E2E0;
-      --pm-pad:   80px;
-      --pm-gap:   24px;
-      --pm-sec:   80px;
-      --pm-blk:   40px;
-      --pm-el:    16px;
-      --pm-font:  'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    }
-    html.dark-mode {
-      --pm-t1:  #FFFFFF;
-      --pm-t2:  #D6E8F5;
-      --pm-t3:  rgba(255, 255, 255, 0.6);
-      --pm-bdr: rgba(255, 255, 255, 0.1);
-      --pm-off: #0C1527;
-    }
-    html.dark-mode .pm-imgblk__bar { background: var(--pm-off); }
-    html.dark-mode .pm-out         { background: var(--pm-off); }
-
-    /* ── Wrapper & Grid ─────────────────────────── */
-    .pm {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding-left: var(--pm-pad);
-      padding-right: var(--pm-pad);
-    }
-    .pm-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: var(--pm-gap);
-    }
-    .pm-aside { grid-column: 1 / span 3; }
-    .pm-main  { grid-column: 4 / span 9; }
-
-    /* ── Section ────────────────────────────────── */
-    .pm-sec {
-      padding-top: var(--pm-sec);
-      padding-bottom: var(--pm-sec);
-      border-top: 1px solid var(--pm-bdr);
-    }
-    .pm-sec--off { background: var(--pm-off); }
-
-    /* ── Label ──────────────────────────────────── */
-    .pm-lbl {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--pm-font);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--pm);
-      margin-bottom: var(--pm-blk);
-    }
-    .pm-lbl__bar {
-      width: 20px;
-      height: 1px;
-      background: var(--pm);
-      flex-shrink: 0;
-    }
-
-    /* ── Type scale ─────────────────────────────── */
-    .pm-h1 {
-      font-family: var(--pm-font);
-      font-size: 36px;
-      font-weight: 700;
-      line-height: 1.28;
-      letter-spacing: -0.025em;
-      color: var(--pm-t1);
-    }
-    .pm-h2 {
-      font-family: var(--pm-font);
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.4;
-      letter-spacing: -0.02em;
-      color: var(--pm-t1);
-    }
-    .pm-lead {
-      font-family: var(--pm-font);
-      font-size: 20px;
-      font-weight: 500;
-      line-height: 1.65;
-      letter-spacing: -0.015em;
-      color: var(--pm-t1);
-    }
-    .pm-body {
-      font-family: var(--pm-font);
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.85;
-      color: var(--pm-t2);
-    }
-    .pm-body + .pm-body { margin-top: var(--pm-el); }
-    .pm-body strong { font-weight: 600; color: var(--pm-t1); }
-    .pm-body em     { font-style: normal; color: var(--pm); font-weight: 600; }
-    .pm-cap {
-      font-family: var(--pm-font);
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.6;
-      color: var(--pm-t3);
-    }
-    .pm-sub {
-      font-family: var(--pm-font);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--pm);
-      letter-spacing: 0.01em;
-    }
-
-    /* ── Spacing ────────────────────────────────── */
-    .mt-blk { margin-top: var(--pm-blk); }
-    .mt-el  { margin-top: var(--pm-el); }
-    .mt-12  { margin-top: 12px; }
-
-    /* ════════════════════════════════════════════
-       HERO
-    ════════════════════════════════════════════ */
-    .pm-hero {
-      padding-top: calc(var(--nav-h, 64px) + 80px);
-      padding-bottom: var(--pm-sec);
-      border-bottom: 1px solid var(--pm-bdr);
-    }
-    .pm-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--pm-font);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--pm-t3);
-      text-decoration: none;
-      margin-bottom: var(--pm-blk);
-      transition: color 0.2s;
-    }
-    .pm-back:hover { color: var(--pm); }
-
-    .pm-hero__eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--pm-font);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--pm);
-      margin-bottom: 32px;
-    }
-    .pm-hero__eyebrow-rule { width: 18px; height: 1px; background: var(--pm); }
-    .pm-hero__eyebrow-yr   { color: var(--pm-t3); }
-
-    .pm-hero__title {
-      font-family: var(--pm-font);
-      font-size: clamp(64px, 9vw, 108px);
-      font-weight: 800;
-      letter-spacing: -0.05em;
-      line-height: 0.9;
-      color: var(--pm);
-      margin-bottom: 28px;
-    }
-    .pm-hero__sub {
-      font-family: var(--pm-font);
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 1.7;
-      color: var(--pm-t2);
-      max-width: 560px;
-    }
-
-    /* meta strip */
-    .pm-meta {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--pm-bdr);
-      margin-top: var(--pm-blk);
-    }
-    .pm-meta__item { padding: 20px 0; }
-    .pm-meta__item + .pm-meta__item {
-      padding-left: 24px;
-      border-left: 1px solid var(--pm-bdr);
-    }
-    .pm-meta__dt {
-      font-family: var(--pm-font);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--pm-t3);
-      margin-bottom: 8px;
-    }
-    .pm-meta__dd {
-      font-family: var(--pm-font);
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.5;
-      color: var(--pm-t1);
-    }
-
-    /* ════════════════════════════════════════════
-       COVER & IMAGE BLOCKS
-    ════════════════════════════════════════════ */
-    .pm-cover { width: 100%; line-height: 0; background: var(--pm-off); }
-    .pm-cover img { display: block; width: 100%; height: auto; }
-
-    .pm-imgblk { background: var(--pm-off); }
-    .pm-imgblk__bar {
-      background: #fff;
-      border-top: 1px solid var(--pm-bdr);
-      border-bottom: 1px solid var(--pm-bdr);
-    }
-    .pm-imgblk__inner {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding-top: 14px;
-      padding-bottom: 14px;
-    }
-    .pm-imgblk__name {
-      font-family: var(--pm-font);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--pm-t3);
-      white-space: nowrap;
-    }
-    .pm-imgblk__rule { flex: 1; height: 1px; background: var(--pm-bdr); }
-    .pm-imgblk img { display: block; width: 100%; height: auto; }
-
-    /* ════════════════════════════════════════════
-       STAT
-    ════════════════════════════════════════════ */
-    .pm-stat {
-      border-top: 2px solid var(--pm);
-      padding-top: 20px;
-    }
-    .pm-stat__n {
-      display: block;
-      font-family: var(--pm-font);
-      font-size: 56px;
-      font-weight: 800;
-      letter-spacing: -0.055em;
-      line-height: 1;
-      color: var(--pm);
-      margin-bottom: 12px;
-    }
-    .pm-stat__n sup { font-size: 0.38em; vertical-align: super; font-weight: 700; }
-    .pm-stat__txt {
-      font-family: var(--pm-font);
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 1.6;
-      color: var(--pm-t3);
-    }
-
-    /* ════════════════════════════════════════════
-       INSIGHT CALLOUT
-    ════════════════════════════════════════════ */
-    .pm-insight {
-      border-left: 3px solid var(--pm);
-      padding: 24px 32px;
-      background: var(--pm-05);
-      margin-top: var(--pm-blk);
-      margin-bottom: var(--pm-blk);
-    }
-    .pm-insight__txt {
-      font-family: var(--pm-font);
-      font-size: 19px;
-      font-weight: 600;
-      line-height: 1.65;
-      letter-spacing: -0.02em;
-      color: var(--pm-t1);
-    }
-    .pm-insight__txt em { font-style: normal; color: var(--pm); }
-
-    /* ════════════════════════════════════════════
-       OBSERVATION LIST (Problem)
-    ════════════════════════════════════════════ */
-    .pm-obs {
-      margin-top: var(--pm-blk);
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    .pm-ob {
-      padding: 28px 0;
-      border-bottom: 1px solid var(--pm-bdr);
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 20px;
-      align-items: start;
-    }
-    .pm-ob:first-child { border-top: 1px solid var(--pm-bdr); }
-    .pm-ob__n {
-      font-family: var(--pm-font);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      color: var(--pm);
-      padding-top: 2px;
-    }
-    .pm-ob__title {
-      font-family: var(--pm-font);
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      color: var(--pm-t1);
-      margin-bottom: 8px;
-    }
-    .pm-ob__body {
-      font-family: var(--pm-font);
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.8;
-      color: var(--pm-t2);
-    }
-
-    /* ════════════════════════════════════════════
-       DECISION LIST (Solution)
-    ════════════════════════════════════════════ */
-    .pm-decisions { margin-top: var(--pm-blk); }
-    .pm-dec {
-      display: grid;
-      grid-template-columns: 36px 1fr;
-      gap: 24px;
-      padding: 32px 0;
-      border-bottom: 1px solid var(--pm-bdr);
-      align-items: start;
-    }
-    .pm-dec:first-child { border-top: 1px solid var(--pm-bdr); }
-    .pm-dec__n {
-      font-family: var(--pm-font);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      color: var(--pm);
-      padding-top: 3px;
-    }
-    .pm-dec__title {
-      font-family: var(--pm-font);
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      color: var(--pm-t1);
-      margin-bottom: 10px;
-    }
-    .pm-dec__body {
-      font-family: var(--pm-font);
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.8;
-      color: var(--pm-t2);
-    }
-    .pm-dec__why {
-      margin-top: 12px;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-family: var(--pm-font);
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.65;
-      color: var(--pm-t3);
-    }
-    .pm-dec__why-tag {
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--pm);
-      padding-top: 2px;
-      flex-shrink: 0;
-    }
-
-    /* ════════════════════════════════════════════
-       EXPERIENCE TOUCHPOINTS
-    ════════════════════════════════════════════ */
-    .pm-touch {
-      margin-top: var(--pm-blk);
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    .pm-tp {
-      display: grid;
-      grid-template-columns: 3fr 2fr;
-      gap: 80px;
-      padding: 48px 0;
-      border-bottom: 1px solid var(--pm-bdr);
-      align-items: start;
-    }
-    .pm-tp:first-child { border-top: 1px solid var(--pm-bdr); }
-    .pm-tp__head {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    .pm-tp__n {
-      font-family: var(--pm-font);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--pm);
-    }
-    .pm-tp__title {
-      font-family: var(--pm-font);
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--pm-t1);
-    }
-    .pm-tp__body {
-      font-family: var(--pm-font);
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.8;
-      color: var(--pm-t2);
-    }
-    .pm-tp__aside {}
-    .pm-tp__label {
-      font-family: var(--pm-font);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--pm-t3);
-      margin-bottom: 14px;
-    }
-    .pm-tp__behavior {
-      font-family: var(--pm-font);
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.7;
-      color: var(--pm-t2);
-      padding: 20px;
-      background: var(--pm-off);
-      border: 1px solid var(--pm-bdr);
-    }
-    .pm-tp__behavior strong {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--pm);
-      margin-bottom: 6px;
-      letter-spacing: 0.04em;
-    }
-
-    /* ════════════════════════════════════════════
-       VISUAL SYSTEM — COLOR
-    ════════════════════════════════════════════ */
-    .pm-swatches {
-      display: flex;
-      gap: 1px;
-      background: var(--pm-bdr);
-      border: 1px solid var(--pm-bdr);
-      margin-top: var(--pm-blk);
-    }
-    .pm-sw {
-      flex: 1;
-      min-height: 128px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-    .pm-sw--red    { background: #E83921; flex: 2; }
-    .pm-sw--dark   { background: #1A0F0D; }
-    .pm-sw--warm   { background: #F2D9C8; }
-    .pm-sw--orange { background: #F5855A; }
-    .pm-sw--white  { background: #FFFFFF; border: 1px solid var(--pm-bdr); }
-    .pm-sw__name {
-      font-family: var(--pm-font);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-    .pm-sw--red .pm-sw__name    { color: rgba(255,255,255,0.9); }
-    .pm-sw--dark .pm-sw__name   { color: rgba(255,255,255,0.9); }
-    .pm-sw--orange .pm-sw__name { color: rgba(255,255,255,0.9); }
-    .pm-sw--warm .pm-sw__name   { color: var(--pm-t1); }
-    .pm-sw--white .pm-sw__name  { color: var(--pm-t1); }
-    .pm-sw__hex {
-      font-family: var(--pm-font);
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      margin-top: 4px;
-    }
-    .pm-sw--red .pm-sw__hex    { color: rgba(255,255,255,0.5); }
-    .pm-sw--dark .pm-sw__hex   { color: rgba(255,255,255,0.4); }
-    .pm-sw--orange .pm-sw__hex { color: rgba(255,255,255,0.5); }
-    .pm-sw--warm .pm-sw__hex   { color: var(--pm-t3); }
-    .pm-sw--white .pm-sw__hex  { color: var(--pm-t3); }
-
-    .pm-color-notes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-top: 24px;
-    }
-    .pm-color-note {
-      padding: 24px;
-      background: var(--pm-off);
-      border: 1px solid var(--pm-bdr);
-    }
-    .pm-color-note__lbl {
-      font-family: var(--pm-font);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--pm);
-      margin-bottom: 10px;
-    }
-    .pm-color-note__txt {
-      font-family: var(--pm-font);
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.75;
-      color: var(--pm-t2);
-    }
-
-    /* type specimen */
-    .pm-type-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: var(--pm-blk);
-      border-top: 1px solid var(--pm-bdr);
-      padding-top: var(--pm-blk);
-    }
-    .pm-type-item__lbl {
-      font-family: var(--pm-font);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--pm-t3);
-      margin-bottom: 14px;
-    }
-
-    /* ════════════════════════════════════════════
-       OUTCOME
-    ════════════════════════════════════════════ */
-    .pm-outcomes {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--pm-bdr);
-      border: 1px solid var(--pm-bdr);
-      margin-top: var(--pm-blk);
-    }
-    .pm-out {
-      background: #fff;
-      padding: 40px 32px;
-    }
-    .pm-out__bar { width: 32px; height: 2px; background: var(--pm); margin-bottom: 28px; }
-    .pm-out__h {
-      font-family: var(--pm-font);
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      color: var(--pm);
-      margin-bottom: 8px;
-      line-height: 1.1;
-    }
-    .pm-out__lbl {
-      font-family: var(--pm-font);
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--pm-t1);
-      margin-bottom: 14px;
-      letter-spacing: -0.01em;
-    }
-    .pm-out__body {
-      font-family: var(--pm-font);
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.75;
-      color: var(--pm-t2);
-    }
-
-    /* reflection */
-    .pm-reflection {
-      background: var(--pm);
-      padding: 64px;
-      margin-top: var(--pm-blk);
-    }
-    .pm-reflection__txt {
-      font-family: var(--pm-font);
-      font-size: 22px;
-      font-weight: 600;
-      line-height: 1.65;
-      letter-spacing: -0.02em;
-      color: rgba(255,255,255,0.88);
-      max-width: 640px;
-    }
-    .pm-reflection__txt em {
-      font-style: normal;
-      color: #fff;
-      font-weight: 800;
-    }
-    .pm-reflection__attr {
-      margin-top: 36px;
-      font-family: var(--pm-font);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-    }
-    .pm-reflection__note {
-      font-family: var(--pm-font);
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.8;
-      color: rgba(255,255,255,0.5);
-      margin-top: 24px;
-      max-width: 560px;
-    }
-
-    /* ════════════════════════════════════════════
-       CREDITS + NEXT
-    ════════════════════════════════════════════ */
-    .pm-credits {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      border-top: 1px solid var(--pm-bdr);
-    }
-    .pm-cred { padding: 24px 0; }
-    .pm-cred + .pm-cred {
-      padding-left: 24px;
-      border-left: 1px solid var(--pm-bdr);
-    }
-    .pm-cred__dt {
-      font-family: var(--pm-font);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--pm-t3);
-      margin-bottom: 8px;
-    }
-    .pm-cred__dd {
-      font-family: var(--pm-font);
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.5;
-      color: var(--pm-t1);
-    }
-    .pm-next {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-top: 56px;
-      border-top: 1px solid var(--pm-bdr);
-      padding-top: 28px;
-    }
-    .pm-next__lbl {
-      font-family: var(--pm-font);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--pm-t3);
-      margin-bottom: 12px;
-    }
-    .pm-next__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--pm-font);
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .pm-next__link--prev { font-size: 20px; color: var(--pm-t3); }
-    .pm-next__link--prev:hover { color: var(--pm-t1); }
-    .pm-next__link--next { font-size: 32px; color: var(--pm-t1); }
-    .pm-next__link--next:hover { color: var(--pm); }
-    .pm-next__arrow { transition: transform 0.2s; }
-    .pm-next__link--next:hover .pm-next__arrow { transform: translateX(6px); }
-
-    /* ════════════════════════════════════════════
-       RESPONSIVE
-    ════════════════════════════════════════════ */
-    @media (max-width: 1024px) {
-      :root { --pm-pad: 48px; }
-      .pm-touch { gap: 0; }
-      .pm-tp    { grid-template-columns: 1fr; gap: 24px; }
-      .pm-color-notes  { grid-template-columns: 1fr; }
-      .pm-type-row     { grid-template-columns: 1fr 1fr; }
-      .pm-outcomes     { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      :root {
-        --pm-pad: 24px;
-        --pm-sec: 56px;
-        --pm-blk: 32px;
-      }
-      .pm-aside, .pm-main { grid-column: 1 / -1; }
-      .pm-hero__title     { font-size: clamp(52px, 15vw, 84px); }
-      .pm-meta            { grid-template-columns: 1fr 1fr; }
-      .pm-meta__item:nth-child(3) { border-left: none; padding-left: 0; }
-      .pm-outcomes    { grid-template-columns: 1fr; }
-      .pm-credits     { grid-template-columns: 1fr 1fr; gap: 1px; background: var(--pm-bdr); }
-      .pm-cred        { padding: 18px; }
-      .pm-cred + .pm-cred { border-left: none; }
-      .pm-reflection  { padding: 40px 24px; }
-      .pm-reflection__txt { font-size: 18px; }
-      .pm-swatches    { flex-direction: column; }
-      .pm-sw          { min-height: 80px; }
-      .pm-next__link--next { font-size: 22px; }
-      .pm-type-row    { grid-template-columns: 1fr; }
-      .pm-insight     { padding: 20px 24px; }
-      .pm-insight__txt { font-size: 17px; }
-      .pm-h1          { font-size: 28px; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" crossorigin onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..500&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..500&display=swap" /></noscript>
+  <link rel="stylesheet" href="css/detail.css" />
+  <script type="module" src="js/core.js"></script>
+  <script src="js/detail.js" defer></script>
 </head>
 <body>
 
-  <div class="glow" aria-hidden="true"></div>
-
-  <nav class="nav" id="nav">
-    <a href="index.html" class="nav__logo">
-      Jang Hoon Min
-    </a>
-    <ul class="nav__links">
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="profile.html">Profile</a></li>
-      <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#awards">Awards &amp; Projects</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <span class="theme-toggle__icon">☽</span>
-    </button>
-    <button class="nav__hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+  <header class="nav" id="nav">
+    <a href="index.html" class="nav__logo glass">Jang Hoon Min</a>
+    <nav class="nav__group glass" aria-label="Main">
+      <a href="index.html#about">About</a>
+      <a href="profile.html">Profile</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#awards">Awards &amp; Projects</a>
+    </nav>
+    <div class="nav__end">
+      <button class="theme-toggle glass" id="themeToggle" type="button" aria-label="Toggle theme">
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a href="#contact" class="pill pill--white nav__cta">Contact</a>
+      <button class="nav__burger glass" id="hamburger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
 
   <div class="proj-pager">
     <a href="vogrodi.html" class="proj-pager__link">← Vogrodi</a>
@@ -784,13 +50,13 @@
     <a href="yellowhouse.html" class="proj-pager__link">Yellow House →</a>
   </div>
 
-  <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu" inert>
     <ul>
-      <li><a href="index.html#about"   class="mobile-link">About</a></li>
-      <li><a href="profile.html"       class="mobile-link">Profile</a></li>
-      <li><a href="index.html#work"    class="mobile-link">Work</a></li>
-      <li><a href="index.html#awards"  class="mobile-link">Awards &amp; Projects</a></li>
-      <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+      <li><a href="index.html#about"  class="mobile-link"><span>01</span>About</a></li>
+      <li><a href="profile.html"      class="mobile-link"><span>↗</span>Profile</a></li>
+      <li><a href="index.html#work"   class="mobile-link"><span>02</span>Work</a></li>
+      <li><a href="index.html#awards" class="mobile-link"><span>03</span>Awards &amp; Projects</a></li>
+      <li><a href="#contact"          class="mobile-link"><span>04</span>Contact</a></li>
     </ul>
   </div>
 
@@ -813,7 +79,7 @@
 
       <p class="pm-hero__sub fade-in">
         20대 취업 압박에서 벗어나 자신만의 속도를 찾도록 돕는 브랜드.<br />
-        <span style="font-size:15px;color:var(--pm-t3);">A brand system designed to change how Korean 20-somethings think about career exploration — from "failure" to "process."</span>
+        <span style="display:inline-block;margin-top:0.5em;font-size:var(--fs-body);line-height:1.7;color:var(--pm-t3);">A brand system designed to change how Korean 20-somethings think about career exploration — from "failure" to "process."</span>
       </p>
 
       <div class="pm-meta fade-in">
@@ -1005,7 +271,7 @@
     </div>
     <div class="pm">
       <img src="메인 이미지/4. pacemaker/Pacemaker 2p-100.webp"
-           alt="Pacemaker — 아이덴티티 시스템" />
+           alt="Pacemaker — 아이덴티티 시스템" loading="lazy" decoding="async" />
     </div>
   </div>
 
@@ -1186,7 +452,7 @@
     </div>
     <div class="pm">
       <img src="메인 이미지/4. pacemaker/Pacemaker 3p-100.webp"
-           alt="Pacemaker — 브랜드 어플리케이션" />
+           alt="Pacemaker — 브랜드 어플리케이션" loading="lazy" decoding="async" />
     </div>
   </div>
 
@@ -1414,7 +680,7 @@
       </div>
     </div>
     <img src="메인 이미지/4. pacemaker/Pacemaker 4p-100.webp"
-         alt="Pacemaker — 목업 컬렉션" />
+         alt="Pacemaker — 목업 컬렉션" loading="lazy" decoding="async" />
   </div>
 
 
@@ -1549,16 +815,47 @@
   </section>
 
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <p class="footer__copy">© 2026 Jang Hoon Min. All rights reserved.</p>
-        <a href="index.html#work" class="footer__back-link">← Back to Work</a>
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="sec-head reveal">
+        <p class="label">Let's Talk</p>
+      </div>
+      <h2 class="t-h2 footer__title reveal" lang="en">Let's build a brand <span class="tone">with clarity and presence.</span></h2>
+      <div class="footer__cta reveal">
+        <p class="footer__sub">프로젝트 및 협업 문의는 이메일로 연락 부탁드립니다.</p>
+        <a href="mailto:wkdgnsals12@gmail.com" class="pill pill--white">wkdgnsals12@gmail.com</a>
+      </div>
+
+      <div class="footer__cols">
+        <div class="footer__col">
+          <p class="label">Menu</p>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="index.html#awards">Awards &amp; Projects</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <p class="label">Selected Work</p>
+          <ul>
+            <li><a href="leporem.html">Leporem</a></li>
+            <li><a href="ikseondong.html">청정익선</a></li>
+            <li><a href="breathing-structure.html">Breathing Structure</a></li>
+            <li><a href="vogrodi.html">Vogrodi</a></li>
+            <li><a href="edustay.html">Edustay</a></li>
+            <li><a href="nunchi.html">눈치코치</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <p class="label">Info</p>
+          <p class="footer__copy">© 2026 Jang Hoon Min. All rights reserved.</p>
+          <p class="footer__copy">Designed &amp; built with care.</p>
+          <p class="footer__copy"><a href="index.html#work">← Back to Work</a></p>
+        </div>
       </div>
     </div>
   </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
 

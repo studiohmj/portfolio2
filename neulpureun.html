@@ -1,414 +1,62 @@
 ﻿<!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-page="neulpureun">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>if(localStorage.getItem('portfolio-theme-v2')==="dark")document.documentElement.classList.add("dark-mode");</script>
+  <meta name="theme-color" content="#F4F3EF" />
+  <script>(function(){var l=true;try{l=localStorage.getItem('portfolio-theme-v2')!=='dark'}catch(e){}document.documentElement.classList.add(l?'light':'dark-mode')})()</script>
   <title>늘푸른 — Jang Hoon Min</title>
   <meta name="description" content="늘푸른 — 은퇴 노인을 위한 복합 문화 공간 브랜드 케이스 스터디" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/core.css" />
+  <link rel="stylesheet" href="css/detail-base.css" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" crossorigin onload="this.onload=null;this.rel='stylesheet'" />
 
-  <style>
-    /* ═══════════════════════════════════════════════
-       CASE STUDY: 늘푸른
-       12-col · 80px margin · 24px gutter · Pretendard
-    ═══════════════════════════════════════════════ */
-
-    body {
-      font-family: 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    em { font-family: inherit; font-style: normal; color: inherit; }
-
-    :root {
-      --np:      #2EA7E0;
-      --np-lt:   #E8F5FD;
-      --np-yw:   #F8F399;
-      --np-dk:   #412210;
-      --np-05:   rgba(46, 167, 224, 0.07);
-      --np-10:   rgba(46, 167, 224, 0.13);
-      --np-off:  #F7FAFE;
-      --np-t1:   #111111;
-      --np-t2:   #444444;
-      --np-t3:   #999999;
-      --np-bdr:  #C8E3F0;
-      --np-pad:  80px;
-      --np-gap:  24px;
-      --np-sec:  80px;
-      --np-blk:  40px;
-      --np-el:   16px;
-      --np-font: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    }
-    html.dark-mode {
-      --np-t1:  #FFFFFF;
-      --np-t2:  #D6E8F5;
-      --np-t3:  rgba(255, 255, 255, 0.6);
-      --np-bdr: rgba(255, 255, 255, 0.1);
-      --np-off: #0C1527;
-    }
-    html.dark-mode .np-imgblk__bar { background: var(--np-off); }
-    html.dark-mode .np-value       { background: var(--np-off); }
-
-    /* ── Wrapper ────────────────────────────────── */
-    .np {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding-left: var(--np-pad);
-      padding-right: var(--np-pad);
-    }
-
-    /* ── Section ────────────────────────────────── */
-    .np-sec {
-      padding-top: var(--np-sec);
-      padding-bottom: var(--np-sec);
-      border-top: 1px solid var(--np-bdr);
-    }
-    .np-sec--off { background: var(--np-off); }
-
-    /* ── Label ──────────────────────────────────── */
-    .np-lbl {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--np);
-      margin-bottom: var(--np-blk);
-    }
-    .np-lbl__bar { width: 20px; height: 1px; background: var(--np); flex-shrink: 0; }
-    .np-lbl--dark { color: var(--np-t1); }
-    .np-lbl--dark .np-lbl__bar { background: var(--np-t1); }
-
-    /* ── Type ───────────────────────────────────── */
-    .np-h1 {
-      font-size: 36px; font-weight: 700;
-      line-height: 1.28; letter-spacing: -0.025em;
-      color: var(--np-t1);
-    }
-    .np-lead {
-      font-size: 20px; font-weight: 500;
-      line-height: 1.65; letter-spacing: -0.015em;
-      color: var(--np-t1);
-    }
-    .np-body {
-      font-size: 16px; font-weight: 400;
-      line-height: 1.85; color: var(--np-t2);
-    }
-    .np-body + .np-body { margin-top: var(--np-el); }
-    .np-body strong { font-weight: 600; color: var(--np-t1); }
-    .np-body em { font-style: normal; color: var(--np); font-weight: 600; }
-    .np-cap { font-size: 13px; color: var(--np-t3); line-height: 1.6; }
-
-    /* ── Spacing ────────────────────────────────── */
-    .mt-blk { margin-top: var(--np-blk); }
-    .mt-el  { margin-top: var(--np-el); }
-
-    /* ════════════════════════════════════════════
-       HERO
-    ════════════════════════════════════════════ */
-    .np-hero {
-      padding-top: calc(var(--nav-h, 64px) + 80px);
-      padding-bottom: var(--np-sec);
-      border-bottom: 1px solid var(--np-bdr);
-      background: var(--np-off);
-    }
-    .np-back {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--np-t3);
-      text-decoration: none; margin-bottom: var(--np-blk);
-      transition: color 0.2s;
-    }
-    .np-back:hover { color: var(--np-t1); }
-
-    .np-hero__eyebrow {
-      display: flex; align-items: center; gap: 12px;
-      font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--np); margin-bottom: 32px;
-    }
-    .np-hero__eyebrow-rule { width: 18px; height: 1px; background: var(--np); }
-    .np-hero__eyebrow-yr   { color: var(--np-t3); }
-
-    .np-hero__title {
-      font-size: clamp(56px, 8vw, 96px);
-      font-weight: 800; letter-spacing: -0.045em; line-height: 0.92;
-      color: var(--np); margin-bottom: 28px;
-    }
-    .np-hero__title span { color: inherit; }
-    .np-hero__sub {
-      font-size: 18px; font-weight: 400;
-      line-height: 1.7; color: var(--np-t2); max-width: 560px;
-    }
-
-    .np-meta {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--np-bdr); margin-top: var(--np-blk);
-    }
-    .np-meta__item { padding: 20px 0; }
-    .np-meta__item + .np-meta__item { padding-left: 24px; border-left: 1px solid var(--np-bdr); }
-    .np-meta__dt {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--np-t3); margin-bottom: 8px;
-    }
-    .np-meta__dd { font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--np-t1); }
-
-    /* ════════════════════════════════════════════
-       IMAGES
-    ════════════════════════════════════════════ */
-    .np-cover { width: 100%; line-height: 0; }
-    .np-cover img { display: block; width: 100%; height: auto; }
-
-    .np-imgblk { background: var(--np-off); }
-    .np-imgblk__bar {
-      background: #fff; border-top: 1px solid var(--np-bdr); border-bottom: 1px solid var(--np-bdr);
-    }
-    .np-imgblk__inner {
-      display: flex; align-items: center; gap: 16px;
-      padding-top: 14px; padding-bottom: 14px;
-    }
-    .np-imgblk__name {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--np-t3); white-space: nowrap;
-    }
-    .np-imgblk__rule { flex: 1; height: 1px; background: var(--np-bdr); }
-    .np-imgblk img { display: block; width: 100%; height: auto; }
-
-    /* ════════════════════════════════════════════
-       INSIGHT CALLOUT
-    ════════════════════════════════════════════ */
-    .np-insight {
-      border-left: 3px solid var(--np);
-      padding: 24px 32px;
-      background: var(--np-05);
-      margin-top: var(--np-blk);
-      margin-bottom: var(--np-blk);
-    }
-    .np-insight__txt {
-      font-size: 19px; font-weight: 600;
-      line-height: 1.65; letter-spacing: -0.02em; color: var(--np-t1);
-    }
-    .np-insight__txt em { font-style: normal; color: var(--np); }
-
-    /* ════════════════════════════════════════════
-       OBSERVATION LIST
-    ════════════════════════════════════════════ */
-    .np-obs { margin-top: var(--np-blk); display: flex; flex-direction: column; }
-    .np-ob {
-      padding: 28px 0; border-bottom: 1px solid var(--np-bdr);
-      display: grid; grid-template-columns: 28px 1fr; gap: 20px; align-items: start;
-    }
-    .np-ob:first-child { border-top: 1px solid var(--np-bdr); }
-    .np-ob__n {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-      color: var(--np-t3); padding-top: 2px;
-    }
-    .np-ob__title {
-      font-size: 15px; font-weight: 700; letter-spacing: -0.01em;
-      color: var(--np-t1); margin-bottom: 8px;
-    }
-    .np-ob__body { font-size: 15px; font-weight: 400; line-height: 1.8; color: var(--np-t2); }
-
-    /* ════════════════════════════════════════════
-       SYMBOLS / CONCEPT GRID
-    ════════════════════════════════════════════ */
-    .np-motifs {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; margin-top: var(--np-blk);
-    }
-    .np-motif {
-      background: var(--np-off);
-      padding: 2rem 1.8rem;
-      border-top: 3px solid var(--np);
-    }
-    .np-motif__num {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--np-t3); margin-bottom: 0.8rem;
-    }
-    .np-motif__name { font-size: 1.05rem; font-weight: 700; color: var(--np-t1); margin-bottom: 0.25rem; }
-    .np-motif__kw { font-size: 0.72rem; font-weight: 700; color: var(--np); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; }
-    .np-motif__desc { font-size: 0.85rem; color: var(--np-t2); line-height: 1.75; }
-
-    /* ════════════════════════════════════════════
-       SPACE VALUES GRID (3-col)
-    ════════════════════════════════════════════ */
-    .np-values {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; margin-top: var(--np-blk);
-    }
-    .np-value {
-      background: #fff; padding: 2rem 1.8rem;
-      border-top: 1px solid var(--np-bdr);
-    }
-    .np-value__num {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--np); margin-bottom: 0.8rem;
-    }
-    .np-value__name { font-size: 1rem; font-weight: 700; color: var(--np-t1); margin-bottom: 0.5rem; }
-    .np-value__desc { font-size: 0.875rem; color: var(--np-t2); line-height: 1.75; }
-
-    /* ════════════════════════════════════════════
-       COLOR SWATCHES
-    ════════════════════════════════════════════ */
-    .np-swatches { display: flex; gap: 2px; margin-top: var(--np-blk); }
-    .np-sw {
-      flex: 1; min-height: 80px; display: flex; align-items: flex-end;
-      padding: 0.75rem 1rem;
-    }
-    .np-sw__label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em; }
-
-    .np-color-notes {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: 2px; margin-top: 2px;
-    }
-    .np-cn {
-      background: var(--np-off); padding: 1.5rem 1.8rem;
-    }
-    .np-cn__dot {
-      width: 10px; height: 10px; border-radius: 50%; margin-bottom: 0.8rem;
-    }
-    .np-cn__name { font-size: 0.9rem; font-weight: 700; color: var(--np-t1); margin-bottom: 0.3rem; }
-    .np-cn__why  { font-size: 0.82rem; color: var(--np-t2); line-height: 1.7; }
-
-    /* ════════════════════════════════════════════
-       OUTCOMES
-    ════════════════════════════════════════════ */
-    .np-outcomes {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; margin-top: var(--np-blk);
-    }
-    .np-outcome {
-      background: var(--np-off); padding: 2rem 1.6rem;
-    }
-    .np-outcome__icon {
-      font-size: 1.3rem; font-weight: 600; color: var(--np); margin-bottom: 0.8rem; display: block;
-    }
-    .np-outcome__title { font-size: 0.95rem; font-weight: 700; color: var(--np-t1); margin-bottom: 0.4rem; }
-    .np-outcome__desc  { font-size: 0.82rem; color: var(--np-t2); line-height: 1.7; }
-
-    /* ════════════════════════════════════════════
-       REFLECTION
-    ════════════════════════════════════════════ */
-    .np-reflection {
-      background: var(--np-dk); padding: 64px var(--np-pad); text-align: left;
-    }
-    .np-reflection__lbl {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 28px;
-    }
-    .np-reflection__txt {
-      font-size: clamp(22px, 3vw, 32px); font-weight: 600;
-      line-height: 1.6; letter-spacing: -0.025em; color: #fff; max-width: 720px;
-    }
-    .np-reflection__txt em { font-style: normal; color: rgba(248,243,153,0.8); }
-    .np-reflection__note {
-      font-size: 14px; font-weight: 400; line-height: 1.8;
-      color: rgba(255,255,255,0.45); margin-top: 24px; max-width: 560px;
-    }
-
-    /* ════════════════════════════════════════════
-       CREDITS + NEXT
-    ════════════════════════════════════════════ */
-    .np-credits {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--np-bdr);
-    }
-    .np-cred { padding: 24px 0; }
-    .np-cred + .np-cred { padding-left: 24px; border-left: 1px solid var(--np-bdr); }
-    .np-cred__dt {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--np-t3); margin-bottom: 8px;
-    }
-    .np-cred__dd { font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--np-t1); }
-    .np-next {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      margin-top: 56px; border-top: 1px solid var(--np-bdr); padding-top: 28px;
-    }
-    .np-next__lbl {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--np-t3); margin-bottom: 12px;
-    }
-    .np-next__link {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-weight: 700; letter-spacing: -0.025em; text-decoration: none; transition: color 0.2s;
-    }
-    .np-next__link--prev { font-size: 20px; color: var(--np-t3); }
-    .np-next__link--prev:hover { color: var(--np-t1); }
-    .np-next__link--next { font-size: 28px; color: var(--np-t1); }
-    .np-next__link--next:hover { color: var(--np); }
-    .np-next__arrow { transition: transform 0.2s; }
-    .np-next__link--next:hover .np-next__arrow { transform: translateX(5px); }
-
-    /* ════════════════════════════════════════════
-       RESPONSIVE
-    ════════════════════════════════════════════ */
-    @media (max-width: 1024px) {
-      :root { --np-pad: 48px; }
-      .np-color-notes { grid-template-columns: 1fr; }
-      .np-motifs      { grid-template-columns: 1fr 1fr; }
-      .np-values      { grid-template-columns: 1fr 1fr; }
-      .np-outcomes    { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      :root { --np-pad: 24px; --np-sec: 56px; --np-blk: 32px; }
-      .np-hero { padding-top: calc(var(--nav-h, 64px) + 2.5rem); }
-      .np-hero__title { font-size: clamp(44px, 14vw, 72px); }
-      .np-meta        { grid-template-columns: 1fr 1fr; }
-      .np-meta__item:nth-child(3) { border-left: none; padding-left: 0; }
-      .np-motifs      { grid-template-columns: 1fr; }
-      .np-values      { grid-template-columns: 1fr; }
-      .np-outcomes    { grid-template-columns: 1fr; }
-      .np-credits     { grid-template-columns: 1fr 1fr; gap: 1px; background: var(--np-bdr); }
-      .np-cred        { padding: 18px; }
-      .np-cred + .np-cred { border-left: none; }
-      .np-reflection  { padding: 40px 24px; }
-      .np-reflection__txt { font-size: 20px; }
-      .np-swatches    { flex-direction: column; }
-      .np-next__link--next { font-size: 20px; }
-      .np-insight     { padding: 20px 24px; }
-      .np-insight__txt { font-size: 17px; }
-      .np-color-notes { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/pages.css" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..500&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..500&display=swap" /></noscript>
+  <link rel="stylesheet" href="css/detail.css" />
+  <script type="module" src="js/core.js"></script>
+  <script src="js/detail.js" defer></script>
 </head>
 <body>
 
-  <div class="glow" aria-hidden="true"></div>
-
-  <nav class="nav" id="nav">
-    <a href="index.html" class="nav__logo">
-      Jang Hoon Min
-    </a>
-    <ul class="nav__links">
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="profile.html">Profile</a></li>
-      <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#awards">Awards &amp; Projects</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <span class="theme-toggle__icon">☽</span>
-    </button>
-    <button class="nav__hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+  <header class="nav" id="nav">
+    <a href="index.html" class="nav__logo glass">Jang Hoon Min</a>
+    <nav class="nav__group glass" aria-label="Main">
+      <a href="index.html#about">About</a>
+      <a href="profile.html">Profile</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#awards">Awards &amp; Projects</a>
+    </nav>
+    <div class="nav__end">
+      <button class="theme-toggle glass" id="themeToggle" type="button" aria-label="Toggle theme">
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a href="#contact" class="pill pill--white nav__cta">Contact</a>
+      <button class="nav__burger glass" id="hamburger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
 
   <div class="proj-pager">
     <a href="hangyeol.html" class="proj-pager__link">← Hangyeol</a>
     <a href="index.html#work" class="proj-pager__all">All Work</a>
-    <a href="leporem.html" class="proj-pager__link">Leporem →</a>
+    <a href="edustay.html" class="proj-pager__link">Edustay →</a>
   </div>
 
-  <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu" inert>
     <ul>
-      <li><a href="index.html#about"  class="mobile-link">About</a></li>
-      <li><a href="profile.html"      class="mobile-link">Profile</a></li>
-      <li><a href="index.html#work"   class="mobile-link">Work</a></li>
-      <li><a href="index.html#awards" class="mobile-link">Awards &amp; Projects</a></li>
-      <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+      <li><a href="index.html#about"  class="mobile-link"><span>01</span>About</a></li>
+      <li><a href="profile.html"      class="mobile-link"><span>↗</span>Profile</a></li>
+      <li><a href="index.html#work"   class="mobile-link"><span>02</span>Work</a></li>
+      <li><a href="index.html#awards" class="mobile-link"><span>03</span>Awards &amp; Projects</a></li>
+      <li><a href="#contact"          class="mobile-link"><span>04</span>Contact</a></li>
     </ul>
   </div>
 
@@ -535,7 +183,7 @@
       </div>
     </div>
     <div class="np">
-      <img src="메인 이미지/8. 늘푸른/늘푸른 (2).webp" alt="늘푸른 — identity system" />
+      <img src="메인 이미지/8. 늘푸른/늘푸른 (2).webp" alt="늘푸른 — identity system" loading="lazy" decoding="async" />
     </div>
   </div>
 
@@ -628,7 +276,7 @@
       </div>
     </div>
     <div class="np">
-      <img src="메인 이미지/8. 늘푸른/늘푸른 (3).webp" alt="늘푸른 — brand collateral" />
+      <img src="메인 이미지/8. 늘푸른/늘푸른 (3).webp" alt="늘푸른 — brand collateral" loading="lazy" decoding="async" />
     </div>
   </div>
 
@@ -655,7 +303,7 @@
 
       <div class="np-swatches">
         <div class="np-sw" style="background:#2EA7E0;">
-          <span class="np-sw__label" style="color:rgba(255,255,255,0.9);">#2EA7E0 — Sky Blue</span>
+          <span class="np-sw__label ink-dark">#2EA7E0 — Sky Blue</span>
         </div>
         <div class="np-sw" style="background:#F8F399; border:1px solid rgba(0,0,0,0.06);">
           <span class="np-sw__label" style="color:#412210;">#F8F399 — Yellow</span>
@@ -667,7 +315,7 @@
           <span class="np-sw__label" style="color:rgba(255,255,255,0.7);">#111111 — Dark</span>
         </div>
         <div class="np-sw" style="background:#F7FAFE; border:1px solid rgba(0,0,0,0.06);">
-          <span class="np-sw__label" style="color:#999;">#F7FAFE — Off White</span>
+          <span class="np-sw__label ink-dark">#F7FAFE — Off White</span>
         </div>
       </div>
 
@@ -704,7 +352,7 @@
         </div>
       </div>
     </div>
-    <img src="메인 이미지/8. 늘푸른/늘푸른 (4).webp" alt="늘푸른 — mockup collection" />
+    <img src="메인 이미지/8. 늘푸른/늘푸른 (4).webp" alt="늘푸른 — mockup collection" loading="lazy" decoding="async" />
   </div>
 
   <!-- ════════════════════════════════════════════
@@ -797,24 +445,55 @@
         </div>
         <div style="text-align:right;">
           <p class="np-next__lbl">Next Project</p>
-          <a href="leporem.html" class="np-next__link np-next__link--next">
-            Leporem <span class="np-next__arrow">→</span>
+          <a href="edustay.html" class="np-next__link np-next__link--next">
+            Edustay <span class="np-next__arrow">→</span>
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <p class="footer__copy">© 2026 Jang Hoon Min. All rights reserved.</p>
-        <a href="index.html#work" class="footer__back-link">← Back to Work</a>
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="sec-head reveal">
+        <p class="label">Let's Talk</p>
+      </div>
+      <h2 class="t-h2 footer__title reveal" lang="en">Let's build a brand <span class="tone">with clarity and presence.</span></h2>
+      <div class="footer__cta reveal">
+        <p class="footer__sub">프로젝트 및 협업 문의는 이메일로 연락 부탁드립니다.</p>
+        <a href="mailto:wkdgnsals12@gmail.com" class="pill pill--white">wkdgnsals12@gmail.com</a>
+      </div>
+
+      <div class="footer__cols">
+        <div class="footer__col">
+          <p class="label">Menu</p>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="index.html#awards">Awards &amp; Projects</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <p class="label">Selected Work</p>
+          <ul>
+            <li><a href="leporem.html">Leporem</a></li>
+            <li><a href="ikseondong.html">청정익선</a></li>
+            <li><a href="breathing-structure.html">Breathing Structure</a></li>
+            <li><a href="vogrodi.html">Vogrodi</a></li>
+            <li><a href="edustay.html">Edustay</a></li>
+            <li><a href="nunchi.html">눈치코치</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <p class="label">Info</p>
+          <p class="footer__copy">© 2026 Jang Hoon Min. All rights reserved.</p>
+          <p class="footer__copy">Designed &amp; built with care.</p>
+          <p class="footer__copy"><a href="index.html#work">← Back to Work</a></p>
+        </div>
       </div>
     </div>
   </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
 

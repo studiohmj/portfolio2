@@ -1,6 +1,6 @@
 /* ==========================================================================
    project.css — Project detail page styles
-   Inherits all tokens from style.css
+   Used by nunchi.html; tokens come from css/core.css + css/detail-base.css
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -14,7 +14,7 @@
 
 .proj-hero__back {
   display: inline-block;
-  font-size: 0.7rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -45,7 +45,7 @@
 
 .proj-hero__cat,
 .proj-hero__year {
-  font-size: 0.68rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -54,14 +54,14 @@
 
 .proj-hero__sep {
   color: var(--t3);
-  font-size: 0.68rem;
+  font-size: var(--fs-label);
 }
 
 /* Live site link inside info dl */
 .proj-hero__live-link {
   color: var(--primary);
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: var(--fs-body);
   transition: opacity var(--dur) ease;
 }
 .proj-hero__live-link:hover { opacity: 0.7; }
@@ -71,7 +71,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.65rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -81,12 +81,12 @@
   margin-bottom: 2rem;
 }
 .proj-hero__award-badge {
-  font-size: 0.7rem;
+  font-size: var(--fs-label);
 }
 
 /* H1 — project title */
 .proj-hero__title {
-  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-size: var(--fs-display);
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1.0;
@@ -95,7 +95,7 @@
 
 /* Body */
 .proj-hero__tagline {
-  font-size: 1.0625rem;
+  font-size: var(--fs-h3);
   color: var(--t2);
   max-width: 560px;
   line-height: 1.85;
@@ -128,7 +128,7 @@
 }
 
 .proj-hero__info-item dt {
-  font-size: 0.6rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -137,7 +137,7 @@
 }
 
 .proj-hero__info-item dd {
-  font-size: 0.85rem;
+  font-size: var(--fs-body);
   font-weight: 500;
   color: var(--t1);
   line-height: 1.4;
@@ -212,7 +212,7 @@
 /* Overline label — anchored with top accent */
 .proj-overline {
   display: block;
-  font-size: 0.68rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -229,7 +229,7 @@
 
 /* Body */
 .proj-body {
-  font-size: 1.0625rem;
+  font-size: var(--fs-h3);
   font-weight: 400;
   color: var(--t1);
   line-height: 1.9;
@@ -277,7 +277,7 @@
 }
 
 .proj-close__dl dt {
-  font-size: 0.62rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -286,7 +286,7 @@
 }
 
 .proj-close__dl dd {
-  font-size: 0.85rem;
+  font-size: var(--fs-body);
   color: var(--t1);
   line-height: 1.5;
 }
@@ -301,7 +301,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+  font-size: var(--fs-h3);
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--t2);
@@ -325,7 +325,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-size: var(--fs-h2);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--t1);
@@ -347,7 +347,7 @@
 
 /* Footer link */
 .footer__back-link {
-  font-size: 0.7rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -377,7 +377,7 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  font-size: 0.6rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -439,7 +439,7 @@
   bottom: 0; left: 0; right: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
   padding: 1.5rem 1.25rem 0.9rem;
-  font-size: 0.62rem;
+  font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -459,9 +459,9 @@
    -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
   .proj-hero { padding-top: calc(var(--nav-h) + 2.5rem); padding-bottom: 3rem; }
-  .proj-hero__title { font-size: clamp(2.2rem, 8vw, 4rem); }
-  .proj-hero__tagline { font-size: 0.95rem; margin-bottom: 2rem; }
-  .proj-hero__award { font-size: 0.58rem; padding: 0.28rem 0.7rem; margin-bottom: 1.5rem; }
+  .proj-hero__title { font-size: var(--fs-display); }
+  .proj-hero__tagline { font-size: var(--fs-h3); margin-bottom: 2rem; }
+  .proj-hero__award { font-size: var(--fs-label); padding: 0.28rem 0.7rem; margin-bottom: 1.5rem; }
 
   .proj-hero__info { grid-template-columns: repeat(2, 1fr); width: 100%; gap: 0; }
   .proj-hero__info-item { padding-right: 1rem; margin-right: 1rem; padding-top: 1rem; padding-bottom: 1rem; }
@@ -471,16 +471,16 @@
   .proj-grid--asym { grid-template-columns: 1fr; }
 
   /* img-section label wraps */
-  .img-section__label { font-size: 0.55rem; padding: 0.55rem var(--pad); }
+  .img-section__label { font-size: var(--fs-label); padding: 0.55rem var(--pad); }
 
   .proj-split { grid-template-columns: 1fr; gap: 1rem; }
   .proj-split__label { position: static; }
 
-  .proj-body { font-size: 0.95rem; }
+  .proj-body { font-size: var(--fs-h3); }
 
   .proj-close { grid-template-columns: 1fr; gap: 2.5rem; }
   .proj-close__dl > div { grid-template-columns: 72px 1fr; }
-  .proj-close__next { font-size: 1.25rem; }
+  .proj-close__next { font-size: var(--fs-h2); }
 }
 
 @media (max-width: 480px) {
@@ -493,7 +493,7 @@
 }
 
 @media (max-width: 380px) {
-  .proj-hero__title { font-size: clamp(1.9rem, 12vw, 3rem); }
+  .proj-hero__title { font-size: var(--fs-display); }
   .proj-hero__info { grid-template-columns: 1fr 1fr; }
   .proj-hero__info-item { border-right: none; margin-right: 0; padding-right: 0; }
   .proj-section { padding: 1.75rem 0; }
